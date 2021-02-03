@@ -80,6 +80,7 @@ class Login extends React.Component {
         />
         <input
           name="password"
+          type="password"
           onChange={this.handleInputChange}
           onBlur={this.validateField}
         />
