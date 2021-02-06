@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import AuthActionTypes from "./auth/action.type";
 import authReducer from 'redux/auth/reducer';
 
+
 const persistConfig = {
   key: "vppr",
   storage: storage,

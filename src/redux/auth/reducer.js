@@ -35,6 +35,27 @@ const authReducer = (state = initState, action) => {
         isLoggedIn: false,
       };
 
+      case AuthActionTypes.SIGNUP:
+        return {
+          isLoading:true,
+          errorMessage:"",
+          signUpSuccess:false
+        }
+
+      case AuthActionTypes.SIGNUP_SUCCESS:
+        return {
+          isLoading:false,
+          errorMessage:"",
+          signUpSuccess:true
+       }
+
+       case AuthActionTypes.SIGNUP_FAILURE:
+        return {
+           isLoading:false,
+           errorMessage:action.payload,
+           signUpSuccess:false
+        }   
+
     default:
       return state;
   }
