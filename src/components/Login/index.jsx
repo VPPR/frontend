@@ -33,9 +33,6 @@ class Login extends React.Component {
     if (errors.username.length !== 0 || errors.password.length !== 0) return;
 
     if (this.state.username.length === 0 || this.state.password.length === 0) {
-      // toast.error(`Empty Fields 💔`, {
-      //     position: toast.POSITION.TOP_CENTER,
-      // });
       return;
     }
     this.props.login({

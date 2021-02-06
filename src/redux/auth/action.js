@@ -18,3 +18,17 @@ export const loginFailure = (error) => ({
 export const logout = () => ({
   type: AuthActionTypes.LOGOUT,
 });
+
+export const signup = (user)=> ({
+  type: AuthActionTypes.SIGNUP,
+  payload: user
+});
+
+export const signupsuccess = () => ({
+    type: AuthActionTypes.SIGNUP_SUCCESS,
+  });
+
+export const signupfailure = (error) => ({
+  type: AuthActionTypes.SIGNUP_FAILURE,
+  payload: error
+});
