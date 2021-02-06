@@ -1,11 +1,16 @@
-import { Grid, makeStyles } from "@material-ui/core";
-
-import logo from "./logo.svg";
-import "./App.css";
-import Login from "./components/Login";
-import Signup from "components/Signup";
+import { Grid } from "@material-ui/core";
+import Login from "routes/Login";
+import Signup from "routes/Signup";
 import { Route, Switch } from "react-router-dom";
 import AuthenticatedRoute from "components/AuthenticatedRoute";
+import { makeStyles } from '@material-ui/core';
+import Dashboard from 'routes/Dashboard';
+const useStyles=makeStyles(theme => ({
+  fullScreen:{
+    minHeight:"100vh",
+    minWidth:"100vw"
+  }
+}))
 
 function App() {
   return (
@@ -13,11 +18,7 @@ function App() {
       container
       alignContent="center"
       justify="center"
-      style={{
-        minHeight: "100vh",
-        minWidth: "100vw",
-        backgroundColor: "#282c34",
-      }}
+      className={classes.fullScreen}
     >
       <Switch>
           <Route
@@ -28,7 +29,7 @@ function App() {
           <Route path="/login" component={Login} />
           <AuthenticatedRoute
             path="/dashboard"
-            render={() => (<div>Hello World</div>)}
+            component={Dashboard}
           />
           <Route path="/" render={() => (<div>Index</div>)} />
         </Switch>
