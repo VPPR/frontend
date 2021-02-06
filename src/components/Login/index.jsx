@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { login } from "redux/auth/action.js";
+import { Button, Grid, Paper, TextField } from "@material-ui/core";
+
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 class Login extends React.Component {
@@ -69,20 +71,43 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          name="username"
-          onChange={this.handleInputChange}
-          onBlur={this.validateField}
-        />
-        <input
-          name="password"
-          type="password"
-          onChange={this.handleInputChange}
-          onBlur={this.validateField}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <Paper component={Grid} item container direction="column" xs={8} md={4}>
+        <form
+          onSubmit={this.handleSubmit}
+          style={{ display: "flex", flexDirection: "column", padding: "2em" }}
+        >
+          <TextField
+            name="username"
+            type="email"
+            label="Email ID"
+            value={this.state.username}
+            onChange={this.handleInputChange}
+            onBlur={this.validateField}
+            helperText={this.state.errors.username}
+            error={!!this.state.errors.username}
+          />
+
+          <TextField
+            name="password"
+            type="password"
+            label="Password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+            onBlur={this.validateField}
+            helperText={this.state.errors.password}
+            error={!!this.state.errors.password}
+          />
+
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ margin: "2em" }}
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
     );
   }
 }
