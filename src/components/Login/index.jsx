@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import {login} from 'redux/auth/action.js'
+import { withRouter } from "react-router-dom";
+import { login } from "redux/auth/action.js";
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 class Login extends React.Component {
@@ -38,7 +38,7 @@ class Login extends React.Component {
     this.props.login({
       username: this.state.username,
       password: this.state.password,
-    });
+    }, this.props.userType);
   };
 
   validateField = (e) => {
@@ -94,4 +94,4 @@ const mapStateToProps = (state) => ({
   isLoading: state.auth.isLoading,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default withRouter(connect(mapStateToProps, { login })(Login));

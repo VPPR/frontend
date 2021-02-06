@@ -1,8 +1,8 @@
 import AuthActionTypes from "./action.type";
 
-export const login = (user) => ({
+export const login = (user, userType = "user") => ({
   type: AuthActionTypes.LOGIN,
-  payload: user,
+  payload: { user, userType },
 });
 
 export const loginSuccess = (accessToken) => ({
@@ -19,16 +19,16 @@ export const logout = () => ({
   type: AuthActionTypes.LOGOUT,
 });
 
-export const signup = (user)=> ({
+export const signup = (user) => ({
   type: AuthActionTypes.SIGNUP,
-  payload: user
+  payload: user,
 });
 
 export const signupsuccess = () => ({
-    type: AuthActionTypes.SIGNUP_SUCCESS,
-  });
+  type: AuthActionTypes.SIGNUP_SUCCESS,
+});
 
 export const signupfailure = (error) => ({
   type: AuthActionTypes.SIGNUP_FAILURE,
-  payload: error
+  payload: error,
 });

@@ -2,18 +2,17 @@ import { persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import AuthActionTypes from "./auth/action.type";
-import authReducer from 'redux/auth/reducer';
-
+import authReducer from "redux/auth/reducer";
 
 const persistConfig = {
   key: "vppr",
   storage: storage,
-  whitelist: [],
+  whitelist: ["auth"],
 };
 
 const mainReducer = persistCombineReducers(persistConfig, {
-    auth: authReducer,
-  });
+  auth: authReducer,
+});
 
 const rootReducer = (state, action) => {
   if (action === AuthActionTypes.LOGOUT) {
@@ -21,7 +20,7 @@ const rootReducer = (state, action) => {
     state.auth = undefined;
   }
 
-  return mainReducer(state,action);
+  return mainReducer(state, action);
 };
 
 export default rootReducer;

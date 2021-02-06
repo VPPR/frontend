@@ -6,6 +6,7 @@ const initState = {
   expiry: null,
   isLoggedIn: false,
   isLoading: false,
+  userType: "user",
 };
 
 const authReducer = (state = initState, action) => {
@@ -17,9 +18,11 @@ const authReducer = (state = initState, action) => {
         errorMessage: "",
         isLoggedIn: false,
         accessToken: "",
+        userType: action.payload.userType,
       };
     case AuthActionTypes.LOGIN_SUCCESS:
       return {
+        ...state,
         isLoading: false,
         errorMessage: "",
         accessToken: action.payload.access_token,
@@ -28,6 +31,7 @@ const authReducer = (state = initState, action) => {
       };
     case AuthActionTypes.LOGIN_FAILURE:
       return {
+        ...state,
         isLoading: false,
         errorMessage: action.payload,
         accessToken: "",
@@ -35,26 +39,26 @@ const authReducer = (state = initState, action) => {
         isLoggedIn: false,
       };
 
-      case AuthActionTypes.SIGNUP:
-        return {
-          isLoading:true,
-          errorMessage:"",
-          signUpSuccess:false
-        }
+    case AuthActionTypes.SIGNUP:
+      return {
+        isLoading: true,
+        errorMessage: "",
+        signUpSuccess: false,
+      };
 
-      case AuthActionTypes.SIGNUP_SUCCESS:
-        return {
-          isLoading:false,
-          errorMessage:"",
-          signUpSuccess:true
-       }
+    case AuthActionTypes.SIGNUP_SUCCESS:
+      return {
+        isLoading: false,
+        errorMessage: "",
+        signUpSuccess: true,
+      };
 
-       case AuthActionTypes.SIGNUP_FAILURE:
-        return {
-           isLoading:false,
-           errorMessage:action.payload,
-           signUpSuccess:false
-        }   
+    case AuthActionTypes.SIGNUP_FAILURE:
+      return {
+        isLoading: false,
+        errorMessage: action.payload,
+        signUpSuccess: false,
+      };
 
     default:
       return state;

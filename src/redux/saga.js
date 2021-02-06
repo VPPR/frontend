@@ -3,7 +3,7 @@ import AuthSaga from "redux/auth/saga";
 
 const rootSaga = function* () {
   yield all([
-    AuthSaga()
+    AuthSaga(),
   ]);
 };
 
