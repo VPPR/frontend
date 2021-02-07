@@ -34,7 +34,7 @@ function* SignUp() {
     try {
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/admin/`,
+        `${process.env.REACT_APP_BACKEND}/admin/signup`,
         {
           method: "post",
           body: JSON.stringify(action.payload),

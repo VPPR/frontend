@@ -6,13 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store from "redux/store";
-import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 
 const theme = createMuiTheme({
-  palette:{
-    type: "dark"
-  }
-})
+  palette: {
+    type: "dark",
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
