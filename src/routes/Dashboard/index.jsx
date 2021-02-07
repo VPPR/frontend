@@ -1,11 +1,10 @@
 import Header from "components/Header";
 import React from "react";
-import { Grid, Typography, withStyles } from "@material-ui/core";
+import { Grid, withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Sidebar from "components/Sidebar";
 
-const drawerWidth = 240;
 const style = (theme) => ({
   fullScreen: {
     minHeight: "100vh",
@@ -17,7 +16,6 @@ const style = (theme) => ({
   },
   content: {
     padding: theme.spacing(3),
-    minHeight:"inherit"
   },
 });
 
@@ -42,7 +40,12 @@ class Dashboard extends React.Component {
           <Sidebar open={this.state.open} />
           <Grid style={{ flex: 1, flexShrink: 1 }}>
             <div className={classes.toolbar}></div>
-            <Grid container className={classes.content} justify="center" alignContent="center">
+            <Grid
+              container
+              className={classes.content}
+              justify="center"
+              alignContent="center"
+            >
               yahoo
             </Grid>
           </Grid>

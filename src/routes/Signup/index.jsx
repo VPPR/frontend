@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { signup } from "redux/auth/action";
+import { Button, Grid, Paper, TextField } from "@material-ui/core";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -40,30 +41,43 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          name="fullname"
-          onChange={this.handleInputChange}
-          value={this.state.fullname}
+      <Paper component={Grid} item container direction="column" xs={8} md={4}>
+        <form
+          onSubmit={this.handleSubmit}
+          style={{ display: "flex", flexDirection: "column", padding: "2em" }}
         >
-        </input>
-        <input
-          name="email"
-          onChange={this.handleInputChange}
-          value={this.state.email}
-        >
-        </input>
-        <input
-          name="password"
-          type="password"
-          onChange={this.handleInputChange}
-          value={this.state.password}
-        >
-        </input>
-        <button type="submit">
-          Submit
-        </button>
-      </form>
+          <TextField
+            name="fullname"
+            label="Full Name"
+            onChange={this.handleInputChange}
+            value={this.state.fullname}
+          >
+          </TextField>
+          <TextField
+            name="email"
+            label="Email ID"
+            onChange={this.handleInputChange}
+            value={this.state.email}
+          >
+          </TextField>
+          <TextField
+            name="password"
+            type="password"
+            label="Password"
+            onChange={this.handleInputChange}
+            value={this.state.password}
+          >
+          </TextField>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ margin: "2em 0em" }}
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
     );
   }
 }
