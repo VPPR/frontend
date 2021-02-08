@@ -1,10 +1,10 @@
 import Header from "components/Header";
 import React from "react";
 import { Grid, withStyles } from "@material-ui/core";
-import { withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Sidebar from "components/Sidebar";
-
+import Band from "./routes/band";
 const style = (theme) => ({
   fullScreen: {
     minHeight: "100vh",
@@ -46,7 +46,9 @@ class Dashboard extends React.Component {
               justify="center"
               alignContent="center"
             >
-              yahoo
+              <Switch>
+                <Route path="/" component={Band} />
+              </Switch>
             </Grid>
           </Grid>
         </Grid>
