@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.default,
     zIndex: theme.zIndex.drawer + 1,
   },
+  menuButton:{
+    marginRight:"1em"
+  }
 }));
 function Header({ handleDrawer }) {
   const classes = useStyles();
