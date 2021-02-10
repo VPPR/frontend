@@ -45,7 +45,7 @@ function Header({ handleDrawer, logout }) {
           color="textPrimary"
           style={{ flexGrow: 1 }}
         >
-          Mini variant drawer
+          VPPR
         </Typography>
         <Link to="/" onClick={logout}>
           <IconButton color="secondary">
