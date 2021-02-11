@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
   },
 }));
-function IndexTopBar({ handleDrawer }) {
+function IndexTopBar() {
   const classes = useStyles();
   return (
     <AppBar
@@ -18,11 +18,11 @@ function IndexTopBar({ handleDrawer }) {
       <Toolbar>
         <Typography variant="h5" noWrap color="textPrimary">
           VPPR
+          <Link to="/Login">   Login   </Link>
+          <Link to="/Signup">   Sign Up   </Link>
         </Typography>
-        <ul>
-          <Link to="/Login">Login</Link>
-          <Link to="/Signup">Sign Up</Link>
-        </ul>
+      
+         
       </Toolbar>
     </AppBar>
   );
