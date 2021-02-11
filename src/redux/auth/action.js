@@ -1,8 +1,8 @@
 import AuthActionTypes from "./action.type";
 
-export const login = (user, userType = "user") => ({
+export const login = (user) => ({
   type: AuthActionTypes.LOGIN,
-  payload: { user, userType },
+  payload: user,
 });
 
 export const loginSuccess = (accessToken) => ({
