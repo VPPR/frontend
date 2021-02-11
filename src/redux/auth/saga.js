@@ -13,10 +13,10 @@ import httpClient from "services/http-client";
 function* Login() {
   yield takeEvery(AuthActionTypes.LOGIN, function* (action) {
     try {
-      const { user, userType } = action.payload;
+      const user = action.payload;
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/${userType}/login`,
+        `${process.env.REACT_APP_BACKEND}/user/login`,
         {
           method: "post",
           body: JSON.stringify(user),
@@ -34,7 +34,7 @@ function* SignUp() {
     try {
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/admin/signup`,
+        `${process.env.REACT_APP_BACKEND}/user/signup`,
         {
           method: "post",
           body: JSON.stringify(action.payload),

@@ -40,7 +40,7 @@ class Login extends React.Component {
     this.props.login({
       username: this.state.username,
       password: this.state.password,
-    }, this.props.userType);
+    });
   };
 
   validateField = (e) => {

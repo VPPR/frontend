@@ -6,23 +6,20 @@ const initState = {
   expiry: null,
   isLoggedIn: false,
   isLoading: false,
-  userType: "user",
 };
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case AuthActionTypes.LOGIN:
       return {
-        ...state,
         isLoading: true,
         errorMessage: "",
         isLoggedIn: false,
         accessToken: "",
-        userType: action.payload.userType,
+        expiry:null
       };
     case AuthActionTypes.LOGIN_SUCCESS:
       return {
-        ...state,
         isLoading: false,
         errorMessage: "",
         accessToken: action.payload.access_token,
@@ -31,7 +28,6 @@ const authReducer = (state = initState, action) => {
       };
     case AuthActionTypes.LOGIN_FAILURE:
       return {
-        ...state,
         isLoading: false,
         errorMessage: action.payload,
         accessToken: "",

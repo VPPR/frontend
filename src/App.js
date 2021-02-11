@@ -23,11 +23,7 @@ function App() {
       className={classes.fullScreen}
     >
       <Switch>
-        <Route
-          path="/admin/login"
-          component={() => (<Login userType="admin" />)}
-        />
-        <Route path="/admin/signup" component={Signup} />
+        <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
         <AuthenticatedRoute
           path="/dashboard"
