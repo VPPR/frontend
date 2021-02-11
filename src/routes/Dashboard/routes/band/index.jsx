@@ -45,9 +45,16 @@ class Band extends React.Component {
       // let files = entries.filter((entry) => entry.directory === false);
       // console.log(entries)
       const archive = await Archive.open(this.state.file);
+      await archive.usePassword('bATIPGnD')
       let obj = await archive.extractFiles();
-      
       console.log(obj);
+
+      var reader = new FileReader();
+      reader.onload = (e) => {
+
+    console.log(e.target.result)
+      }
+      reader.readAsText(obj['ACTIVITY']['ACTIVITY_1612802711807.csv']);
       // const text = await entries[0].getData()
     //   const text = await files[0].getData(
     //     // writer
@@ -67,10 +74,11 @@ class Band extends React.Component {
     }
   }
 
-  handleInputChange = (e) => {
+  handleInputChange =async (e) => {
     console.log(e.target);
     let field = e.target.name;
     let value = e.target.files[0];
+    const archive = await Archive.open(e.target.files[0]);
     console.log(value);
     if (value.type === "application/zip") {
       this.setState({ [field]: value });
