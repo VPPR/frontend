@@ -2,7 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { signup } from "redux/auth/action";
-import { Button, Grid, Paper, Switch, TextField, FormControlLabel } from "@material-ui/core";
+import {
+  Button,
+  FormControlLabel,
+  Grid,
+  Paper,
+  Switch,
+  TextField,
+} from "@material-ui/core";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -12,35 +19,37 @@ class Signup extends React.Component {
       fullname: "",
       email: "",
       password: "",
-      phone:"",
-      is_admin:false,
+      phone: "",
+      is_admin: false,
       errors: {
         fullname: "",
         email: "",
         password: "",
-        phone:"",
+        phone: "",
       },
     };
   }
 
   handleInputChange = (e) => {
-    const value = e.target.type==="checkbox"? e.target.checked : e.target.value;
+    const value = e.target.type === "checkbox"
+      ? e.target.checked
+      : e.target.value;
     const field = e.target.name;
     this.setState({
       [field]: value,
-    },()=>console.log(this.state));
+    }, () => console.log(this.state));
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { fullname, email, password,phone, is_admin } = this.state;
+    const { fullname, email, password, phone, is_admin } = this.state;
 
     this.props.signup({
       fullname,
       email,
       password,
       phone,
-      is_admin
+      is_admin,
     });
   };
 
@@ -74,23 +83,21 @@ class Signup extends React.Component {
           >
           </TextField>
           <TextField
-          name="phone"
-          type="phone"
-          label="Phone Number"
-          onChange={this.handleInputChange}
-          value={this.state.phone}
-        />
-        <FormControlLabel
-        control={
-          <Switch
-            checked={this.state.is_admin}
+            name="phone"
+            type="phone"
+            label="Phone Number"
             onChange={this.handleInputChange}
-            name="is_admin"
-            color="primary"
+            value={this.state.phone}
           />
-        }
-        label="Admin?"
-      />
+          <FormControlLabel
+            control={<Switch
+              checked={this.state.is_admin}
+              onChange={this.handleInputChange}
+              name="is_admin"
+              color="primary"
+            />}
+            label="Admin?"
+          />
           <Button
             variant="contained"
             color="primary"

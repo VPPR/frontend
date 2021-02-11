@@ -16,7 +16,7 @@ const authReducer = (state = initState, action) => {
         errorMessage: "",
         isLoggedIn: false,
         accessToken: "",
-        expiry:null
+        expiry: null,
       };
     case AuthActionTypes.LOGIN_SUCCESS:
       return {

@@ -16,7 +16,7 @@ function* Login() {
       const user = action.payload;
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/user/login`,
+        `${process.env.REACT_APP_BACKEND}/users/login`,
         {
           method: "post",
           body: JSON.stringify(user),
@@ -34,7 +34,7 @@ function* SignUp() {
     try {
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/user/signup`,
+        `${process.env.REACT_APP_BACKEND}/users/signup`,
         {
           method: "post",
           body: JSON.stringify(action.payload),

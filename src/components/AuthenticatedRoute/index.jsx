@@ -6,11 +6,12 @@ export const allowedRoutes = {
 };
 
 function AuthenticatedRoute(props) {
+  const userType = props.isAdmin ? "admin" : "user";
   if (props.rehydrated) {
     if (!props.isLoggedIn) {
       return <Redirect to="/login" />;
     }
-    if (allowedRoutes[props.userType].includes(props.path)) {
+    if (allowedRoutes[userType].includes(props.path)) {
       return (<Route {...props} />);
     }
 
@@ -22,6 +23,6 @@ function AuthenticatedRoute(props) {
 const mapStateToProps = (state) => ({
   rehydrated: state._persist.rehydrated,
   isLoggedIn: state.auth.isLoggedIn,
-  userType: state.auth.userType,
+  isAdmin: state.user.currentUser ? state.user.currentUser.is_admin : false,
 });
 export default connect(mapStateToProps)(AuthenticatedRoute);

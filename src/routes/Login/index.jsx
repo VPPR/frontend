@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { login } from "redux/auth/action.js";
 import { Button, Grid, Paper, TextField } from "@material-ui/core";
-
+import { fetchUserSelf } from "redux/users/action";
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 class Login extends React.Component {
@@ -17,6 +17,19 @@ class Login extends React.Component {
         password: "",
       },
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn
+    ) {
+      this.props.fetchUserSelf();
+    }
+    if (
+      prevProps.currentUser !== this.props.currentUser && this.props.currentUser
+    ) {
+      this.props.history.push("/dashboard");
+    }
   }
 
   handleInputChange = (e) => {
@@ -117,6 +130,9 @@ const mapStateToProps = (state) => ({
   accessToken: state.auth.accessToken,
   isLoggedIn: state.auth.isLoggedIn,
   isLoading: state.auth.isLoading,
+  currentUser: state.user.currentUser,
 });
 
-export default withRouter(connect(mapStateToProps, { login })(Login));
+export default withRouter(
+  connect(mapStateToProps, { login, fetchUserSelf })(Login),
+);
