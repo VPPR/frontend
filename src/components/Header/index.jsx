@@ -6,7 +6,6 @@ import IconButton from "@material-ui/core/IconButton";
 import { ExitToApp, Menu } from "@material-ui/icons";
 import { connect } from "react-redux";
 import { logout } from "redux/auth/action";
-import { Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   appBar: {

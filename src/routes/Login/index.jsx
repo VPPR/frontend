@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { login } from "redux/auth/action.js";
 import { Button, Grid, Paper, TextField } from "@material-ui/core";
 import { fetchUserSelf } from "redux/users/action";
