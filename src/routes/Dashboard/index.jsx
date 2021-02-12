@@ -1,10 +1,12 @@
 import Header from "components/Header";
 import React from "react";
 import { Grid, withStyles } from "@material-ui/core";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { allowedRoutes } from "components/AuthenticatedRoute";
 import Sidebar from "components/Sidebar";
 import Band from "./routes/band";
+import AuthenticatedRoute from "components/AuthenticatedRoute";
 const style = (theme) => ({
   fullScreen: {
     minHeight: "100vh",
@@ -32,12 +34,13 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, is_admin } = this.props;
+    const permissions = is_admin ? "admin" : "user";
     return (
       <Grid item container className={classes.fullScreen}>
         <Header handleDrawer={this.handleDrawer} />
         <Grid item container>
-          <Sidebar open={this.state.open} />
+          <Sidebar open={this.state.open} routes={allowedRoutes[permissions]} />
           <Grid style={{ flex: 1, flexShrink: 1 }}>
             <div className={classes.toolbar}></div>
             <Grid
@@ -47,7 +50,7 @@ class Dashboard extends React.Component {
               alignContent="center"
             >
               <Switch>
-                <Route path="/" component={Band} />
+                <AuthenticatedRoute path="/dashboard/upload" component={Band} />
               </Switch>
             </Grid>
           </Grid>
@@ -56,5 +59,9 @@ class Dashboard extends React.Component {
     );
   }
 }
-
-export default withRouter(withStyles(style)(connect()(Dashboard)));
+const mapStateToProps = (state) => ({
+  is_admin: state.user.currentUser ? state.user.currentUser.is_admin : false,
+});
+export default withRouter(
+  withStyles(style)(connect(mapStateToProps)(Dashboard)),
+);

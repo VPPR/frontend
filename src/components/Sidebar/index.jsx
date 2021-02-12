@@ -9,31 +9,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-
+import { NavLink } from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  //   root: {
-  //     display: 'flex',
-  //   },
-  //   appBar: {
-  //     zIndex: theme.zIndex.drawer + 1,
-  //     transition: theme.transitions.create(['width', 'margin'], {
-  //       easing: theme.transitions.easing.sharp,
-  //       duration: theme.transitions.duration.leavingScreen,
-  //     }),
-  // //   },
-  //   appBarShift: {
-  //     marginLeft: drawerWidth,
-  //     width: `calc(100% - ${drawerWidth}px)`,
-  //     transition: theme.transitions.create(['width', 'margin'], {
-  //       easing: theme.transitions.easing.sharp,
-  //       duration: theme.transitions.duration.enteringScreen,
-  //     }),
-  //   },
-  //   menuButton: {
-  //     marginRight: 36,
-  //   },
   hide: {
     display: "none",
   },
@@ -92,23 +71,12 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
+        {props.routes.map((route, index) => (
+          <ListItem component={NavLink} to={route.path} button key={route.name}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <route.component />
             </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={route.name} />
           </ListItem>
         ))}
       </List>

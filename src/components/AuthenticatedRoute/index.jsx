@@ -1,17 +1,36 @@
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import PersonIcon from "@material-ui/icons/Person";
+import PublishIcon from "@material-ui/icons/Publish";
+import HomeIcon from "@material-ui/icons/Home";
+import { useEffect } from "react";
+import { fetchUserSelf } from "redux/users/action";
 export const allowedRoutes = {
-  admin: ["/dashboard", "/users"],
-  user: ["/dashboard", "/upload"],
+  admin: [{ name: "Dashboard", path: "/dashboard", component: HomeIcon }, {
+    name: "Users",
+    path: "/dashboard/users",
+    component: PersonIcon,
+  }],
+  user: [{ name: "Dashboard", path: "/dashboard", component: HomeIcon }, {
+    name: "Upload",
+    path: "/dashboard/upload",
+    component: PublishIcon,
+  }],
 };
 
 function AuthenticatedRoute(props) {
+  useEffect(() => {
+    if (props.rehydrated && props.isLoggedIn && !props.currentUser) {
+      props.fetchUserSelf();
+    }
+  });
   const userType = props.isAdmin ? "admin" : "user";
   if (props.rehydrated) {
     if (!props.isLoggedIn) {
       return <Redirect to="/login" />;
-    }
-    if (allowedRoutes[userType].includes(props.path)) {
+    } else if (!props.currentUser) {
+      return "wait";
+    } else if (allowedRoutes[userType].filter((x) => x.path === props.path)) {
       return (<Route {...props} />);
     }
 
@@ -23,6 +42,7 @@ function AuthenticatedRoute(props) {
 const mapStateToProps = (state) => ({
   rehydrated: state._persist.rehydrated,
   isLoggedIn: state.auth.isLoggedIn,
+  currentUser: state.user.currentUser,
   isAdmin: state.user.currentUser ? state.user.currentUser.is_admin : false,
 });
-export default connect(mapStateToProps)(AuthenticatedRoute);
+export default connect(mapStateToProps, { fetchUserSelf })(AuthenticatedRoute);

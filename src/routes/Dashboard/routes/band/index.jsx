@@ -1,21 +1,18 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import * as zip from "@zip.js/zip.js/dist/zip-full.min";
-import {Archive} from 'libarchive.js/main.js';
-
+import { Archive } from "libarchive.js/main.js";
 
 import {
   Button,
   Grid,
-  List,
   Paper,
+  TextField,
   Typography,
   withStyles,
 } from "@material-ui/core";
 
-
 Archive.init({
-  workerUrl: 'libarchive.js/dist/worker-bundle.js'
+  workerUrl: "libarchive.js/dist/worker-bundle.js",
 });
 
 const style = (theme) => ({
@@ -33,68 +30,49 @@ class Band extends React.Component {
     super(props);
     this.state = {
       file: "",
+      password: "",
     };
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    console.log(this.state);
-    if (prevState.file !== this.state.file && this.state.file) {
-      // let blobReader = new zip.BlobReader(this.state.file);
-      // let reader = new zip.ZipReader(blobReader);
-      // let entries = await reader.getEntries();
-      // let files = entries.filter((entry) => entry.directory === false);
-      // console.log(entries)
-      const archive = await Archive.open(this.state.file);
-      await archive.usePassword('bATIPGnD')
-      let obj = await archive.extractFiles();
-      console.log(obj);
-
-      var reader = new FileReader();
-      reader.onload = (e) => {
-
-    console.log(e.target.result)
-      }
-      reader.readAsText(obj['ACTIVITY']['ACTIVITY_1612802711807.csv']);
-      // const text = await entries[0].getData()
-    //   const text = await files[0].getData(
-    //     // writer
-    //     new zip.TextWriter(),
-    //     // options
-    //     { 
-    //       onprogress: (index, max) => {
-    //          // onprogress callback
-    //       },
-    //       password:"bATIPGnD"
-    //     }
-    //   );
-    //   // text contains the entry data as a String
-    //   console.log(text);
-    
-      // this.setState({ files });
-    }
-  }
-
-  handleInputChange =async (e) => {
-    console.log(e.target);
+  handleInputChange = async (e) => {
     let field = e.target.name;
-    let value = e.target.files[0];
-    const archive = await Archive.open(e.target.files[0]);
-    console.log(value);
-    if (value.type === "application/zip") {
-      this.setState({ [field]: value });
+    if (e.target.type === "file") {
+      let value = e.target.files[0];
+      if (value.type === "application/zip") {
+        this.setState({ [field]: value, files: undefined });
+      } else {
+        this.setState({ error: "incorrect file type" });
+      }
     } else {
-      this.setState({ error: "incorrect file type" });
+      let value = e.target.value;
+      this.setState({ [field]: value });
     }
   };
 
+  verifyZip = async () => {
+    const { password } = this.state;
+    const archive = await Archive.open(this.state.file);
+    if (password) {
+      await archive.usePassword(password);
+    }
+    let obj = await archive.extractFiles();
+    let files = [];
+    console.log(obj);
+    for (let x in obj) {
+      files.push(obj[x][Object.keys(obj[x])[0]]);
+    }
+    this.setState({ files }, () => console.log(this.state));
+  };
+  handleSubmit = () => {
+    alert("#TODO: SUBMIT");
+  };
   render() {
     const { classes } = this.props;
 
     const mapFiles = this.state.files
       ? this.state.files.map((file) => {
-        let filename = file.filename.match(/[A-Z]*_\d*.csv/);
-        console.log(filename);
-        let simplifiedName = filename[0].replace(/_\d*/, "");
+        let filename = file.name.match(/([A-Z]*_)*\d*.csv/);
+        let simplifiedName = filename[0].replace(/(_\d).\d*/, "");
         return (
           <Typography key={filename}>
             {simplifiedName}
@@ -118,34 +96,76 @@ class Band extends React.Component {
           alignContent="center"
           justify="flex-start"
         >
-          {!this.state.file &&
-            <Grid item xs={12}>
-              <form>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  component="label"
-                >
-                  Upload Zip File
-                  <input
-                    type="file"
-                    name="file"
-                    hidden
-                    accept=".zip"
-                    onChange={this.handleInputChange}
-                  />
-                </Button>
-              </form>
-            </Grid>}
-          {this.state.file &&
-            <Grid item xs={12}>
-              <Typography variant="h5">
-                {this.state.file.name}
-              </Typography>
-              <List component={Grid} item xs={12}>
-                {mapFiles}
-              </List>
-            </Grid>}
+          <Grid item container alignContent="center">
+            <Button
+              variant="contained"
+              color="primary"
+              component="label"
+            >
+              Upload Zip File
+              <input
+                type="file"
+                name="file"
+                hidden
+                accept=".zip"
+                onChange={this.handleInputChange}
+              />
+            </Button>
+            <Typography variant="body1" style={{ padding: "0.5em" }}>
+              {this.state.file.name}
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            container
+            alignContent="center"
+            xs={12}
+            style={{ paddingTop: "1em" }}
+          >
+            <TextField
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleInputChange}
+            />
+          </Grid>
+
+          <Grid
+            item
+            container
+            alignContent="center"
+            xs={12}
+            style={{ paddingTop: "1em" }}
+          >
+            {!this.state.files
+              ? <Button
+                variant="contained"
+                color="primary"
+                onClick={this.verifyZip}
+              >
+                Verify
+              </Button>
+              : <Grid>{mapFiles}</Grid>}
+          </Grid>
+          <Grid
+            item
+            container
+            alignContent="center"
+            xs={12}
+            style={{ paddingTop: "1em" }}
+          >
+            {this.state.files &&
+              <Button
+                onClick={this.handleSubmit}
+                variant="contained"
+                color="primary"
+              >
+                Submit
+              </Button>}
+          </Grid>
         </Paper>
       </>
     );
