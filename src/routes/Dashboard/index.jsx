@@ -35,12 +35,11 @@ class Dashboard extends React.Component {
 
   render() {
     const { classes, is_admin } = this.props;
-    const permissions = is_admin ? "admin" : "user";
     return (
       <Grid item container className={classes.fullScreen}>
         <Header handleDrawer={this.handleDrawer} />
         <Grid item container>
-          <Sidebar open={this.state.open} routes={allowedRoutes[permissions]} />
+          <Sidebar open={this.state.open} routes={allowedRoutes(is_admin)} />
           <Grid style={{ flex: 1, flexShrink: 1 }}>
             <div className={classes.toolbar}></div>
             <Grid
