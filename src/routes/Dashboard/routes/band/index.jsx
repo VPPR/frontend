@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 
 Archive.init({
-  workerUrl: "libarchive.js/dist/worker-bundle.js",
+  workerUrl: "/libarchive.js/dist/worker-bundle.js",
 });
 
 const style = (theme) => ({

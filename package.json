@@ -27,6 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild":"cp -r node_modules/libarchive.js/ public/libarchive.js/",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
