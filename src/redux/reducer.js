@@ -17,7 +17,6 @@ const mainReducer = persistCombineReducers(persistConfig, {
 });
 
 const rootReducer = (state, action) => {
-  console.log(action);
   if (action.type === AuthActionTypes.LOGOUT) {
     storage.removeItem("persist:vppr");
     const persist = { ...state._persist };
