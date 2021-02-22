@@ -9,6 +9,7 @@ import {
   Paper,
   Switch,
   TextField,
+  CircularProgress
 } from "@material-ui/core";
 
 class Signup extends React.Component {
@@ -54,6 +55,11 @@ class Signup extends React.Component {
   };
 
   render() {
+    if (this.props.isLoading){
+      return (
+          <CircularProgress />
+      )
+    }
     return (
       <Paper component={Grid} item container direction="column" xs={8} md={4}>
         <form
@@ -119,5 +125,6 @@ class Signup extends React.Component {
 
 const mapStateToProps = (state) => ({
   errorMessage: state.auth.errorMessage,
+  isLoading: state.auth.isLoading
 });
 export default withRouter(connect(mapStateToProps, { signup })(Signup));
