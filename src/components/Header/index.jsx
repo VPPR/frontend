@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
-    marginRight: "1em",
+    marginRight: "1rem",
   },
 }));
 function Header({ handleDrawer, logout }) {

@@ -29,7 +29,7 @@ function* FetchUserSelf() {
       let token = yield select((state) => state.auth.accessToken);
       let user = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/self`,
+        "/users/self",
         {
           method: "GET",
           headers: {

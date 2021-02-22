@@ -111,7 +111,7 @@ class Band extends React.Component {
                 onChange={this.handleInputChange}
               />
             </Button>
-            <Typography variant="body1" style={{ padding: "0.5em" }}>
+            <Typography variant="body1" style={{ padding: "0.5rem" }}>
               {this.state.file.name}
             </Typography>
           </Grid>
@@ -121,7 +121,7 @@ class Band extends React.Component {
             container
             alignContent="center"
             xs={12}
-            style={{ paddingTop: "1em" }}
+            style={{ paddingTop: "1rem" }}
           >
             <TextField
               name="password"
@@ -138,7 +138,7 @@ class Band extends React.Component {
             container
             alignContent="center"
             xs={12}
-            style={{ paddingTop: "1em" }}
+            style={{ paddingTop: "1rem" }}
           >
             {!this.state.files
               ? <Button
@@ -155,7 +155,7 @@ class Band extends React.Component {
             container
             alignContent="center"
             xs={12}
-            style={{ paddingTop: "1em" }}
+            style={{ paddingTop: "1rem" }}
           >
             {this.state.files &&
               <Button

@@ -58,13 +58,14 @@ class Signup extends React.Component {
       <Paper component={Grid} item container direction="column" xs={8} md={4}>
         <form
           onSubmit={this.handleSubmit}
-          style={{ display: "flex", flexDirection: "column", padding: "2em" }}
+          style={{ display: "flex", flexDirection: "column", padding: "2rem" }}
         >
           <TextField
             name="fullname"
             label="Full Name"
             onChange={this.handleInputChange}
             value={this.state.fullname}
+            style={{marginTop:"0.5rem"}}
           >
           </TextField>
           <TextField
@@ -72,6 +73,7 @@ class Signup extends React.Component {
             label="Email ID"
             onChange={this.handleInputChange}
             value={this.state.email}
+            style={{marginTop:"0.5rem"}}
           >
           </TextField>
           <TextField
@@ -80,6 +82,7 @@ class Signup extends React.Component {
             label="Password"
             onChange={this.handleInputChange}
             value={this.state.password}
+            style={{marginTop:"0.5rem"}}
           >
           </TextField>
           <TextField
@@ -88,8 +91,10 @@ class Signup extends React.Component {
             label="Phone Number"
             onChange={this.handleInputChange}
             value={this.state.phone}
+            style={{marginTop:"0.5rem"}}
           />
           <FormControlLabel
+          style={{marginTop:"0.5rem"}}
             control={<Switch
               checked={this.state.is_admin}
               onChange={this.handleInputChange}
@@ -102,7 +107,7 @@ class Signup extends React.Component {
             variant="contained"
             color="primary"
             type="submit"
-            style={{ margin: "2em 0em" }}
+            style={{ margin: "2rem 0rem" }}
           >
             Submit
           </Button>

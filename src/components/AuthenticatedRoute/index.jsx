@@ -5,16 +5,17 @@ import PublishIcon from "@material-ui/icons/Publish";
 import HomeIcon from "@material-ui/icons/Home";
 import { useEffect } from "react";
 import { fetchUserSelf } from "redux/users/action";
+import { CircularProgress } from "@material-ui/core";
 
 export const allowedRoutes = (is_admin) => {
   if (is_admin) {
-    return ([{ name: "Dashboard", path: "/dashboard", component: HomeIcon }, {
+    return ([{ name: "Home", path: "/dashboard", component: HomeIcon }, {
       name: "Users",
       path: "/dashboard/users",
       component: PersonIcon,
     }]);
   }
-  return ([{ name: "Dashboard", path: "/dashboard", component: HomeIcon }, {
+  return ([{ name: "Home", path: "/dashboard", component: HomeIcon }, {
     name: "Upload",
     path: "/dashboard/upload",
     component: PublishIcon,
@@ -31,7 +32,7 @@ function AuthenticatedRoute(props) {
     if (!props.isLoggedIn) {
       return <Redirect to="/login" />;
     } else if (!props.currentUser) {
-      return "wait";
+      return <CircularProgress/>;
     } else if (
       allowedRoutes(props.is_admin).filter((x) => x.path === props.path)
     ) {
@@ -40,7 +41,7 @@ function AuthenticatedRoute(props) {
 
     return <Redirect to="/dashboard" />;
   } else {
-    return "wait";
+    return <CircularProgress/>;
   }
 }
 const mapStateToProps = (state) => ({
