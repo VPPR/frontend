@@ -32,7 +32,7 @@ function AuthenticatedRoute(props) {
     if (!props.isLoggedIn) {
       return <Redirect to="/login" />;
     } else if (!props.currentUser) {
-      return <CircularProgress/>;
+      return <CircularProgress />;
     } else if (
       allowedRoutes(props.is_admin).filter((x) => x.path === props.path)
     ) {
@@ -41,7 +41,7 @@ function AuthenticatedRoute(props) {
 
     return <Redirect to="/dashboard" />;
   } else {
-    return <CircularProgress/>;
+    return <CircularProgress />;
   }
 }
 const mapStateToProps = (state) => ({

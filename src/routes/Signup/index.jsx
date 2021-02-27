@@ -4,13 +4,14 @@ import { withRouter } from "react-router-dom";
 import { signup } from "redux/auth/action";
 import {
   Button,
+  CircularProgress,
   FormControlLabel,
   Grid,
   Paper,
   Switch,
   TextField,
-  CircularProgress
 } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -29,6 +30,24 @@ class Signup extends React.Component {
         phone: "",
       },
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.errorMessage !== this.props.errorMessage &&
+      this.props.errorMessage
+    ) {
+      toast.error(this.props.errorMessage, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    if (
+      prevProps.success !== this.props.success && this.props.success
+    ) {
+      toast.success("Yay. Signup Successful", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   }
 
   handleInputChange = (e) => {
@@ -55,10 +74,10 @@ class Signup extends React.Component {
   };
 
   render() {
-    if (this.props.isLoading){
+    if (this.props.isLoading) {
       return (
-          <CircularProgress />
-      )
+        <CircularProgress />
+      );
     }
     return (
       <Paper component={Grid} item container direction="column" xs={8} md={4}>
@@ -71,7 +90,7 @@ class Signup extends React.Component {
             label="Full Name"
             onChange={this.handleInputChange}
             value={this.state.fullname}
-            style={{marginTop:"0.5rem"}}
+            style={{ marginTop: "0.5rem" }}
           >
           </TextField>
           <TextField
@@ -79,7 +98,7 @@ class Signup extends React.Component {
             label="Email ID"
             onChange={this.handleInputChange}
             value={this.state.email}
-            style={{marginTop:"0.5rem"}}
+            style={{ marginTop: "0.5rem" }}
           >
           </TextField>
           <TextField
@@ -88,7 +107,7 @@ class Signup extends React.Component {
             label="Password"
             onChange={this.handleInputChange}
             value={this.state.password}
-            style={{marginTop:"0.5rem"}}
+            style={{ marginTop: "0.5rem" }}
           >
           </TextField>
           <TextField
@@ -97,10 +116,10 @@ class Signup extends React.Component {
             label="Phone Number"
             onChange={this.handleInputChange}
             value={this.state.phone}
-            style={{marginTop:"0.5rem"}}
+            style={{ marginTop: "0.5rem" }}
           />
           <FormControlLabel
-          style={{marginTop:"0.5rem"}}
+            style={{ marginTop: "0.5rem" }}
             control={<Switch
               checked={this.state.is_admin}
               onChange={this.handleInputChange}
@@ -124,7 +143,8 @@ class Signup extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  success: state.auth.signUpSuccess,
   errorMessage: state.auth.errorMessage,
-  isLoading: state.auth.isLoading
+  isLoading: state.auth.isLoading,
 });
 export default withRouter(connect(mapStateToProps, { signup })(Signup));

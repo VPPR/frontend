@@ -1,14 +1,17 @@
 import { persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
+import createFilter from "redux-persist-transform-filter";
 import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
+
+const authFilter = createFilter("auth", ["accessToken", "expiry"]);
 
 const persistConfig = {
   key: "vppr",
   storage: storage,
   whitelist: ["auth"],
+  transforms: [authFilter],
 };
 
 const mainReducer = persistCombineReducers(persistConfig, {
