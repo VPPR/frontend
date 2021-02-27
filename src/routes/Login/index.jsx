@@ -2,8 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { login } from "redux/auth/action.js";
-import { Button, Grid, Paper, TextField } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Paper,
+  TextField,
+} from "@material-ui/core";
 import { fetchUserSelf } from "redux/users/action";
+import { toast } from "react-toastify";
+
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 class Login extends React.Component {
@@ -26,8 +34,19 @@ class Login extends React.Component {
       this.props.fetchUserSelf();
     }
     if (
+      prevProps.errorMessage !== this.props.errorMessage &&
+      this.props.errorMessage
+    ) {
+      toast.error(this.props.errorMessage, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    if (
       prevProps.currentUser !== this.props.currentUser && this.props.currentUser
     ) {
+      toast.success(`Hello, ${this.props.currentUser.fullname}`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       this.props.history.push("/dashboard");
     }
   }
@@ -83,6 +102,11 @@ class Login extends React.Component {
   };
 
   render() {
+    if (this.props.isLoading) {
+      return (
+        <CircularProgress />
+      );
+    }
     return (
       <Paper component={Grid} item container direction="column" xs={8} md={4}>
         <form
@@ -93,22 +117,26 @@ class Login extends React.Component {
             name="username"
             type="email"
             label="Email ID"
+            color="secondary"
             value={this.state.username}
             onChange={this.handleInputChange}
             onBlur={this.validateField}
             helperText={this.state.errors.username}
             error={!!this.state.errors.username}
+            style={{ marginTop: "0.5rem" }}
           />
 
           <TextField
             name="password"
             type="password"
             label="Password"
+            color="secondary"
             value={this.state.password}
             onChange={this.handleInputChange}
             onBlur={this.validateField}
             helperText={this.state.errors.password}
             error={!!this.state.errors.password}
+            style={{ marginTop: "0.5rem" }}
           />
 
           <Button
@@ -129,7 +157,7 @@ const mapStateToProps = (state) => ({
   errorMessage: state.auth.errorMessage,
   accessToken: state.auth.accessToken,
   isLoggedIn: state.auth.isLoggedIn,
-  isLoading: state.auth.isLoading,
+  isLoading: state.auth.isLoading || state.user.isLoading,
   currentUser: state.user.currentUser,
 });
 

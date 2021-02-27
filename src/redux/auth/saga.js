@@ -14,17 +14,21 @@ function* Login() {
   yield takeEvery(AuthActionTypes.LOGIN, function* (action) {
     try {
       const user = action.payload;
+      let form = new FormData();
+      form.append("username", user.username);
+      form.append("password", user.password);
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/login`,
+        "/login/access-token",
         {
           method: "post",
-          body: JSON.stringify(user),
+          // body: JSON.stringify(user),
+          body: form,
         },
       );
       yield put(loginSuccess(response));
     } catch (error) {
-      yield put(loginFailure(error.detail ?? error));
+      yield put(loginFailure(error.detail ?? error.message ?? error));
     }
   });
 }
@@ -34,7 +38,7 @@ function* SignUp() {
     try {
       const response = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/signup`,
+        "/signup",
         {
           method: "post",
           body: JSON.stringify(action.payload),
