@@ -38,7 +38,7 @@ class Band extends React.Component {
     let field = e.target.name;
     if (e.target.type === "file") {
       let value = e.target.files[0];
-      if (value.type === "application/zip") {
+      if (value.type.includes("zip")) {
         this.setState({ [field]: value, files: undefined });
       } else {
         this.setState({ error: "incorrect file type" });
@@ -71,14 +71,10 @@ class Band extends React.Component {
 
     const mapFiles = this.state.files
       ? this.state.files.map((file) => {
-        let filename = file.name.match(/([A-Z]*_)*\d*.csv/);
-        let simplifiedName = filename[0].replace(/(_\d).\d*/, "");
-        return (
-          <Typography key={filename}>
-            {simplifiedName}
-          </Typography>
-        );
-      })
+          let filename = file.name.match(/([A-Z]*_)*\d*.csv/);
+          let simplifiedName = filename[0].replace(/(_\d).\d*/, "");
+          return <Typography key={filename}>{simplifiedName}</Typography>;
+        })
       : "";
 
     return (
@@ -97,11 +93,7 @@ class Band extends React.Component {
           justify="flex-start"
         >
           <Grid item container alignContent="center">
-            <Button
-              variant="contained"
-              color="primary"
-              component="label"
-            >
+            <Button variant="contained" color="primary" component="label">
               Upload Zip File
               <input
                 type="file"
@@ -140,15 +132,17 @@ class Band extends React.Component {
             xs={12}
             style={{ paddingTop: "1rem" }}
           >
-            {!this.state.files
-              ? <Button
+            {!this.state.files ? (
+              <Button
                 variant="contained"
                 color="primary"
                 onClick={this.verifyZip}
               >
                 Verify
               </Button>
-              : <Grid>{mapFiles}</Grid>}
+            ) : (
+              <Grid>{mapFiles}</Grid>
+            )}
           </Grid>
           <Grid
             item
@@ -157,14 +151,15 @@ class Band extends React.Component {
             xs={12}
             style={{ paddingTop: "1rem" }}
           >
-            {this.state.files &&
+            {this.state.files && (
               <Button
                 onClick={this.handleSubmit}
                 variant="contained"
                 color="primary"
               >
                 Submit
-              </Button>}
+              </Button>
+            )}
           </Grid>
         </Paper>
       </>
