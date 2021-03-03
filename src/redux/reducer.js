@@ -5,7 +5,7 @@ import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
 
-const authFilter = createFilter("auth", ["accessToken", "expiry"]);
+const authFilter = createFilter("auth", ["accessToken", "expiry","isLoggedIn"]);
 
 const persistConfig = {
   key: "vppr",
