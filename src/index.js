@@ -11,7 +11,17 @@ import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 const theme = createMuiTheme({
   palette: {
     type: "dark",
+    background:{
+      default: "#0c1112",//"#2a2d36",//"#0e1017", //
+      paper: "#202829",
+      header: "#14191a"//"#383c48"//"#171922"//
+    },
+    primary:{
+      main: "#1a6bab"
+    },
+
   },
+  
 });
 
 ReactDOM.render(

@@ -9,7 +9,7 @@ import { logout } from "redux/auth/action";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    background: theme.palette.background.default,
+    background: theme.palette.background.header,
     zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {

@@ -117,7 +117,6 @@ class Login extends React.Component {
             name="username"
             type="email"
             label="Email ID"
-            color="secondary"
             value={this.state.username}
             onChange={this.handleInputChange}
             onBlur={this.validateField}
@@ -130,7 +129,6 @@ class Login extends React.Component {
             name="password"
             type="password"
             label="Password"
-            color="secondary"
             value={this.state.password}
             onChange={this.handleInputChange}
             onBlur={this.validateField}
