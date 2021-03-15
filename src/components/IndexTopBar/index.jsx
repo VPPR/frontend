@@ -18,8 +18,8 @@ function IndexTopBar() {
       <Toolbar>
         <Typography variant="h5" noWrap color="textPrimary">
           VPPR
-          <Link to="/Login">Login</Link>
-          <Link to="/Signup">Sign Up</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
         </Typography>
       </Toolbar>
     </AppBar>
