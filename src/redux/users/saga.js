@@ -27,7 +27,7 @@ function* FetchUserSelf() {
   yield takeEvery(UserActionTypes.FETCH_USER_SELF, function* () {
     try {
       let token = yield select((state) => state.auth.accessToken);
-      let user = yield call(
+      let { detail: user } = yield call(
         httpClient,
         "/users/self",
         {
@@ -73,9 +73,9 @@ function* FetchUsers() {
     try {
       let token = yield select((state) => state.auth.accessToken);
 
-      let user = yield call(
+      let users = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/`,
+        `/users/`,
         {
           method: "GET",
           headers: {
@@ -84,7 +84,7 @@ function* FetchUsers() {
         },
       );
 
-      yield put(fetchUsersSuccess(user));
+      yield put(fetchUsersSuccess(users));
     } catch (error) {
       yield put(fetchUsersFailure(error.detail));
     }
