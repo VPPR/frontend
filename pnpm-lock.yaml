@@ -15,15 +15,16 @@ dependencies:
   react-redux: 7.2.2_380dc38591053d98779d1f25fc7202b9
   react-refresh: 0.9.0
   react-router-dom: 5.2.0_react@17.0.1
-  react-scripts: 4.0.3_react@17.0.1+typescript@4.1.3
+  react-scripts: 4.0.3_40ffcd1b661e2da49ce71b942e921c7a
   react-toastify: 7.0.3_react-dom@17.0.1+react@17.0.1
   redux: 4.0.5
   redux-logger: 3.0.6
   redux-persist: 6.0.0_redux@4.0.5
   redux-persist-transform-filter: 0.0.20_redux-persist@6.0.0+redux@4.0.5
   redux-saga: 1.1.3
+  type-fest: 0.21.3
   typescript: 4.1.3
-  web-vitals: 0.2.4
+  web-vitals: 1.1.1
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
@@ -1782,7 +1783,7 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-1SUf/Cg2GzGDyaf15aR9St9TWlb+XvbZXWpDx8YKs7MLzMH/BCeopv+y9vzrzgkfykCGuWOlSu3mZhj2+FQcrg==
-  /@pmmmwh/react-refresh-webpack-plugin/0.4.3_9f0995138d24e525eb86c097d82409c0:
+  /@pmmmwh/react-refresh-webpack-plugin/0.4.3_db3f34d0331d17df237420f99fc46143:
     dependencies:
       ansi-html: 0.0.7
       error-stack-parser: 2.0.6
@@ -1791,6 +1792,7 @@ packages:
       react-refresh: 0.8.3
       schema-utils: 2.7.1
       source-map: 0.7.3
+      type-fest: 0.21.3
       webpack: 4.44.2
       webpack-dev-server: 3.11.1_webpack@4.44.2
     dev: false
@@ -10216,10 +10218,10 @@ packages:
       react: '>=15'
     resolution:
       integrity: sha512-smz1DUuFHRKdcJC0jobGo8cVbhO3x50tCL4icacOlcwDOEQPq4TMqwx3sY1TP+DvtTgz4nm3thuo7A+BK2U0Dw==
-  /react-scripts/4.0.3_react@17.0.1+typescript@4.1.3:
+  /react-scripts/4.0.3_40ffcd1b661e2da49ce71b942e921c7a:
     dependencies:
       '@babel/core': 7.12.3
-      '@pmmmwh/react-refresh-webpack-plugin': 0.4.3_9f0995138d24e525eb86c097d82409c0
+      '@pmmmwh/react-refresh-webpack-plugin': 0.4.3_db3f34d0331d17df237420f99fc46143
       '@svgr/webpack': 5.5.0
       '@typescript-eslint/eslint-plugin': 4.18.0_15d9b1eddee60d9c17425e61ea7e28f5
       '@typescript-eslint/parser': 4.18.0_eslint@7.22.0+typescript@4.1.3
@@ -10286,6 +10288,7 @@ packages:
       fsevents: 2.3.2
     peerDependencies:
       react: '>= 16'
+      type-fest: '*'
       typescript: ^3.2.1 || ^4
     peerDependenciesMeta:
       typescript:
@@ -12011,6 +12014,12 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
+  /type-fest/0.21.3:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
   /type-fest/0.3.1:
     dev: false
     engines:
@@ -12385,10 +12394,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
-  /web-vitals/0.2.4:
+  /web-vitals/1.1.1:
     dev: false
     resolution:
-      integrity: sha512-6BjspCO9VriYy12z356nL6JBS0GYeEcA457YyRzD+dD6XYCQ75NKhcOHUMHentOE7OcVCIXXDvOm0jKFfQG2Gg==
+      integrity: sha512-jYOaqu01Ny1NvMwJ3dBJDUOJ2PGWknZWH4AUnvFOscvbdHMERIKT2TlgiAey5rVyfOePG7so2JcXXZdSnBvioQ==
   /webidl-conversions/5.0.0:
     dev: false
     engines:
@@ -12929,5 +12938,6 @@ specifiers:
   redux-persist: ^6.0.0
   redux-persist-transform-filter: ^0.0.20
   redux-saga: ^1.1.3
+  type-fest: ^0.21.3
   typescript: ^4.1.3
-  web-vitals: ^0.2.4
+  web-vitals: ^1.1.1
