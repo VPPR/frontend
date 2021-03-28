@@ -4,35 +4,27 @@ const initState = {
   currentUser: null,
   errorMessage: "",
   isLoading: false,
-  //selectedUser: null,
-  //users: [],
 };
 
 const userReducer = (state = initState, action) => {
   switch (action.type) {
     case UserActionTypes.FETCH_USER_SELF:
       return {
-        //...state,
         currentUser: null,
         errorMessage: "",
         isLoading: true,
-        //selectedUser: null,
       };
     case UserActionTypes.FETCH_USER_SELF_SUCCESS:
       return {
-        //...state,
         currentUser: action.payload,
         errorMessage: "",
         isLoading: false,
-        //selectedUser: null,
       };
     case UserActionTypes.FETCH_USER_SELF_FAILURE:
       return {
-        //...state,
         currentUser: null,
         errorMessage: action.payload,
         isLoading: false,
-        //selectedUser: null,
       };
 
     case UserActionTypes.FETCH_USER:

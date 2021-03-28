@@ -70,7 +70,6 @@ const darkTheme = createMuiTheme({
     },
   },
 });
-console.log(lightTheme)
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

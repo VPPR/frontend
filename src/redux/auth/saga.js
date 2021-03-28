@@ -9,7 +9,6 @@ import {
 } from "./action";
 import httpClient from "services/http-client";
 
-//Generator Function
 function* Login() {
   yield takeEvery(AuthActionTypes.LOGIN, function* (action) {
     try {
@@ -22,7 +21,6 @@ function* Login() {
         "/login/access-token",
         {
           method: "post",
-          // body: JSON.stringify(user),
           body: form,
         },
       );

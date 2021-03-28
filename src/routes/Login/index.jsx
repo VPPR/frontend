@@ -104,11 +104,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const {
-      theme: {
-        palette: { type },
-      },
-    } = this.props;
+    const { theme } = this.props;
     if (this.props.isLoading) {
       return <CircularProgress />;
     }
@@ -127,8 +123,9 @@ class Login extends React.Component {
         >
           <img
             src={`${
-              type === "light" ? "/vppr-darktext.svg" : "/vppr-whitetext.svg"
+              theme.palette.type === "light" ? "/vppr-darktext.svg" : "/vppr-whitetext.svg"
             }`}
+            alt=""
             width="30%"
           />
         </div>

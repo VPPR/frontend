@@ -1,12 +1,11 @@
 import { AppBar, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import { Toolbar,IconButton } from "@material-ui/core/";
 import { ExitToApp, Menu } from "@material-ui/icons";
 import { connect } from "react-redux";
 import { logout } from "redux/auth/action";
 import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: theme.palette.background.header,
@@ -25,34 +24,20 @@ function Header({ handleDrawer, logout }) {
   return (
     <AppBar
       position="fixed"
-      className={clsx(classes.appBar //      {
-        //   [classes.appBarShift]: open,
-        // }
-      )}
+      className={clsx(classes.appBar)}
     >
       <Toolbar>
         <IconButton
           aria-label="open drawer"
           onClick={handleDrawer}
           edge="start"
-          className={clsx(classes.menuButton //      {
-            //   [classes.hide]: open,
-            // }
-          )}
+          className={clsx(classes.menuButton)}
         >
           <Menu />
         </IconButton>
         <div style={{flexGrow:1}}>
-        <img src="/vppr-whitetext.svg" className={classes.logo}/>
+          <img src="/vppr-whitetext.svg" className={classes.logo} alt="VPPR"/>
         </div>
-        {/* <Typography
-          variant="h6"
-          noWrap
-          color="textPrimary"
-          style={{ flexGrow: 1 }}
-        >
-          VPPR
-        </Typography> */}
         <Link to="/" onClick={logout}>
           <IconButton color="secondary">
             <ExitToApp />
