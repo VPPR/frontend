@@ -12,7 +12,11 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.header,
     zIndex: theme.zIndex.drawer + 1,
   },
+  logo: {
+    height:theme.mixins.toolbar.minHeight-10
+  },
   menuButton: {
+    color:theme.palette.text.sidebar,
     marginRight: "1rem",
   },
 }));
@@ -28,7 +32,6 @@ function Header({ handleDrawer, logout }) {
     >
       <Toolbar>
         <IconButton
-          color="default"
           aria-label="open drawer"
           onClick={handleDrawer}
           edge="start"
@@ -39,14 +42,17 @@ function Header({ handleDrawer, logout }) {
         >
           <Menu />
         </IconButton>
-        <Typography
+        <div style={{flexGrow:1}}>
+        <img src="/vppr-whitetext.svg" className={classes.logo}/>
+        </div>
+        {/* <Typography
           variant="h6"
           noWrap
           color="textPrimary"
           style={{ flexGrow: 1 }}
         >
           VPPR
-        </Typography>
+        </Typography> */}
         <Link to="/" onClick={logout}>
           <IconButton color="secondary">
             <ExitToApp />

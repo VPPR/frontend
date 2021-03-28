@@ -8,6 +8,7 @@ import {
   Grid,
   Paper,
   TextField,
+  withTheme,
 } from "@material-ui/core";
 import { fetchUserSelf } from "redux/users/action";
 import { toast } from "react-toastify";
@@ -29,7 +30,8 @@ class Login extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn
+      prevProps.isLoggedIn !== this.props.isLoggedIn &&
+      this.props.isLoggedIn
     ) {
       this.props.fetchUserSelf();
     }
@@ -42,7 +44,8 @@ class Login extends React.Component {
       });
     }
     if (
-      prevProps.currentUser !== this.props.currentUser && this.props.currentUser
+      prevProps.currentUser !== this.props.currentUser &&
+      this.props.currentUser
     ) {
       toast.success(`Hello, ${this.props.currentUser.fullname}`, {
         position: toast.POSITION.TOP_CENTER,
@@ -89,9 +92,8 @@ class Login extends React.Component {
         break;
 
       case "password":
-        errors.password = value.length > 0
-          ? ""
-          : "Please enter a valid password 🥺";
+        errors.password =
+          value.length > 0 ? "" : "Please enter a valid password 🥺";
         break;
 
       default:
@@ -102,13 +104,34 @@ class Login extends React.Component {
   };
 
   render() {
+    const {
+      theme: {
+        palette: { type },
+      },
+    } = this.props;
     if (this.props.isLoading) {
-      return (
-        <CircularProgress />
-      );
+      return <CircularProgress />;
     }
     return (
-      <Paper component={Grid} item container direction="column" xs={8} md={4}>
+      <Paper
+        component={Grid}
+        item
+        container
+        direction="column"
+        xs={8}
+        md={4}
+        alignContent="center"
+      >
+        <div
+          style={{ display: "flex", justifyContent: "center", paddingTop: 50 }}
+        >
+          <img
+            src={`${
+              type === "light" ? "/vppr-darktext.svg" : "/vppr-whitetext.svg"
+            }`}
+            width="30%"
+          />
+        </div>
         <form
           onSubmit={this.handleSubmit}
           style={{ display: "flex", flexDirection: "column", padding: "2em" }}
@@ -160,5 +183,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { login, fetchUserSelf })(Login),
+  withTheme(connect(mapStateToProps, { login, fetchUserSelf })(Login))
 );

@@ -11,6 +11,13 @@ import { NavLink } from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  paper:{
+    backgroundColor:theme.palette.background.sidebar,
+    color:theme.palette.text.sidebar
+  },
+  component:{
+    color: theme.palette.text.sidebar
+  },
   hide: {
     display: "none",
   },
@@ -58,7 +65,7 @@ function Sidebar(props) {
         [classes.drawerClose]: !open,
       })}
       classes={{
-        paper: clsx({
+        paper: clsx({[classes.paper]:true,
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
         }),
@@ -72,7 +79,7 @@ function Sidebar(props) {
         {props.routes.map((route, index) => (
           <ListItem component={NavLink} to={route.path} button key={route.name}>
             <ListItemIcon>
-              <route.component />
+              <route.component className={classes.component}/>
             </ListItemIcon>
             <ListItemText primary={route.name} />
           </ListItem>
