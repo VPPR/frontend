@@ -36,14 +36,6 @@ class Login extends React.Component {
       this.props.fetchUserSelf();
     }
     if (
-      prevProps.errorMessage !== this.props.errorMessage &&
-      this.props.errorMessage
-    ) {
-      toast.error(this.props.errorMessage, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-    if (
       prevProps.currentUser !== this.props.currentUser &&
       this.props.currentUser
     ) {
@@ -172,7 +164,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  errorMessage: state.auth.errorMessage,
+  errorMessage: state.auth.errorMessage || state.user.errorMessage,
   accessToken: state.auth.accessToken,
   isLoggedIn: state.auth.isLoggedIn,
   isLoading: state.auth.isLoading || state.user.isLoading,
