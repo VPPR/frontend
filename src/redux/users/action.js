@@ -57,18 +57,3 @@ export const updateUserFailure = (error) => ({
   type: UserActionTypes.UPDATE_USER_FAILURE,
   payload: error,
 });
-
-export const createUser = (userCreate) => ({
-  type: UserActionTypes.CREATE_USER,
-  payload: userCreate,
-});
-
-export const createUserSuccess = (user) => ({
-  type: UserActionTypes.CREATE_USER_SUCCESS,
-  payload: user,
-});
-
-export const createUserFailure = (error) => ({
-  type: UserActionTypes.CREATE_USER_FAILURE,
-  payload: error,
-});

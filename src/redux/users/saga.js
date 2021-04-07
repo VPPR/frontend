@@ -9,8 +9,6 @@ import {
 
 import UserActionTypes from "./action.type";
 import {
-  createUserFailure,
-  createUserSuccess,
   fetchUserFailure,
   fetchUsers,
   fetchUserSelfFailure,
@@ -44,7 +42,7 @@ function* FetchUserSelf() {
     }
   });
 }
-//NOT ADDED IN BACKEND YET
+
 function* FetchUser() {
   yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
     try {
@@ -52,7 +50,7 @@ function* FetchUser() {
 
       let user = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/${action.payload}`,
+        `/users/${action.payload}`,
         {
           method: "GET",
           headers: {
@@ -67,7 +65,7 @@ function* FetchUser() {
     }
   });
 }
-//NOT ADDED IN BACKEND YET
+
 function* FetchUsers() {
   yield takeEvery(UserActionTypes.FETCH_USERS, function* (action) {
     try {
@@ -99,7 +97,7 @@ function* UpdateUser() {
 
       let user = yield call(
         httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/${selectedUser.id}`,
+        `/users/${selectedUser.id}`,
         {
           method: "PUT",
           headers: {
@@ -116,34 +114,9 @@ function* UpdateUser() {
   });
 }
 
-function* CreateUser() {
-  yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
-    try {
-      let token = yield select((state) => state.auth.accessToken);
-
-      let user = yield call(
-        httpClient,
-        `${process.env.REACT_APP_BACKEND}/users`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(action.payload),
-        },
-      );
-
-      yield put(createUserSuccess(user));
-    } catch (error) {
-      yield put(createUserFailure(error.detail));
-    }
-  });
-}
-
 function* RefreshUserList() {
   yield takeLatest([
     UserActionTypes.UPDATE_USER_SUCCESS,
-    UserActionTypes.CREATE_USER_SUCCESS,
   ], function* (action) {
     yield put(fetchUsers());
   });
@@ -155,7 +128,6 @@ function* UserSaga() {
     FetchUser(),
     FetchUsers(),
     UpdateUser(),
-    CreateUser(),
     RefreshUserList(),
   ]);
 }
