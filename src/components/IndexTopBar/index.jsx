@@ -1,4 +1,4 @@
-import { AppBar, Button, makeStyles, Toolbar, Box } from "@material-ui/core";
+import { AppBar, Button, makeStyles, Toolbar } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
