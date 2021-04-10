@@ -19,20 +19,16 @@ import {
   updateUserFailure,
   updateUserSuccess,
 } from "./action";
-import httpClient from "services/http-client";
+import { APICall } from "services/http-client";
 
 function* FetchUserSelf() {
   yield takeEvery(UserActionTypes.FETCH_USER_SELF, function* () {
     try {
-      let token = yield select((state) => state.auth.accessToken);
       let { detail: user } = yield call(
-        httpClient,
+        APICall,
         "/users/self",
         {
           method: "GET",
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
         },
       );
 
@@ -46,16 +42,11 @@ function* FetchUserSelf() {
 function* FetchUser() {
   yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
     try {
-      let token = yield select((state) => state.auth.accessToken);
-
       let user = yield call(
-        httpClient,
+        APICall,
         `/users/${action.payload}`,
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         },
       );
 
@@ -67,18 +58,13 @@ function* FetchUser() {
 }
 
 function* FetchUsers() {
-  yield takeEvery(UserActionTypes.FETCH_USERS, function* (action) {
+  yield takeEvery(UserActionTypes.FETCH_USERS, function* () {
     try {
-      let token = yield select((state) => state.auth.accessToken);
-
       let users = yield call(
-        httpClient,
+        APICall,
         `/users/`,
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         },
       );
 
@@ -92,17 +78,13 @@ function* FetchUsers() {
 function* UpdateUser() {
   yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
     try {
-      let token = yield select((state) => state.auth.accessToken);
       let selectedUser = yield select((state) => state.user.selectedUser);
 
       let user = yield call(
-        httpClient,
+        APICall,
         `/users/${selectedUser.id}`,
         {
           method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           body: JSON.stringify(action.payload),
         },
       );

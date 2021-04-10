@@ -20,10 +20,9 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { errorMessage } = this.props;
-    
     errorMessage.forEach((error, index) => {
       if (error !== prevProps.errorMessage[index] && error) {
-        toast.error(error, {
+        toast.error(error.toString(), {
           position: toast.POSITION.TOP_CENTER,
         });
       }
@@ -57,11 +56,10 @@ class App extends React.Component {
 }
 
 
-
 const mapStateToProps = (state) => {
   let errorMessage = [];
   for(let module in state) {
-    if ( "errorMessage" in state[module]) {
+    if (state[module].errorMessage) {
       errorMessage.push(state[module].errorMessage);
     }
   }

@@ -4,6 +4,7 @@ import createFilter from "redux-persist-transform-filter";
 import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
+import bandReducer from "./band/reducer";
 
 const authFilter = createFilter("auth", [
   "accessToken",
@@ -21,6 +22,7 @@ const persistConfig = {
 const mainReducer = persistCombineReducers(persistConfig, {
   auth: authReducer,
   user: userReducer,
+  band: bandReducer
 });
 
 const rootReducer = (state, action) => {

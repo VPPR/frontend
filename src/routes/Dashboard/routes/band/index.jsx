@@ -1,7 +1,8 @@
 import React from "react";
+import {connect} from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Archive } from "libarchive.js/main.js";
-
+import { activity } from 'redux/band/action';
 import {
   Button,
   Grid,
@@ -64,7 +65,8 @@ class Band extends React.Component {
     this.setState({ files }, () => console.log(this.state));
   };
   handleSubmit = () => {
-    alert("#TODO: SUBMIT");
+    console.log(this.state.files[0])
+      this.props.activity(this.state.files[0])
   };
   render() {
     const { classes } = this.props;
@@ -169,4 +171,6 @@ class Band extends React.Component {
   }
 }
 
-export default withRouter(withStyles(style)(Band));
+export default withRouter(withStyles(style)(
+  connect(null,{activity})(Band)
+  ));

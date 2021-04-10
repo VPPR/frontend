@@ -100,7 +100,7 @@ class Users extends React.Component {
       renderCell: (params) => {
         console.log(params)
         return (
-          <IconButton onClick={() =>{this.editUser(params.row.id)}}>
+          <IconButton onClick={() =>{this.editUser(params.row.id)}} color="primary">
             <Edit />
           </IconButton>
         );
