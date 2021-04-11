@@ -5,6 +5,7 @@ import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
 import bandReducer from "./band/reducer";
+import uploadReducer from './band/zip/reducer';
 
 const authFilter = createFilter("auth", [
   "accessToken",
@@ -22,7 +23,8 @@ const persistConfig = {
 const mainReducer = persistCombineReducers(persistConfig, {
   auth: authReducer,
   user: userReducer,
-  band: bandReducer
+  band: bandReducer,
+  upload: uploadReducer
 });
 
 const rootReducer = (state, action) => {
