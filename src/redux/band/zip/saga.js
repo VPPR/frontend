@@ -12,13 +12,13 @@ function* UploadFile() {
             for(const file of action.payload)
             {  
                let filename = file.name.match(/([A-Z]*_)*\d*.csv/);
-               let simplifiedName = filename[0].replace(/(_\d).\d*/, "");
+               let simplifiedName = filename[0].replace(/_\d*.csv/, "");
                data.append(simplifiedName, file);
             }
         }
         else {
             let filename = action.payload.name.match(/([A-Z]*_)*\d*.csv/);
-            let simplifiedName = filename.replace(/(_\d).\d*/, "");
+            let simplifiedName = filename[0].replace(/_\d*.csv/, "");
             data.append(simplifiedName, action.payload.file);
         }
        yield call (APICall, "/miband/upload", {
