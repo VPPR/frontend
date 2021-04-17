@@ -7,53 +7,64 @@ import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Dashboard from "routes/Dashboard";
 import Landing from "routes/Landing";
 import { ToastContainer, toast } from "react-toastify";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import "react-toastify/dist/ReactToastify.min.css";
 
 const styles = (theme) => ({
-    fullScreen: {
-        minHeight: "100vh",
-        minWidth: "100vw",
-    },
+  fullScreen: {
+    minHeight: "100vh",
+    minWidth: "100vw",
+  },
 });
 class App extends React.Component {
-    componentDidUpdate(prevProps, prevState) {
-        const { errorMessage } = this.props;
-        errorMessage.forEach((error, index) => {
-            if (error !== prevProps.errorMessage[index] && error) {
-                toast.error(error.toString(), {
-                    position: toast.POSITION.TOP_CENTER,
-                });
-            }
-        });
-    }
 
-    render() {
-        const { classes } = this.props;
-        return (
-            <>
-                <ToastContainer autoClose={5000} />
-                <Grid container alignContent="center" justify="center" className={classes.fullScreen}>
-                    <Switch>
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/login" component={Login} />
-                        <AuthenticatedRoute path="/" component={Dashboard} />
-                        <Route path="/" component={Landing} />
-                    </Switch>
-                </Grid>
-            </>
-        );
-    }
+  componentDidUpdate(prevProps, prevState) {
+    const { errorMessage } = this.props;
+    errorMessage.forEach((error, index) => {
+      if (error !== prevProps.errorMessage[index] && error) {
+        toast.error(error.toString(), {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    })
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <>
+        <ToastContainer autoClose={5000} />
+        <Grid
+          container
+          alignContent="center"
+          justify="center"
+          className={classes.fullScreen}
+        >
+          <Switch>
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <AuthenticatedRoute
+              path="/dashboard"
+              component={Dashboard}
+            />
+            <Route path="/" component={Landing} />
+          </Switch>
+        </Grid>
+      </>
+    );
+  }
 }
 
+
 const mapStateToProps = (state) => {
-    let errorMessage = [];
-    for (let module in state) {
-        if (state[module].errorMessage) {
-            errorMessage.push(state[module].errorMessage);
-        }
+  let errorMessage = [];
+  for(let module in state) {
+    if (state[module].errorMessage) {
+      errorMessage.push(state[module].errorMessage);
     }
-    return { errorMessage };
-};
+  }
+  return {errorMessage}
+}
+
 
 export default withStyles(styles)(connect(mapStateToProps)(App));
