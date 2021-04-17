@@ -5,7 +5,7 @@ import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
 import bandReducer from "./band/reducer";
-import uploadReducer from './band/zip/reducer';
+import uploadReducer from './band/reducer';
 
 const authFilter = createFilter("auth", [
   "accessToken",

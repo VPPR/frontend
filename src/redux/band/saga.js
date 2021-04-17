@@ -1,26 +1,38 @@
-import { takeEvery, all, call, put } from 'redux-saga/effects';
-import { activityFailure, activitySuccess } from './action';
-import BandActionTypes from './action.type';
-import { APICall }  from 'services/http-client'
-function* activity() {
-    yield takeEvery(BandActionTypes.ACTIVITY, function* (action){
-        try {
-            let data=new FormData();
-            data.append("file",action.payload);
-            let response = yield call(APICall,"/miband/activity",
-            {
-              method: "POST",
-              body: data
-            },);
-            yield put(activitySuccess(response));
-          } catch (error) {
-            yield put(activityFailure(error.detail));
-          }
-    })
-}
+import BandZipActions from './zip/action.type';
+import {APICall} from 'services/http-client';
+import {put, takeEvery, call} from 'redux-saga/effects';
+import { UploadFailure, UploadSuccess } from './zip/action';
 
-function* bandSaga(){
-    yield all([activity()]);
-}
+function* UploadFile() {
+    yield takeEvery(BandZipActions.UPLOAD, function* (action){
+     try {
+        let data = new FormData();
+        if(Array.isArray(action.payload)){
 
-export default bandSaga;
+            for(const file of action.payload)
+            {  
+               let filename = file.name.match(/([A-Z]*_)*\d*.csv/);
+               let simplifiedName = filename[0].replace(/_\d*.csv/, "");
+               data.append(simplifiedName, file);
+            }
+        }
+        else {
+            let filename = action.payload.name.match(/([A-Z]*_)*\d*.csv/);
+            let simplifiedName = filename[0].replace(/_\d*.csv/, "");
+            data.append(simplifiedName, action.payload.file);
+        }
+       yield call (APICall, "/miband/upload", {
+            method:"POST",
+            body:data
+        });
+        yield put(UploadSuccess());
+     }
+     catch(e){
+        yield put(UploadFailure(e));
+     }
+    }) 
+        
+} 
+export default UploadFile;
+
+
