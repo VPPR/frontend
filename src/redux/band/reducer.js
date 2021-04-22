@@ -1,9 +1,9 @@
-import BandZipActions from './zip/action.type';
+import BandZipActions from "./action.type";
 
 const initState = {
     isLoading: false,
-    errorMessage: ""
-}
+    errorMessage: "",
+};
 
 const zipReducer = (state = initState, action) => {
     switch (action.type) {
@@ -16,6 +16,6 @@ const zipReducer = (state = initState, action) => {
         default:
             return state;
     }
-}
+};
 
 export default zipReducer;

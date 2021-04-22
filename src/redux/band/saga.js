@@ -1,7 +1,7 @@
-import BandZipActions from "./zip/action.type";
+import BandZipActions from "./action.type";
 import { APICall } from "services/http-client";
 import { put, takeEvery, call } from "redux-saga/effects";
-import { UploadFailure, UploadSuccess } from "./zip/action";
+import { UploadFailure, UploadSuccess } from "./action";
 
 function* UploadFile() {
     yield takeEvery(BandZipActions.UPLOAD, function* (action) {
