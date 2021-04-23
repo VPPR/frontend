@@ -165,7 +165,7 @@ class Band extends React.Component {
                                 )}
                             </Grid>
                             <Grid item container alignContent="center" xs={12} style={{ paddingTop: "1rem" }}>
-                                {this.state.files.length != 0 && (
+                                {this.state.files.length !== 0 && (
                                     <Button onClick={this.handleSubmit} variant="contained" color="primary">
                                         Submit
                                     </Button>
