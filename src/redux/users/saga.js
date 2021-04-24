@@ -9,8 +9,6 @@ import {
 
 import UserActionTypes from "./action.type";
 import {
-  createUserFailure,
-  createUserSuccess,
   fetchUserFailure,
   fetchUsers,
   fetchUserSelfFailure,
@@ -21,20 +19,16 @@ import {
   updateUserFailure,
   updateUserSuccess,
 } from "./action";
-import httpClient from "services/http-client";
+import { APICall } from "services/http-client";
 
 function* FetchUserSelf() {
   yield takeEvery(UserActionTypes.FETCH_USER_SELF, function* () {
     try {
-      let token = yield select((state) => state.auth.accessToken);
-      let user = yield call(
-        httpClient,
+      let { detail: user } = yield call(
+        APICall,
         "/users/self",
         {
           method: "GET",
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
         },
       );
 
@@ -44,20 +38,15 @@ function* FetchUserSelf() {
     }
   });
 }
-//NOT ADDED IN BACKEND YET
+
 function* FetchUser() {
   yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
     try {
-      let token = yield select((state) => state.auth.accessToken);
-
       let user = yield call(
-        httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/${action.payload}`,
+        APICall,
+        `/users/${action.payload}`,
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         },
       );
 
@@ -67,24 +56,19 @@ function* FetchUser() {
     }
   });
 }
-//NOT ADDED IN BACKEND YET
-function* FetchUsers() {
-  yield takeEvery(UserActionTypes.FETCH_USERS, function* (action) {
-    try {
-      let token = yield select((state) => state.auth.accessToken);
 
-      let user = yield call(
-        httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/`,
+function* FetchUsers() {
+  yield takeEvery(UserActionTypes.FETCH_USERS, function* () {
+    try {
+      let users = yield call(
+        APICall,
+        `/users/`,
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         },
       );
 
-      yield put(fetchUsersSuccess(user));
+      yield put(fetchUsersSuccess(users));
     } catch (error) {
       yield put(fetchUsersFailure(error.detail));
     }
@@ -94,17 +78,13 @@ function* FetchUsers() {
 function* UpdateUser() {
   yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
     try {
-      let token = yield select((state) => state.auth.accessToken);
       let selectedUser = yield select((state) => state.user.selectedUser);
 
       let user = yield call(
-        httpClient,
-        `${process.env.REACT_APP_BACKEND}/users/${selectedUser.id}`,
+        APICall,
+        `/users/${selectedUser.id}`,
         {
           method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           body: JSON.stringify(action.payload),
         },
       );
@@ -116,34 +96,9 @@ function* UpdateUser() {
   });
 }
 
-function* CreateUser() {
-  yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
-    try {
-      let token = yield select((state) => state.auth.accessToken);
-
-      let user = yield call(
-        httpClient,
-        `${process.env.REACT_APP_BACKEND}/users`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(action.payload),
-        },
-      );
-
-      yield put(createUserSuccess(user));
-    } catch (error) {
-      yield put(createUserFailure(error.detail));
-    }
-  });
-}
-
 function* RefreshUserList() {
   yield takeLatest([
     UserActionTypes.UPDATE_USER_SUCCESS,
-    UserActionTypes.CREATE_USER_SUCCESS,
   ], function* (action) {
     yield put(fetchUsers());
   });
@@ -155,7 +110,6 @@ function* UserSaga() {
     FetchUser(),
     FetchUsers(),
     UpdateUser(),
-    CreateUser(),
     RefreshUserList(),
   ]);
 }

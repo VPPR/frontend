@@ -23,18 +23,19 @@ export const allowedRoutes = (is_admin) => {
 };
 
 function AuthenticatedRoute(props) {
+  const { rehydrated, isLoggedIn, currentUser, is_admin, fetchUserSelf } = props;
   useEffect(() => {
-    if (props.rehydrated && props.isLoggedIn && !props.currentUser) {
-      props.fetchUserSelf();
+    if (rehydrated && isLoggedIn && !currentUser) {
+      fetchUserSelf();
     }
-  });
-  if (props.rehydrated) {
-    if (!props.isLoggedIn) {
+  },[rehydrated, isLoggedIn, currentUser, fetchUserSelf]);
+  if (rehydrated) {
+    if (!isLoggedIn) {
       return <Redirect to="/login" />;
-    } else if (!props.currentUser) {
+    } else if (!currentUser) {
       return <CircularProgress />;
     } else if (
-      allowedRoutes(props.is_admin).filter((x) => x.path === props.path)
+      allowedRoutes(is_admin).filter((x) => x.path === props.path)
     ) {
       return (<Route {...props} />);
     }

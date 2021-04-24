@@ -8,6 +8,7 @@ import {
   Grid,
   Paper,
   TextField,
+  withTheme,
 } from "@material-ui/core";
 import { fetchUserSelf } from "redux/users/action";
 import { toast } from "react-toastify";
@@ -29,20 +30,14 @@ class Login extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn
+      prevProps.isLoggedIn !== this.props.isLoggedIn &&
+      this.props.isLoggedIn
     ) {
       this.props.fetchUserSelf();
     }
     if (
-      prevProps.errorMessage !== this.props.errorMessage &&
-      this.props.errorMessage
-    ) {
-      toast.error(this.props.errorMessage, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-    if (
-      prevProps.currentUser !== this.props.currentUser && this.props.currentUser
+      prevProps.currentUser !== this.props.currentUser &&
+      this.props.currentUser
     ) {
       toast.success(`Hello, ${this.props.currentUser.fullname}`, {
         position: toast.POSITION.TOP_CENTER,
@@ -89,9 +84,8 @@ class Login extends React.Component {
         break;
 
       case "password":
-        errors.password = value.length > 0
-          ? ""
-          : "Please enter a valid password 🥺";
+        errors.password =
+          value.length > 0 ? "" : "Please enter a valid password 🥺";
         break;
 
       default:
@@ -102,13 +96,31 @@ class Login extends React.Component {
   };
 
   render() {
+    const { theme } = this.props;
     if (this.props.isLoading) {
-      return (
-        <CircularProgress />
-      );
+      return <CircularProgress />;
     }
     return (
-      <Paper component={Grid} item container direction="column" xs={8} md={4}>
+      <Paper
+        component={Grid}
+        item
+        container
+        direction="column"
+        xs={8}
+        md={4}
+        alignContent="center"
+      >
+        <div
+          style={{ display: "flex", justifyContent: "center", paddingTop: 50 }}
+        >
+          <img
+            src={`${
+              theme.palette.type === "light" ? "/vppr-darktext.svg" : "/vppr-whitetext.svg"
+            }`}
+            alt=""
+            width="30%"
+          />
+        </div>
         <form
           onSubmit={this.handleSubmit}
           style={{ display: "flex", flexDirection: "column", padding: "2em" }}
@@ -117,7 +129,6 @@ class Login extends React.Component {
             name="username"
             type="email"
             label="Email ID"
-            color="secondary"
             value={this.state.username}
             onChange={this.handleInputChange}
             onBlur={this.validateField}
@@ -130,7 +141,6 @@ class Login extends React.Component {
             name="password"
             type="password"
             label="Password"
-            color="secondary"
             value={this.state.password}
             onChange={this.handleInputChange}
             onBlur={this.validateField}
@@ -154,7 +164,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  errorMessage: state.auth.errorMessage,
+  errorMessage: state.auth.errorMessage || state.user.errorMessage,
   accessToken: state.auth.accessToken,
   isLoggedIn: state.auth.isLoggedIn,
   isLoading: state.auth.isLoading || state.user.isLoading,
@@ -162,5 +172,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { login, fetchUserSelf })(Login),
+  withTheme(connect(mapStateToProps, { login, fetchUserSelf })(Login))
 );
