@@ -44,9 +44,9 @@ class Band extends React.Component {
                     filesList.push(file);
                 }
             }
-            this.setState({ zip, files: filesList }, () => console.log(this.state));
+            this.setState({ zip, files: filesList });
         } else {
-            this.setState({ [name]: value }, () => console.log(this.state));
+            this.setState({ [name]: value });
         }
     };
 
@@ -62,7 +62,7 @@ class Band extends React.Component {
             const file = zipContent[x][Object.keys(zipContent[x])[0]];
             if (!filesList.some((x) => x.name === file.name)) filesList.push(file);
         }
-        this.setState({ files: filesList }, () => console.log(this.state));
+        this.setState({ files: filesList });
     };
 
     handleSubmit = () => {
