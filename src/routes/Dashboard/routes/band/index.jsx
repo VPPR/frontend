@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Archive } from "libarchive.js/main";
 import { Upload } from "redux/band/action";
 import { Clear } from "@material-ui/icons";
-
+import { toast } from "react-toastify";
 Archive.init({
     workerUrl: "/libarchive.js/dist/worker-bundle.js",
 });
@@ -60,13 +60,20 @@ class Band extends React.Component {
         if (password) {
             await archive.usePassword(password);
         }
-        const zipContent = await archive.extractFiles();
-        let filesList = [...this.state.files];
-        for (let x in zipContent) {
-            const file = zipContent[x][Object.keys(zipContent[x])[0]];
-            if (!filesList.some((x) => x.name === file.name)) filesList.push(file);
+        try {
+            const zipContent = await archive.extractFiles();
+            let filesList = [...this.state.files];
+            for (let x in zipContent) {
+                const file = zipContent[x][Object.keys(zipContent[x])[0]];
+                if (!filesList.some((x) => x.name === file.name)) filesList.push(file);
+            }
+
+            this.setState({ files: filesList });
+        } catch (e) {
+            toast.error(e.message, {
+                position: toast.POSITION.TOP_CENTER,
+            });
         }
-        this.setState({ files: filesList });
     };
 
     handleSubmit = () => {
