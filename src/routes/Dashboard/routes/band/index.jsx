@@ -86,10 +86,14 @@ class Band extends React.Component {
                 let simplifiedName = file.name; //.replace(/(_\d)\d*/, "");
                 return (
                     <Grid container item xs={12} md={6} key={simplifiedName} alignContent="center">
-                        <Typography className={this.props.classes.listText}>{simplifiedName}</Typography>
-                        <IconButton onClick={() => this.removeFile(file)} className={this.props.classes.listText}>
-                            <Clear fontSize="small" />
-                        </IconButton>
+                        <Typography component={Grid} className={this.props.classes.listText} item md={7}>
+                            {simplifiedName}
+                        </Typography>
+                        <Grid item md={1}>
+                            <IconButton onClick={() => this.removeFile(file)} className={this.props.classes.listText}>
+                                <Clear fontSize="small" />
+                            </IconButton>
+                        </Grid>
                     </Grid>
                 );
             });
