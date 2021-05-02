@@ -1,8 +1,9 @@
-import { Grid, Paper, Typography, Button, TextField, withStyles } from "@material-ui/core";
+import { Grid, Paper, Typography, Button, TextField, withStyles, IconButton } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
 import { Archive } from "libarchive.js/main";
 import { Upload } from "redux/band/action";
+import { Clear } from "@material-ui/icons";
 
 Archive.init({
     workerUrl: "/libarchive.js/dist/worker-bundle.js",
@@ -19,6 +20,9 @@ const style = (theme) => ({
     list: {
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
+    },
+    listText: {
+        padding: theme.spacing(1),
     },
 });
 
@@ -69,14 +73,23 @@ class Band extends React.Component {
         this.props.Upload(this.state.files);
     };
 
+    removeFile = (file) => {
+        const files = [...this.state.files];
+        files.splice(files.indexOf(file), 1);
+        this.setState({ files });
+    };
+
     fileList = (files) =>
         files
             .filter((file) => file.name.match(/([A-Z]*_)*\d*.csv/))
             .map((file) => {
                 let simplifiedName = file.name; //.replace(/(_\d)\d*/, "");
                 return (
-                    <Grid item xs={12} md={6} key={simplifiedName}>
-                        <Typography>{simplifiedName}</Typography>
+                    <Grid container item xs={12} md={6} key={simplifiedName} alignContent="center">
+                        <Typography className={this.props.classes.listText}>{simplifiedName}</Typography>
+                        <IconButton onClick={() => this.removeFile(file)} className={this.props.classes.listText}>
+                            <Clear fontSize="small" />
+                        </IconButton>
                     </Grid>
                 );
             });
