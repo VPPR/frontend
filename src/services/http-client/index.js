@@ -1,4 +1,5 @@
-import { call, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
+import { logout } from 'redux/auth/action';
 
 const httpClient = async (url, parameters) =>
   await fetch(`${process.env.REACT_APP_BACKEND}${url}`, parameters).then(
@@ -11,7 +12,16 @@ const httpClient = async (url, parameters) =>
 export default httpClient;
 
 export function* APICall(url, parameters) {
-    const { accessToken } = yield select(state => state.auth);
+    const { accessToken,expiry } = yield select(state => state.auth);
+
+    if (new Date(expiry) - new Date()<30000) {
+      let error = new Error();
+      error.detail=`${new Date(expiry) - new Date()}`;
+      yield put(logout())
+      throw(error);
+    }
+
+
 
     if (!parameters.headers)
       parameters.headers={}
