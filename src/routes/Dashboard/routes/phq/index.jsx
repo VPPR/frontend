@@ -21,7 +21,7 @@ const style = (theme) => ({
     },
 });
 
-const PHQ = [
+const PHQQuestions = [
     ["Little interest or pleasure in doing things?", "q1"],
     ["Feeling down, depressed, or hopeless?", "q2"],
     ["Trouble falling or staying asleep, or sleeping too much?", "q3"],
@@ -36,7 +36,7 @@ const PHQ = [
     ["Thoughts that you would be better off dead, or of hurting yourself in some way?", "q9"],
 ];
 
-class Index extends React.Component {
+class PHQ extends React.Component {
     constructor(props) {
         super(props);
         this.state = { q1: "", q2: "", q3: "", q4: "", q5: "", q6: "", q7: "", q8: "", q9: "" };
@@ -49,7 +49,7 @@ class Index extends React.Component {
 
     renderQuestions = () => {
         const { classes } = this.props;
-        return PHQ.map((question) => (
+        return PHQQuestions.map((question) => (
             <Paper
                 component={Grid}
                 key={question[1]}
@@ -121,4 +121,4 @@ class Index extends React.Component {
     }
 }
 
-export default withStyles(style)(Index);
+export default withStyles(style)(PHQ);

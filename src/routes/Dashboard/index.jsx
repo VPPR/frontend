@@ -8,7 +8,7 @@ import Sidebar from "components/Sidebar";
 import Band from "./routes/band";
 import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "./routes/users";
-import Index from "./routes/index";
+import PHQ from "./routes/phq";
 const style = (theme) => ({
     fullScreen: {
         display: "flex",
@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
                         <Switch>
                             <AuthenticatedRoute path="/dashboard/upload" component={Band} />
                             <AuthenticatedRoute path="/dashboard/users" component={Users} />
-                            <AuthenticatedRoute path="/dashboard" component={Index} />
+                            <AuthenticatedRoute path="/dashboard/phq" component={PHQ} />
                         </Switch>
                     </div>
                 </div>
