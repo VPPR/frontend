@@ -6,7 +6,7 @@ import { Button, CircularProgress, FormControlLabel, Grid, Paper, Switch, TextFi
 import { toast } from "react-toastify";
 
 const emailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
-const passwordRegex = RegExp(/^(.{0,7})|([^0-9]*)|([^A-Z]*)|([^a-z]*)$/);
+const passwordRegex = RegExp(/^((.{0,7})|([^0-9]*)|([^A-Z]*)|([^a-z]*))$/);
 class Signup extends React.Component {
     constructor(props) {
         super(props);
@@ -17,16 +17,15 @@ class Signup extends React.Component {
             password: "",
             phone: "",
             is_admin: false,
-            errors: {},
+            errors: {
+                email: "",
+                password: "",
+                phone: "",
+            },
         };
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage) {
-            toast.error(this.props.errorMessage, {
-                position: toast.POSITION.TOP_CENTER,
-            });
-        }
         if (prevProps.success !== this.props.success && this.props.success) {
             toast.success("Yay. Signup Successful", {
                 position: toast.POSITION.TOP_CENTER,
@@ -52,7 +51,7 @@ class Signup extends React.Component {
             case "password":
                 errors[name] =
                     value !== "" && passwordRegex.test(value)
-                        ? "Invalid Password. Password must contain a capital letter, a small letter, numbers and be of minimum length 8"
+                        ? "Invalid Password. Password must contain atleast capital letter, a small letter, numbers and be of minimum length 8"
                         : "";
                 break;
             case "phone":
@@ -69,7 +68,7 @@ class Signup extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { fullname, email, password, phone, is_admin, errors } = this.state;
-        if (!errors)
+        if (Object.values(errors).every((x) => x === ""))
             this.props.signup({
                 fullname,
                 email,
