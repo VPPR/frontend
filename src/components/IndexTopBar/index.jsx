@@ -26,12 +26,12 @@ function IndexTopBar() {
                 <Typography variant="h5" noWrap color="textPrimary" className={classes.title}>
                     VPPR
                 </Typography>
-                <Link to="/Login" style={{ textDecoration: "none" }}>
+                <Link to="/login" style={{ textDecoration: "none" }}>
                     <Button variant="contained" color="primary">
                         Login
                     </Button>
                 </Link>
-                <Link to="/SignUp" style={{ textDecoration: "none" }}>
+                <Link to="/signup" style={{ textDecoration: "none" }}>
                     <Button variant="contained" color="primary">
                         Sign Up
                     </Button>
