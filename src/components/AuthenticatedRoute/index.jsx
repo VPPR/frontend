@@ -42,7 +42,7 @@ function AuthenticatedRoute(props) {
             return <Redirect to="/login" />;
         } else if (!currentUser) {
             return <CircularProgress />;
-        } else if (allowedRoutes(is_admin).filter((x) => x.path === props.path)) {
+        } else if (allowedRoutes(is_admin).filter((x) => x.path === props.path).length) {
             return <Route {...props} />;
         }
 
