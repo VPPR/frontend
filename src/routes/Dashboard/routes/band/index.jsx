@@ -77,7 +77,7 @@ class Band extends React.Component {
     };
 
     handleSubmit = () => {
-        this.props.Upload(this.state.files);
+        if (this.state.files) this.props.Upload(this.state.files);
     };
 
     removeFile = (file) => {
