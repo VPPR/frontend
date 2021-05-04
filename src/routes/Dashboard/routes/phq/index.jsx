@@ -23,25 +23,12 @@ const style = (theme) => ({
     },
 });
 
-const PHQQuestions = [
-    ["Little interest or pleasure in doing things?", "q1"],
-    ["Feeling down, depressed, or hopeless?", "q2"],
-    ["Trouble falling or staying asleep, or sleeping too much?", "q3"],
-    ["Feeling tired or having little energy?", "q4"],
-    ["Poor appetite or overeating?", "q5"],
-    ["Feeling bad about yourself - or that you are a failure or have let yourself or your family down?", "q6"],
-    ["Trouble concentrating on things, such as reading the newspaper or watching television?", "q7"],
-    [
-        "Moving or speaking so slowly that other people could have noticed? \nOr the opposite - being so fidgety or restless that you have been moving around a lot more than usual?",
-        "q8",
-    ],
-    ["Thoughts that you would be better off dead, or of hurting yourself in some way?", "q9"],
-];
-
 class PHQ extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { q1: "", q2: "", q3: "", q4: "", q5: "", q6: "", q7: "", q8: "", q9: "" };
+        this.state = {
+            answers: new Map(),
+        };
     }
 
     componentDidMount() {
@@ -50,17 +37,21 @@ class PHQ extends React.Component {
 
     handleChange = (e) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value }, () => {
-            console.log(this.state);
-        });
+        let answers = new Map(this.state.answers);
+        const answer = {
+            score: value,
+            version: this.props.questions[name].version,
+        };
+        answers.set(name, answer);
+        this.setState({ answers });
     };
 
     renderQuestions = () => {
         const { classes } = this.props;
-        return this.props.questions.map((question) => (
+        return Object.entries(this.props.questions).map(([qno, value]) => (
             <Paper
                 component={Grid}
-                key={question.qno}
+                key={qno}
                 container
                 item
                 xs={12}
@@ -69,36 +60,32 @@ class PHQ extends React.Component {
                 className={classes.content}
             >
                 <Grid component={Grid} item xs={12} md={6}>
-                    <Typography variant="h6">{question.question}</Typography>
+                    <Typography variant="h6">{value.question}</Typography>
                 </Grid>
                 <Grid component={Grid} container item xs={12} md={6} alignContent="center">
                     <FormControl component="fieldset">
-                        <RadioGroup
-                            name={`q${question.qno}`}
-                            value={this.state[`q${question.qno}`]}
-                            onChange={this.handleChange}
-                        >
+                        <RadioGroup name={`${qno}`} value={this.state.answers.get(qno)} onChange={this.handleChange}>
                             <FormControlLabel
                                 value={0}
                                 control={<Radio />}
-                                checked={this.state[`q${question.qno}`] === "0"}
+                                checked={this.state.answers.get(qno)?.score === "0"}
                                 label="Not at all"
                             />
                             <FormControlLabel
                                 value={1}
                                 control={<Radio />}
-                                checked={this.state[`q${question.qno}`] === "1"}
+                                checked={this.state.answers.get(qno)?.score === "1"}
                                 label="Several Days"
                             />
                             <FormControlLabel
                                 value={2}
                                 control={<Radio />}
-                                checked={this.state[`q${question.qno}`] === "2"}
+                                checked={this.state.answers.get(qno)?.score === "2"}
                                 label="More than half the days"
                             />
                             <FormControlLabel
                                 value={3}
-                                checked={this.state[`q${question.qno}`] === "3"}
+                                checked={this.state.answers.get(qno)?.score === "3"}
                                 control={<Radio />}
                                 label="Nearly every day"
                             />
