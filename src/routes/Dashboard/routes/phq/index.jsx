@@ -10,6 +10,8 @@ import {
     Button,
 } from "@material-ui/core";
 import React from "react";
+import { connect } from "react-redux";
+import { fetchQuestions, postAnswer } from "redux/phq/action";
 
 const style = (theme) => ({
     content: {
@@ -42,17 +44,23 @@ class PHQ extends React.Component {
         this.state = { q1: "", q2: "", q3: "", q4: "", q5: "", q6: "", q7: "", q8: "", q9: "" };
     }
 
+    componentDidMount() {
+        this.props.fetchQuestions();
+    }
+
     handleChange = (e) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }, () => {
+            console.log(this.state);
+        });
     };
 
     renderQuestions = () => {
         const { classes } = this.props;
-        return PHQQuestions.map((question) => (
+        return this.props.questions.map((question) => (
             <Paper
                 component={Grid}
-                key={question[1]}
+                key={question.qno}
                 container
                 item
                 xs={12}
@@ -61,32 +69,36 @@ class PHQ extends React.Component {
                 className={classes.content}
             >
                 <Grid component={Grid} item xs={12} md={6}>
-                    <Typography variant="h6">{question[0]}</Typography>
+                    <Typography variant="h6">{question.question}</Typography>
                 </Grid>
                 <Grid component={Grid} container item xs={12} md={6} alignContent="center">
                     <FormControl component="fieldset">
-                        <RadioGroup name={question[1]} value={this.state[question[1]]} onChange={this.handleChange}>
+                        <RadioGroup
+                            name={`q${question.qno}`}
+                            value={this.state[`q${question.qno}`]}
+                            onChange={this.handleChange}
+                        >
                             <FormControlLabel
                                 value={0}
                                 control={<Radio />}
-                                checked={this.state[question[1]] === "0"}
+                                checked={this.state[`q${question.qno}`] === "0"}
                                 label="Not at all"
                             />
                             <FormControlLabel
                                 value={1}
                                 control={<Radio />}
-                                checked={this.state[question[1]] === "1"}
+                                checked={this.state[`q${question.qno}`] === "1"}
                                 label="Several Days"
                             />
                             <FormControlLabel
                                 value={2}
                                 control={<Radio />}
-                                checked={this.state[question[1]] === "2"}
+                                checked={this.state[`q${question.qno}`] === "2"}
                                 label="More than half the days"
                             />
                             <FormControlLabel
                                 value={3}
-                                checked={this.state[question[1]] === "3"}
+                                checked={this.state[`q${question.qno}`] === "3"}
                                 control={<Radio />}
                                 label="Nearly every day"
                             />
@@ -107,7 +119,7 @@ class PHQ extends React.Component {
                     </Typography>
                 </Paper>
                 <Grid container style={{ marginTop: 10, height: "85%", overflowY: "scroll", overflowX: "wrap" }}>
-                    <form>
+                    <form style={{ width: "100%" }}>
                         {this.renderQuestions()}
                         <Grid container justify="center">
                             <Button variant="contained" color="primary" type="submit" style={{ margin: "2em 0em" }}>
@@ -121,4 +133,9 @@ class PHQ extends React.Component {
     }
 }
 
-export default withStyles(style)(PHQ);
+const mapStateToProps = (state) => ({
+    isLoading: state.phq.isLoading,
+    questions: state.phq.questions,
+});
+
+export default connect(mapStateToProps, { fetchQuestions, postAnswer })(withStyles(style)(PHQ));

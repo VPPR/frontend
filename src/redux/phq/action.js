@@ -27,3 +27,17 @@ export const postAnswerFailure = (error) => ({
     type: PHQActions.POST_ANSWER_FAILURE,
     payload: error,
 });
+
+export const fetchScore = () => ({
+    type: PHQActions.FETCH_SCORE,
+});
+
+export const fetchScoreSuccess = (score) => ({
+    type: PHQActions.FETCH_SCORE_SUCCESS,
+    payload: score,
+});
+
+export const fetchScoreFailure = (error) => ({
+    type: PHQActions.FETCH_SCORE_FAILURE,
+    payload: error,
+});
