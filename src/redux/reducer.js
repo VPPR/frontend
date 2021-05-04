@@ -5,6 +5,7 @@ import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
 import uploadReducer from "./band/reducer";
+import PHQReducer from "./phq/reducer";
 
 const authFilter = createFilter("auth", ["accessToken", "expiry", "isLoggedIn"]);
 
@@ -19,6 +20,7 @@ const mainReducer = persistCombineReducers(persistConfig, {
     auth: authReducer,
     user: userReducer,
     upload: uploadReducer,
+    phq: PHQReducer,
 });
 
 const rootReducer = (state, action) => {
