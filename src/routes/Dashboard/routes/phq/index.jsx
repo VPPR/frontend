@@ -64,7 +64,11 @@ class PHQ extends React.Component {
                 </Grid>
                 <Grid component={Grid} container item xs={12} md={6} alignContent="center">
                     <FormControl component="fieldset">
-                        <RadioGroup name={`${qno}`} value={this.state.answers.get(qno)} onChange={this.handleChange}>
+                        <RadioGroup
+                            name={`${qno}`}
+                            value={this.state.answers.get(qno) ?? "0"}
+                            onChange={this.handleChange}
+                        >
                             <FormControlLabel
                                 value={0}
                                 control={<Radio />}
