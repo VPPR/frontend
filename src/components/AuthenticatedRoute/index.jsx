@@ -1,31 +1,28 @@
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import PersonIcon from "@material-ui/icons/Person";
-import PublishIcon from "@material-ui/icons/Publish";
-import HomeIcon from "@material-ui/icons/Home";
 import { useEffect } from "react";
 import { fetchUserSelf } from "redux/users/action";
 import { CircularProgress } from "@material-ui/core";
-import { Assignment } from "@material-ui/icons";
+import { Assignment, Backup, Home, Person } from "@material-ui/icons";
 
 export const allowedRoutes = (is_admin) => {
     if (is_admin) {
         return [
-            { name: "Home", path: "/dashboard", component: HomeIcon },
+            { name: "Home", path: "/dashboard", component: Home },
             {
                 name: "Users",
                 path: "/dashboard/users",
-                component: PersonIcon,
+                component: Person,
             },
         ];
     }
     return [
-        { name: "Home", path: "/dashboard", component: HomeIcon },
+        { name: "Home", path: "/dashboard", component: Home },
         { name: "PHQ-9 Questionaire", path: "/dashboard/phq", component: Assignment },
         {
             name: "Upload",
             path: "/dashboard/upload",
-            component: PublishIcon,
+            component: Backup,
         },
     ];
 };
