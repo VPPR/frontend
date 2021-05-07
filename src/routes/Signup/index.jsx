@@ -60,9 +60,7 @@ class Signup extends React.Component {
             default:
                 break;
         }
-        this.setState({ errors }, () => {
-            console.log(this.state);
-        });
+        this.setState({ errors });
     };
 
     handleSubmit = (e) => {

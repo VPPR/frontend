@@ -33,7 +33,22 @@ class Band extends React.Component {
             files: [],
             zip: undefined,
             password: "",
+            submit: false,
         };
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            !this.props.isLoading &&
+            this.props.isLoading !== prevProps.isLoading &&
+            this.state.submit &&
+            this.props.errorMessage === ""
+        ) {
+            toast.success("Data uploaded", {
+                position: toast.POSITION.TOP_CENTER,
+            });
+            this.clearFiles();
+        }
     }
 
     handleInputChange = (e) => {
@@ -52,6 +67,14 @@ class Band extends React.Component {
         } else {
             this.setState({ [name]: value });
         }
+    };
+
+    clearFiles = () => {
+        this.setState({
+            files: [],
+            zip: undefined,
+            password: "",
+        });
     };
 
     extractZip = async () => {
@@ -77,7 +100,10 @@ class Band extends React.Component {
     };
 
     handleSubmit = () => {
-        if (this.state.files) this.props.Upload(this.state.files);
+        if (this.state.files) {
+            this.props.Upload(this.state.files);
+            this.setState({ submit: true });
+        }
     };
 
     removeFile = (file) => {
@@ -177,4 +203,8 @@ class Band extends React.Component {
     }
 }
 
-export default withStyles(style)(connect(null, { Upload })(Band));
+const mapStateToProps = (state) => ({
+    isLoading: state.upload.isLoading,
+    errorMessage: state.upload.errorMessage,
+});
+export default withStyles(style)(connect(mapStateToProps, { Upload })(Band));
