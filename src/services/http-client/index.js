@@ -14,7 +14,7 @@ export function* APICall(url, parameters) {
 
     if (new Date(expiry) - new Date() < 30000) {
         let error = new Error();
-        error.detail = `${new Date(expiry) - new Date()}`;
+        error.detail = "Session expired. Please login again";
         yield put(logout());
         throw error;
     }
