@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        [theme.breakpoints.down("md")]: {
+            width: "100%",
+        },
     },
     drawerClose: {
         transition: theme.transitions.create("width", {
