@@ -8,6 +8,7 @@ import {
     Radio,
     FormControlLabel,
     Button,
+    CircularProgress,
 } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
@@ -108,9 +109,20 @@ class PHQ extends React.Component {
     };
 
     renderForm = () => {
-        const { classes } = this.props;
-        console.log(this.props.questions);
-        if (Object.keys(this.props.questions).length === 0) {
+        const { classes, isLoading } = this.props;
+        if (isLoading) {
+            return (
+                <Grid
+                    container
+                    item
+                    style={{ marginTop: 10, height: "85%", overflowY: "auto", overflowX: "wrap" }}
+                    justify="center"
+                    alignContent="center"
+                >
+                    <CircularProgress />
+                </Grid>
+            );
+        } else if (Object.keys(this.props.questions).length === 0) {
             return (
                 <Paper component={Grid} container className={classes.content}>
                     <Typography>
@@ -120,7 +132,7 @@ class PHQ extends React.Component {
             );
         }
         return (
-            <Grid container style={{ marginTop: 10, height: "85%", overflowY: "scroll", overflowX: "wrap" }}>
+            <Grid container style={{ marginTop: 10, height: "85%", overflowY: "auto", overflowX: "wrap" }}>
                 <div style={{ width: "100%" }}>
                     {this.renderQuestions()}
                     <Grid container justify="center">
@@ -145,7 +157,7 @@ class PHQ extends React.Component {
             <div style={{ height: "100%" }}>
                 <Paper component={Grid} container alignContent="center" style={{ height: "15%" }}>
                     <Typography variant="h5" className={classes.heading}>
-                        PHQ-9 Quesionaire
+                        PHQ-9 Questionaire
                     </Typography>
                 </Paper>
                 {this.renderForm()}
