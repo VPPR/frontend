@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { fetchQuestions, postAnswer } from "redux/phq/action";
 
 const style = (theme) => ({
@@ -29,11 +30,20 @@ class PHQ extends React.Component {
         super(props);
         this.state = {
             answers: new Map(),
+            submit: false,
         };
     }
 
     componentDidMount() {
         this.props.fetchQuestions();
+    }
+
+    componentDidUpdate() {
+        if (this.props.questions.length === 0 && this.props.isLoading && this.state.submit) {
+            toast.success("Form Submitted", {
+                position: toast.POSITION.TOP_CENTER,
+            });
+        }
     }
 
     handleChange = (e) => {
@@ -51,6 +61,7 @@ class PHQ extends React.Component {
         const answers = this.state.answers;
         if (answers.size === Object.keys(this.props.questions).length) {
             this.props.postAnswer(answers);
+            this.setState({ submit: true });
         }
     };
 
