@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 import { fetchUser, updateUser } from "redux/users/action";
 class UserModal extends React.Component {
@@ -18,6 +19,7 @@ class UserModal extends React.Component {
         super(props);
         this.state = {
             user: {},
+            submit: false,
         };
     }
 
@@ -30,6 +32,12 @@ class UserModal extends React.Component {
             this.setState({
                 user: { ...this.props.selectedUser } ?? {},
             });
+            if (this.state.submit) {
+                toast.success(`${this.props.selectedUser.fullname}'s information updated`, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+                this.props.onClose();
+            }
         }
     }
 
@@ -47,6 +55,7 @@ class UserModal extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.updateUser(this.state.user);
+        this.setState({ submit: true });
     };
 
     render() {

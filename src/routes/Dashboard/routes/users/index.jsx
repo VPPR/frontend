@@ -101,7 +101,8 @@ class Users extends React.Component {
 
     render() {
         const { users, isLoading } = this.props;
-        if (isLoading) {
+        const { modalOpen } = this.state;
+        if (isLoading && !modalOpen) {
             return (
                 <Grid container justify="center" alignContent="center" style={{ height: "100%" }}>
                     <CircularProgress />
@@ -117,7 +118,7 @@ class Users extends React.Component {
                     flexDirection: "column",
                 }}
             >
-                {this.state.modalOpen && (
+                {modalOpen && (
                     <UserModal onClose={this.closeModal} open={this.state.modalOpen} id={this.state.selectedUser} />
                 )}
                 <Typography variant="h3">Users</Typography>
@@ -137,7 +138,7 @@ class Users extends React.Component {
 
 const mapStateToProps = (state) => ({
     users: state.user.users,
-    //isLoading: state.user.isLoading,
+    isLoading: state.user.isLoading,
 });
 
 export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchUsers })(Users)));
