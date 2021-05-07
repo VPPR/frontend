@@ -8,10 +8,7 @@ import rootSaga from "./saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(sagaMiddleware, logger),
-);
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
 
 persistStore(store);
 
