@@ -46,6 +46,13 @@ class PHQ extends React.Component {
         this.setState({ answers });
     };
 
+    handleSubmit = (e) => {
+        const answers = this.state.answers;
+        if (answers.size !== 0) {
+            this.props.postAnswer(answers);
+        }
+    };
+
     renderQuestions = () => {
         const { classes } = this.props;
         return Object.entries(this.props.questions).map(([qno, value]) => (
@@ -100,6 +107,38 @@ class PHQ extends React.Component {
         ));
     };
 
+    renderForm = () => {
+        const { classes } = this.props;
+        console.log(this.props.questions);
+        if (Object.keys(this.props.questions).length === 0) {
+            return (
+                <Paper component={Grid} container className={classes.content}>
+                    <Typography>
+                        The Questions you are looking for are unavailable right now, please try again later
+                    </Typography>
+                </Paper>
+            );
+        }
+        return (
+            <Grid container style={{ marginTop: 10, height: "85%", overflowY: "scroll", overflowX: "wrap" }}>
+                <div style={{ width: "100%" }}>
+                    {this.renderQuestions()}
+                    <Grid container justify="center">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            style={{ margin: "2em 0em" }}
+                            onClick={this.handleSubmit}
+                        >
+                            Submit
+                        </Button>
+                    </Grid>
+                </div>
+            </Grid>
+        );
+    };
+
     render() {
         const { classes } = this.props;
         return (
@@ -109,16 +148,7 @@ class PHQ extends React.Component {
                         PHQ-9 Quesionaire
                     </Typography>
                 </Paper>
-                <Grid container style={{ marginTop: 10, height: "85%", overflowY: "scroll", overflowX: "wrap" }}>
-                    <form style={{ width: "100%" }}>
-                        {this.renderQuestions()}
-                        <Grid container justify="center">
-                            <Button variant="contained" color="primary" type="submit" style={{ margin: "2em 0em" }}>
-                                Submit
-                            </Button>
-                        </Grid>
-                    </form>
-                </Grid>
+                {this.renderForm()}
             </div>
         );
     }
