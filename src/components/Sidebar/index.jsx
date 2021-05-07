@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    active: {
+        backgroundColor: "rgba(255,255,255,0.09)",
+    },
 }));
 
 function Sidebar(props) {
@@ -71,9 +74,16 @@ function Sidebar(props) {
         >
             <div className={classes.toolbar}></div>
             <Divider />
-            <List>
+            <List style={{ padding: 0 }}>
                 {props.routes.map((route, index) => (
-                    <ListItem component={NavLink} to={route.path} button key={route.name}>
+                    <ListItem
+                        component={NavLink}
+                        to={route.path}
+                        button
+                        key={route.name}
+                        activeClassName={classes.active}
+                        exact
+                    >
                         <ListItemIcon>
                             <route.component className={classes.component} />
                         </ListItemIcon>
