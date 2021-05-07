@@ -48,7 +48,7 @@ class PHQ extends React.Component {
 
     handleSubmit = (e) => {
         const answers = this.state.answers;
-        if (answers.size !== 0) {
+        if (answers.size === Object.keys(this.props.questions).length) {
             this.props.postAnswer(answers);
         }
     };
