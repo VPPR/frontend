@@ -4,9 +4,13 @@ Repository for the frontend of VPPR Depression Detection System created using [C
 
 # Libraries used
 
--   React (duh)
--   Material UI
--   Material Icons
+-   [React](https://reactjs.org/) (duh)
+-   [React Redux](https://react-redux.js.org/)
+-   [Redux Saga](https://redux-saga.js.org/)
+-   [Material UI](https://material-ui.com/)
+-   [Material Icons](https://material-ui.com/components/material-icons/)
+-   [Libarchive.js](https://github.com/nika-begiashvili/libarchivejs)
+-   [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 # Local Development
 
