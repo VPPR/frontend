@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Archive } from "libarchive.js/main";
 import { Upload } from "redux/band/action";
 import { Clear } from "@material-ui/icons";
-
+import { toast } from "react-toastify";
 Archive.init({
     workerUrl: "/libarchive.js/dist/worker-bundle.js",
 });
@@ -33,7 +33,22 @@ class Band extends React.Component {
             files: [],
             zip: undefined,
             password: "",
+            submit: false,
         };
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            !this.props.isLoading &&
+            this.props.isLoading !== prevProps.isLoading &&
+            this.state.submit &&
+            this.props.errorMessage === ""
+        ) {
+            toast.success("Data uploaded", {
+                position: toast.POSITION.TOP_CENTER,
+            });
+            this.clearFiles();
+        }
     }
 
     handleInputChange = (e) => {
@@ -54,23 +69,41 @@ class Band extends React.Component {
         }
     };
 
+    clearFiles = () => {
+        this.setState({
+            files: [],
+            zip: undefined,
+            password: "",
+        });
+    };
+
     extractZip = async () => {
         const { zip, password } = this.state;
         const archive = await Archive.open(zip);
         if (password) {
             await archive.usePassword(password);
         }
-        const zipContent = await archive.extractFiles();
-        let filesList = [...this.state.files];
-        for (let x in zipContent) {
-            const file = zipContent[x][Object.keys(zipContent[x])[0]];
-            if (!filesList.some((x) => x.name === file.name)) filesList.push(file);
+        try {
+            const zipContent = await archive.extractFiles();
+            let filesList = [...this.state.files];
+            for (let x in zipContent) {
+                const file = zipContent[x][Object.keys(zipContent[x])[0]];
+                if (!filesList.some((x) => x.name === file.name)) filesList.push(file);
+            }
+
+            this.setState({ files: filesList });
+        } catch (e) {
+            toast.error(e.message, {
+                position: toast.POSITION.TOP_CENTER,
+            });
         }
-        this.setState({ files: filesList });
     };
 
     handleSubmit = () => {
-        this.props.Upload(this.state.files);
+        if (this.state.files) {
+            this.props.Upload(this.state.files);
+            this.setState({ submit: true });
+        }
     };
 
     removeFile = (file) => {
@@ -101,7 +134,7 @@ class Band extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div>
+            <div style={{ height: "100%" }}>
                 <Paper component={Grid} container>
                     <Typography variant="h6" className={classes.heading}>
                         Upload MI Band Data
@@ -111,46 +144,49 @@ class Band extends React.Component {
                     component={Grid}
                     item
                     container
-                    alignContent="center"
-                    justify="flex-start"
                     className={classes.content}
+                    style={{ maxHeight: "85%", overflowY: "auto", overflowX: "wrap" }}
                 >
-                    <Grid container>
-                        <Grid item container alignContent="center" xs={12} md={2}>
-                            <Button variant="contained" color="primary" component="label">
-                                Upload File
-                                <input
-                                    type="file"
-                                    name="file"
-                                    hidden
-                                    multiple
-                                    accept=".csv,.zip"
-                                    onChange={this.handleInputChange}
-                                />
+                    <Grid item container xs={12} md={2} alignItems="center">
+                        <Button variant="contained" color="primary" component="label" className={classes.listText}>
+                            Upload File
+                            <input
+                                type="file"
+                                name="file"
+                                hidden
+                                multiple
+                                accept=".csv,.zip"
+                                onChange={this.handleInputChange}
+                            />
+                        </Button>
+                    </Grid>
+                    <Grid item container alignItems="center" xs={12} md={3}>
+                        <Typography className={classes.listText}>{this.state.zip && this.state.zip.name}</Typography>
+                    </Grid>
+                    <Grid item container alignItems="center" xs={12} md={3}>
+                        {this.state.zip && (
+                            <TextField
+                                type="password"
+                                name="password"
+                                onChange={this.handleInputChange}
+                                value={this.state.password}
+                                label="Password"
+                                placeholder="Password"
+                                className={classes.listText}
+                            />
+                        )}
+                    </Grid>
+                    <Grid item container alignItems="center" xs={12} md={2}>
+                        {this.state.zip && (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={this.extractZip}
+                                className={classes.listText}
+                            >
+                                Verify
                             </Button>
-                        </Grid>
-                        <Grid item container alignContent="center" xs={12} md={3}>
-                            <Typography>{this.state.zip && this.state.zip.name}</Typography>
-                        </Grid>
-                        <Grid item container alignContent="center" xs={12} md={3}>
-                            {this.state.zip && (
-                                <TextField
-                                    type="password"
-                                    name="password"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.password}
-                                    label="Password"
-                                    placeholder="Password"
-                                />
-                            )}
-                        </Grid>
-                        <Grid item container alignContent="center" xs={12} md={2}>
-                            {this.state.zip && (
-                                <Button variant="contained" color="primary" onClick={this.extractZip}>
-                                    Verify
-                                </Button>
-                            )}
-                        </Grid>
+                        )}
                     </Grid>
                     {this.state.files.length > 0 && (
                         <>
@@ -163,11 +199,15 @@ class Band extends React.Component {
                                 </Button>
                             </Grid>
                         </>
-                    )}{" "}
+                    )}
                 </Paper>
             </div>
         );
     }
 }
 
-export default withStyles(style)(connect(null, { Upload })(Band));
+const mapStateToProps = (state) => ({
+    isLoading: state.upload.isLoading,
+    errorMessage: state.upload.errorMessage,
+});
+export default withStyles(style)(connect(mapStateToProps, { Upload })(Band));

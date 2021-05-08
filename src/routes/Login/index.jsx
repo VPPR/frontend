@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
+const passwordRegex = RegExp(/^((.{0,7})|([^0-9]*)|([^A-Z]*)|([^a-z]*))$/);
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -45,16 +46,11 @@ class Login extends React.Component {
         e.preventDefault();
 
         const errors = this.state.errors;
-
-        if (errors.username.length !== 0 || errors.password.length !== 0) return;
-
-        if (this.state.username.length === 0 || this.state.password.length === 0) {
-            return;
-        }
-        this.props.login({
-            username: this.state.username,
-            password: this.state.password,
-        });
+        if (Object.values(errors).every((x) => x === ""))
+            this.props.login({
+                username: this.state.username,
+                password: this.state.password,
+            });
     };
 
     validateField = (e) => {
@@ -65,11 +61,12 @@ class Login extends React.Component {
 
         switch (name) {
             case "username":
-                errors.username = validEmailRegex.test(value) ? "" : "Your Email ID does not look right 🤔";
+                errors[name] =
+                    value === "" || validEmailRegex.test(value) ? "" : "Your Email ID does not look right 🤔";
                 break;
 
             case "password":
-                errors.password = value.length > 0 ? "" : "Please enter a valid password 🥺";
+                errors[name] = value !== "" && passwordRegex.test(value) ? "Please enter a valid password 🥺" : "";
                 break;
 
             default:
