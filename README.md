@@ -1,91 +1,49 @@
-# Getting Started with Create React App
+# **Frontend**
 
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+Repository for the frontend of VPPR Depression Detection System created using [Create-React-App](https://github.com/facebook/create-react-app)
 
-## Available Scripts
+# Libraries used
 
-In install pnpm in the the project directory, run
+-   React (duh)
+-   Material UI
+-   Material Icons
 
-### `npm install -g pnpm`
+# Local Development
 
-To run the app in development mode run:
+We have used pnpm instead of npm or yarn so if you want, pnpm can be replaced with those however the instructions written are for pnpm
 
-### `pnpm start`
+-   Install dependencies
 
-This will run the app in development mode in the browser. Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+    pnpm install
+```
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+-   Run frontend
 
-### `pnpm test`
+```bash
+    pnpm libarchive
+    pnpm start
+```
 
-Launches the test runner in the interactive watch mode.
-See the section about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+-   Build Application
 
-### `pnpm build`
+```bash
+    pnpm build
+```
 
-Builds the app for production to the `build` folder.
-It correctly bundles React in production mode and optimizes the build for the
-best performance.
+# Deployment
 
-The build is minified and the filenames include the hashes.
-Your app is ready to be deployed!
+<table style="border:0px">
+    <tr>
+        <td>
+            <b>Deployed Site</b> 
+        </td>
+        <td>
+            <a href="https://vppr.tech/">https://vppr.tech/</a>
+        </td>
+    </tr>
+<table>
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+# Credits
 
-### `pnpm eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
-
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here:
-[https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+-   [Rev-AMP/frontend](https://github.com/rev-amp/frontend) for being our guinea pigs for testing ideas in Rev-AMP
