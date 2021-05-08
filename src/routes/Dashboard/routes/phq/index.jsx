@@ -38,8 +38,13 @@ class PHQ extends React.Component {
         this.props.fetchQuestions();
     }
 
-    componentDidUpdate() {
-        if (this.props.questions.length === 0 && this.props.isLoading && this.state.submit) {
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            this.props.questions.length === 0 &&
+            !this.props.isLoading &&
+            this.props.isLoading !== prevProps.isLoading &&
+            this.state.submit
+        ) {
             toast.success("Form Submitted", {
                 position: toast.POSITION.TOP_CENTER,
             });
