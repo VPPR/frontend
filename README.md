@@ -46,4 +46,4 @@ We have used pnpm instead of npm or yarn so if you want, pnpm can be replaced wi
 
 # Credits
 
--   [Rev-AMP/frontend](https://github.com/rev-amp/frontend) for being our guinea pigs for testing ideas in Rev-AMP
+-   [Rev-AMP/frontend](https://github.com/Rev-AMP/frontend) for being our guinea pigs for testing ideas in Rev-AMP
