@@ -53,7 +53,7 @@ const darkTheme = createMuiTheme({
             header: "#14191a", //"#383c48"//"#171922"//
         },
         primary: {
-            main: "#1a6bab",
+            main: "#513cde", //"#1a6bab",
         },
         text: {
             sidebar: "#ffffff",
