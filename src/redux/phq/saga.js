@@ -41,7 +41,7 @@ function* PostAnswer() {
 function* FetchScore() {
     yield takeEvery(PHQActions.FETCH_SCORE, function* () {
         try {
-            let score = yield call(APICall, "/", {
+            let score = yield call(APICall, "/phq/score", {
                 method: "GET",
             });
             yield put(fetchScoreSuccess(score));
