@@ -1,4 +1,4 @@
-import { AppBar, makeStyles } from "@material-ui/core";
+import { AppBar, makeStyles, Tooltip } from "@material-ui/core";
 import clsx from "clsx";
 import { Toolbar, IconButton } from "@material-ui/core/";
 import { ExitToApp, Menu } from "@material-ui/icons";
@@ -36,9 +36,11 @@ function Header({ handleDrawer, logout }) {
                     <img src="/vppr-whitetext.svg" className={classes.logo} alt="VPPR" />
                 </div>
                 <Link to="/" onClick={logout}>
+                    <Tooltip title="Logout">
                     <IconButton color="secondary">
                         <ExitToApp />
                     </IconButton>
+                    </Tooltip>
                 </Link>
             </Toolbar>
         </AppBar>

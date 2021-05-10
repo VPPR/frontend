@@ -3,7 +3,7 @@ import PHQActions from "./action.type";
 const initState = {
     isLoading: false,
     errorMessage: "",
-    questions: {},
+    questions: [],
     score: null,
 };
 
@@ -14,7 +14,7 @@ const PHQReducer = (state = initState, action) => {
                 ...state,
                 isLoading: true,
                 errorMessage: "",
-                questions: {},
+                questions: [],
             };
         case PHQActions.FETCH_QUESTIONS_SUCCESS:
             return {
@@ -28,7 +28,7 @@ const PHQReducer = (state = initState, action) => {
                 ...state,
                 isLoading: false,
                 errorMessage: action.payload,
-                questions: {},
+                questions: [],
             };
 
         case PHQActions.POST_ANSWER:

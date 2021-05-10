@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserSelf } from "redux/users/action";
 import { CircularProgress } from "@material-ui/core";
-import { Assignment, Backup, Home, Person } from "@material-ui/icons";
+import { Assignment, Backup, Home, Person, TrendingUp } from "@material-ui/icons";
 
 export const allowedRoutes = (is_admin) => {
     if (is_admin) {
@@ -23,6 +23,11 @@ export const allowedRoutes = (is_admin) => {
             name: "Upload",
             path: "/dashboard/upload",
             component: Backup,
+        },
+        {
+            name: "Heart Rate",
+            path: "/dashboard/hrv",
+            component: TrendingUp,
         },
     ];
 };

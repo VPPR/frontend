@@ -29,7 +29,7 @@ function* PostAnswer() {
         try {
             yield call(APICall, "/phq/", {
                 method: "POST",
-                body: JSON.stringify(Object.fromEntries(action.payload)),
+                body: JSON.stringify(action.payload),
             });
             yield put(postAnswerSuccess());
         } catch (error) {

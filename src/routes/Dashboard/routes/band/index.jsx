@@ -22,7 +22,17 @@ const style = (theme) => ({
         paddingBottom: theme.spacing(3),
     },
     listText: {
-        padding: theme.spacing(1),
+        [theme.breakpoints.down("md")]: {
+            paddingTop: theme.spacing(1),
+        },
+    },
+    button: {
+        [theme.breakpoints.down("md")]: {
+            marginTop: theme.spacing(3),
+        },
+    },
+    submit: {
+        marginBottom: theme.spacing(3),
     },
 });
 
@@ -161,7 +171,7 @@ class Band extends React.Component {
                         </Button>
                     </Grid>
                     <Grid item container alignItems="center" xs={12} md={3}>
-                        <Typography className={classes.listText}>{this.state.zip && this.state.zip.name}</Typography>
+                        {this.state.zip && <Typography className={classes.listText}>{this.state.zip.name}</Typography>}
                     </Grid>
                     <Grid item container alignItems="center" xs={12} md={3}>
                         {this.state.zip && (
@@ -182,7 +192,7 @@ class Band extends React.Component {
                                 variant="contained"
                                 color="primary"
                                 onClick={this.extractZip}
-                                className={classes.listText}
+                                className={classes.button}
                             >
                                 Verify
                             </Button>
@@ -194,7 +204,12 @@ class Band extends React.Component {
                                 {this.fileList(this.state.files)}
                             </Grid>
                             <Grid container>
-                                <Button variant="contained" color="primary" onClick={this.handleSubmit}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={this.handleSubmit}
+                                    className={classes.submit}
+                                >
                                     Submit
                                 </Button>
                             </Grid>

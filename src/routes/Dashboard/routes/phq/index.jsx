@@ -1,15 +1,4 @@
-import {
-    withStyles,
-    Grid,
-    Paper,
-    Typography,
-    FormControl,
-    RadioGroup,
-    Radio,
-    FormControlLabel,
-    Button,
-    CircularProgress,
-} from "@material-ui/core";
+import { withStyles, Grid, Paper, Typography, Button, CircularProgress, Slider } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -23,13 +12,36 @@ const style = (theme) => ({
     heading: {
         padding: theme.spacing(2),
     },
+    sliderTrack: {
+        height: 8,
+        borderRadius: 4,
+    },
+    sliderRail: {
+        height: 8,
+        borderRadius: 4,
+    },
+    sliderThumb: {
+        height: 24,
+        width: 24,
+        backgroundColor: "#fff",
+        border: "2px solid currentColor",
+        marginTop: -8,
+        marginLeft: -12,
+        "&:focus, &:hover, &$active": {
+            boxShadow: "inherit",
+        },
+    },
+    sliderRoot: {
+        color: theme.palette.primary, //"#513cde",
+        height: 8,
+    },
 });
 
 class PHQ extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            answers: new Map(),
+            answers: null,
             submit: false,
         };
     }
@@ -49,22 +61,50 @@ class PHQ extends React.Component {
                 position: toast.POSITION.TOP_CENTER,
             });
         }
+        console.log(this.props.questions);
+        console.log(this.state.answers);
+        if (this.props.questions.length !== 0 && this.state.answers === null) {
+            console.log("yo");
+            let answers = [];
+            for (let question of this.props.questions) {
+                let answer = {
+                    qno: question.qno,
+                    version: question.version,
+                    score: question.average_score,
+                };
+                answers.push(answer);
+            }
+            this.setState({ answers }, () => console.log(this.state));
+        }
     }
 
-    handleChange = (e) => {
-        const { name, value } = e.target;
-        let answers = new Map(this.state.answers);
-        const answer = {
-            score: value,
-            version: this.props.questions[name].version,
-        };
-        answers.set(name, answer);
-        this.setState({ answers });
+    handleSliderChange = (name, value) => {
+        let answers = [...this.state.answers];
+        console.log(name);
+        console.log(answers);
+        let i = answers.findIndex((x) => x.qno === name);
+
+        answers[i].score = value;
+        this.setState({ answers }, () => console.log(this.state));
     };
+
+    // handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     console.log(name);
+    //     console.log(value);
+    //     let answers = new Map(this.state.answers);
+    //     const answer = {
+    //         score: value,
+    //         version: this.props.questions[name].version,
+    //     };
+    //     answers.set(name, answer);
+    //     this.setState({ answers });
+    // };
 
     handleSubmit = (e) => {
         const answers = this.state.answers;
-        if (answers.size === Object.keys(this.props.questions).length) {
+        console.log(answers);
+        if (answers.length === this.props.questions.length) {
             this.props.postAnswer(answers);
             this.setState({ submit: true });
         }
@@ -72,10 +112,11 @@ class PHQ extends React.Component {
 
     renderQuestions = () => {
         const { classes } = this.props;
-        return Object.entries(this.props.questions).map(([qno, value]) => (
+        this.props.questions.map((question) => console.log(question.qno));
+        return this.props.questions.map((question) => (
             <Paper
                 component={Grid}
-                key={qno}
+                key={`q${question.qno}`}
                 container
                 item
                 xs={12}
@@ -83,12 +124,28 @@ class PHQ extends React.Component {
                 direction="row"
                 className={classes.content}
             >
-                <Grid component={Grid} item xs={12} md={6}>
-                    <Typography variant="h6">{value.question}</Typography>
+                <Grid component={Grid} container item xs={12} md={6} alignItems="center">
+                    <Typography variant="h6">{question.question}</Typography>
                 </Grid>
-                <Grid component={Grid} container item xs={12} md={6} alignContent="center">
-                    <FormControl component="fieldset">
-                        <RadioGroup
+                <Grid component={Grid} container item xs={12} md={3} alignContent="center">
+                    <Slider
+                        defaultValue={question.average_score}
+                        min={0}
+                        max={3}
+                        step={1}
+                        style={{ marginLeft: 20 }}
+                        classes={{
+                            root: classes.sliderRoot,
+                            track: classes.sliderTrack,
+                            rail: classes.sliderRail,
+                            thumb: classes.sliderThumb,
+                        }}
+                        valueLabelDisplay="on"
+                        onChange={(_, newValue) => this.handleSliderChange(question.qno, newValue)}
+                    ></Slider>
+
+                    {/*<FormControl component="fieldset">
+                         <RadioGroup
                             name={`${qno}`}
                             value={this.state.answers.get(qno) ?? "0"}
                             onChange={this.handleChange}
@@ -118,7 +175,7 @@ class PHQ extends React.Component {
                                 label="Nearly every day"
                             />
                         </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
                 </Grid>
             </Paper>
         ));
