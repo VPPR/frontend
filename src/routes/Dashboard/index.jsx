@@ -9,12 +9,9 @@ import Band from "./routes/band";
 import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "./routes/users";
 import PHQ from "./routes/phq";
-<<<<<<< HEAD
 import HRV from "./routes/hrv";
-
-=======
 import MentalHealth from "./routes/mentalhealth";
->>>>>>> 9f2cf0b (PHQ Score fetched from backend and printed in Dashboard)
+
 const style = (theme) => ({
     fullScreen: {
         display: "flex",
@@ -61,11 +58,8 @@ class Dashboard extends React.Component {
                             <AuthenticatedRoute path="/dashboard/upload" component={Band} />
                             <AuthenticatedRoute path="/dashboard/users" component={Users} />
                             <AuthenticatedRoute path="/dashboard/phq" component={PHQ} />
-<<<<<<< HEAD
                             <AuthenticatedRoute path="/dashboard/hrv" component={HRV} />
-=======
                             <AuthenticatedRoute path="/dashboard" component={MentalHealth}/>
->>>>>>> 9f2cf0b (PHQ Score fetched from backend and printed in Dashboard)
                         </Switch>
                     </div>
                 </div>
