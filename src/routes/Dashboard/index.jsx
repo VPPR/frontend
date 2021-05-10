@@ -9,6 +9,8 @@ import Band from "./routes/band";
 import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "./routes/users";
 import PHQ from "./routes/phq";
+import HRV from "./routes/hrv";
+
 const style = (theme) => ({
     fullScreen: {
         display: "flex",
@@ -18,7 +20,7 @@ const style = (theme) => ({
     toolbar: theme.mixins.toolbar,
     content: {
         padding: theme.spacing(3),
-        height: "80%",
+        height: "90%",
         width: "100%",
     },
 });
@@ -55,6 +57,7 @@ class Dashboard extends React.Component {
                             <AuthenticatedRoute path="/dashboard/upload" component={Band} />
                             <AuthenticatedRoute path="/dashboard/users" component={Users} />
                             <AuthenticatedRoute path="/dashboard/phq" component={PHQ} />
+                            <AuthenticatedRoute path="/dashboard/hrv" component={HRV} />
                         </Switch>
                     </div>
                 </div>
