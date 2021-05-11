@@ -10,7 +10,7 @@ import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "./routes/users";
 import PHQ from "./routes/phq";
 import HRV from "./routes/hrv";
-import MentalHealth from "./routes/mentalhealth";
+import Index from "./routes/index";
 
 const style = (theme) => ({
     fullScreen: {
@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                             <AuthenticatedRoute path="/dashboard/users" component={Users} />
                             <AuthenticatedRoute path="/dashboard/phq" component={PHQ} />
                             <AuthenticatedRoute path="/dashboard/hrv" component={HRV} />
-                            <AuthenticatedRoute path="/dashboard" component={MentalHealth} />
+                            <AuthenticatedRoute path="/dashboard" component={Index} />
                         </Switch>
                     </div>
                 </div>

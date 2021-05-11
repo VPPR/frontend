@@ -19,7 +19,7 @@ function* FetchQuestions() {
             });
             yield put(fetchQuestionsSuccess(questions));
         } catch (error) {
-            yield put(fetchQuestionsFailure(error));
+            yield put(fetchQuestionsFailure(error.detail ?? error.message));
         }
     });
 }

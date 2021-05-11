@@ -1,10 +1,16 @@
 import React from "react";
-import { Grid, Paper, Typography, Card, CardContent, CardHeader } from "@material-ui/core";
+import { Grid, Paper, Typography, Card, CardContent, CardHeader, withStyles } from "@material-ui/core";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { fetchScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
+
+const styles = (theme) => ({
+    content: {
+        paddingTop: theme.spacing(1),
+    },
+});
 
 class MentalHealth extends React.Component {
     componentDidMount() {
@@ -28,18 +34,23 @@ class MentalHealth extends React.Component {
     };
 
     render() {
+        const classes = this.props.classes;
         const percentage = 69;
         const PHQScore = this.props.PHQScore;
+        const lastAnswered = PHQScore?.last_answered ? new Date(PHQScore?.last_answered) : undefined;
+        let datetime = lastAnswered ? ` ${lastAnswered.toLocaleDateString()} ${lastAnswered.toLocaleTimeString()}` : "";
         return (
             <>
-                <Paper component={Grid} container alignContent="center" style={{ height: "12%", padding: "10px" }}>
+                <Paper component={Grid} container justify="space-between" style={{ padding: "10px" }}>
                     <Typography variant="h5">Health Report</Typography>
-                    <Typography></Typography>
+                    <Typography style={{ paddingTop: 5 }}>
+                        Last record:
+                        {datetime}
+                    </Typography>
                 </Paper>
-                <Typography>PHQScore:{PHQScore?.score}</Typography>
-                <Typography>Last record time:{PHQScore?.last_answered}</Typography>
-                <Grid container>
-                    <Grid item sm={4} style={{ paddingTop: "10px" }}>
+
+                <Grid container className={classes.content} spacing={1} justify="center">
+                    <Grid item xs={12} md={4}>
                         <Card variant="elevation">
                             <CardHeader title="PHQ Score"></CardHeader>
                             <CardContent>
@@ -59,7 +70,7 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item sm={4} style={{ padding: "10px" }}>
+                    <Grid item xs={12} md={4}>
                         <Card variant="elevation">
                             <CardHeader title="Sleep Statistics"></CardHeader>
                             <CardContent>
@@ -72,9 +83,9 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item sm={4} style={{ paddingTop: "10px" }}>
+                    <Grid item xs={12} md={4}>
                         <Card variant="elevation">
-                            <CardHeader title="Calories"></CardHeader>
+                            <CardHeader title="HRV"></CardHeader>
                             <CardContent>
                                 <div style={{ width: 150, height: 150 }}>
                                     <CircularProgressbar value={percentage} text={`${percentage}%`}>
@@ -94,4 +105,4 @@ const mapStateToProps = (state) => ({
     PHQScore: state.phq.score,
 });
 
-export default connect(mapStateToProps, { fetchScore })(MentalHealth);
+export default connect(mapStateToProps, { fetchScore })(withStyles(styles)(MentalHealth));
