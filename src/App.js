@@ -19,12 +19,14 @@ const styles = (theme) => ({
 class App extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         const { errorMessage } = this.props;
-        errorMessage.forEach((error, index) => {
-            if (error !== prevProps.errorMessage[index] && error) {
-                toast.error(error.toString(), {
-                    position: toast.POSITION.TOP_CENTER,
-                });
-            }
+        let result = new Set(errorMessage);
+        for (let error of prevProps.errorMessage) {
+            result.delete(error);
+        }
+        result.forEach((error) => {
+            toast.error(error.toString(), {
+                position: toast.POSITION.TOP_CENTER,
+            });
         });
     }
 
