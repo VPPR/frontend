@@ -49,7 +49,7 @@ const darkTheme = createMuiTheme({
         type: "dark",
         background: {
             default: "#0c1112", //"#2a2d36",//"#0e1017", //
-            paper: "#202829",
+            paper: "#151b1c",
             header: "#14191a", //"#383c48"//"#171922"//
         },
         primary: {
