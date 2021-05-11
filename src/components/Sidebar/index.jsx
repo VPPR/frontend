@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
     component: {
         color: theme.palette.text.sidebar,
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: theme.spacing(1),
+        },
     },
     hide: {
         display: "none",
