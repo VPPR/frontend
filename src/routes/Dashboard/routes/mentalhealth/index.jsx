@@ -7,10 +7,6 @@ import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
 
 class MentalHealth extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.props.fetchScore();
     }
