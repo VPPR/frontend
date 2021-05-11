@@ -22,7 +22,7 @@ function* FetchUserSelf() {
 
             yield put(fetchUserSelfSuccess(user));
         } catch (error) {
-            yield put(fetchUserSelfFailure(error.detail));
+            yield put(fetchUserSelfFailure(error.detail ?? error.message ?? error));
         }
     });
 }
@@ -36,7 +36,7 @@ function* FetchUser() {
 
             yield put(fetchUserSuccess(user));
         } catch (error) {
-            yield put(fetchUserFailure(error.detail));
+            yield put(fetchUserFailure(error.detail ?? error.message ?? error));
         }
     });
 }
@@ -50,7 +50,7 @@ function* FetchUsers() {
 
             yield put(fetchUsersSuccess(users));
         } catch (error) {
-            yield put(fetchUsersFailure(error.detail));
+            yield put(fetchUsersFailure(error.detail ?? error.message ?? error));
         }
     });
 }
@@ -67,7 +67,7 @@ function* UpdateUser() {
 
             yield put(updateUserSuccess(user));
         } catch (error) {
-            yield put(updateUserFailure(error.detail));
+            yield put(updateUserFailure(error.detail ?? error.message ?? error));
         }
     });
 }

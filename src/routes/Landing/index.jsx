@@ -41,7 +41,6 @@ function Landing(props) {
         palette: { type },
     } = useTheme();
     const classes = useStyles();
-    console.log(type);
     return (
         <Grid item container justify="center" alignContent="center">
             <IndexTopBar></IndexTopBar>
