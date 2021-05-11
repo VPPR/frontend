@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                             <AuthenticatedRoute path="/dashboard/users" component={Users} />
                             <AuthenticatedRoute path="/dashboard/phq" component={PHQ} />
                             <AuthenticatedRoute path="/dashboard/hrv" component={HRV} />
-                            <AuthenticatedRoute path="/dashboard" component={MentalHealth}/>
+                            <AuthenticatedRoute path="/dashboard" component={MentalHealth} />
                         </Switch>
                     </div>
                 </div>
