@@ -1,16 +1,15 @@
-import Header from "components/Header";
-import React from "react";
 import { Grid, withStyles } from "@material-ui/core";
-import { Switch, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { allowedRoutes } from "components/AuthenticatedRoute";
+import AuthenticatedRoute, { allowedRoutes } from "components/AuthenticatedRoute";
+import Header from "components/Header";
 import Sidebar from "components/Sidebar";
+import React from "react";
+import { connect } from "react-redux";
+import { Switch, withRouter } from "react-router-dom";
 import Band from "./routes/band";
-import AuthenticatedRoute from "components/AuthenticatedRoute";
-import Users from "./routes/users";
-import PHQ from "./routes/phq";
 import HRV from "./routes/hrv";
 import Index from "./routes/index";
+import PHQ from "./routes/phq";
+import Users from "./routes/users";
 
 const style = (theme) => ({
     fullScreen: {
