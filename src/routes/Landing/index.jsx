@@ -63,13 +63,18 @@ function Landing(props) {
                 </Grid>
             </Grid>
             <Grid container xs={9} sm={4} md={3} justify="space-around" className={classes.links}>
-                <a href="https://github.com/vppr" className={classes.link}>
+                <a href="https://github.com/vppr" className={classes.link} target="_blank" rel="noreferrer">
                     <GitHub /> <div className={classes.linkText}>Github</div>
                 </a>
-                <a href="https://www.irjet.net/archives/V8/i4/IRJET-V8I4649.pdf" className={classes.link}>
+                <a
+                    href="https://www.irjet.net/archives/V8/i4/IRJET-V8I4649.pdf"
+                    className={classes.link}
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <Description /> <div className={classes.linkText}>Paper</div>
                 </a>
-                <a href="mailto:contact@vppr.tech" className={classes.link}>
+                <a href="mailto:contact@vppr.tech" className={classes.link} target="_blank" rel="noreferrer">
                     <Email />
                     <div className={classes.linkText}> Email</div>
                 </a>
