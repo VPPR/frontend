@@ -1,4 +1,13 @@
-import { Grid, Paper, Typography, Button, TextField, withStyles, IconButton } from "@material-ui/core";
+import {
+    Grid,
+    Paper,
+    Typography,
+    Button,
+    TextField,
+    withStyles,
+    IconButton,
+    CircularProgress,
+} from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
 import { Archive } from "libarchive.js/main";
@@ -142,7 +151,7 @@ class Band extends React.Component {
             });
 
     render() {
-        const { classes } = this.props;
+        const { classes, isLoading } = this.props;
         return (
             <div style={{ height: "100%" }}>
                 <Paper component={Grid} container>
@@ -150,72 +159,88 @@ class Band extends React.Component {
                         Upload MI Band Data
                     </Typography>
                 </Paper>
-                <Paper
-                    component={Grid}
-                    item
-                    container
-                    className={classes.content}
-                    style={{ maxHeight: "85%", overflowY: "auto", overflowX: "wrap" }}
-                >
-                    <Grid item container xs={12} md={2} alignItems="center">
-                        <Button variant="contained" color="primary" component="label" className={classes.listText}>
-                            Upload File
-                            <input
-                                type="file"
-                                name="file"
-                                hidden
-                                multiple
-                                accept=".csv,.zip"
-                                onChange={this.handleInputChange}
-                            />
-                        </Button>
-                    </Grid>
-                    <Grid item container alignItems="center" xs={12} md={3}>
-                        {this.state.zip && <Typography className={classes.listText}>{this.state.zip.name}</Typography>}
-                    </Grid>
-                    <Grid item container alignItems="center" xs={12} md={3}>
-                        {this.state.zip && (
-                            <TextField
-                                type="password"
-                                name="password"
-                                onChange={this.handleInputChange}
-                                value={this.state.password}
-                                label="Password"
-                                placeholder="Password"
-                                className={classes.listText}
-                            />
-                        )}
-                    </Grid>
-                    <Grid item container alignItems="center" xs={12} md={2}>
-                        {this.state.zip && (
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={this.extractZip}
-                                className={classes.button}
-                            >
-                                Verify
+                {isLoading ? (
+                    <Paper
+                        component={Grid}
+                        item
+                        container
+                        alignContent="center"
+                        justify="center"
+                        className={classes.content}
+                        style={{ height: "65%", overflowY: "auto", overflowX: "wrap" }}
+                    >
+                        <CircularProgress />
+                    </Paper>
+                ) : (
+                    <Paper
+                        component={Grid}
+                        item
+                        container
+                        className={classes.content}
+                        style={{ maxHeight: "85%", overflowY: "auto", overflowX: "wrap" }}
+                    >
+                        <Grid item container xs={12} md={2} alignItems="center">
+                            <Button variant="contained" color="primary" component="label" className={classes.listText}>
+                                Upload File
+                                <input
+                                    type="file"
+                                    name="file"
+                                    hidden
+                                    multiple
+                                    accept=".csv,.zip"
+                                    onChange={this.handleInputChange}
+                                />
                             </Button>
-                        )}
-                    </Grid>
-                    {this.state.files.length > 0 && (
-                        <>
-                            <Grid container className={classes.list}>
-                                {this.fileList(this.state.files)}
-                            </Grid>
-                            <Grid container>
+                        </Grid>
+                        <Grid item container alignItems="center" xs={12} md={3}>
+                            {this.state.zip && (
+                                <Typography className={classes.listText}>{this.state.zip.name}</Typography>
+                            )}
+                        </Grid>
+                        <Grid item container alignItems="center" xs={12} md={3}>
+                            {this.state.zip && (
+                                <TextField
+                                    type="password"
+                                    name="password"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.password}
+                                    label="Password"
+                                    placeholder="Password"
+                                    className={classes.listText}
+                                />
+                            )}
+                        </Grid>
+                        <Grid item container alignItems="center" xs={12} md={2}>
+                            {this.state.zip && (
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={this.handleSubmit}
-                                    className={classes.submit}
+                                    onClick={this.extractZip}
+                                    className={classes.button}
                                 >
-                                    Submit
+                                    Verify
                                 </Button>
-                            </Grid>
-                        </>
-                    )}
-                </Paper>
+                            )}
+                        </Grid>
+                        {this.state.files.length > 0 && (
+                            <>
+                                <Grid container className={classes.list}>
+                                    {this.fileList(this.state.files)}
+                                </Grid>
+                                <Grid container>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={this.handleSubmit}
+                                        className={classes.submit}
+                                    >
+                                        Submit
+                                    </Button>
+                                </Grid>
+                            </>
+                        )}
+                    </Paper>
+                )}
             </div>
         );
     }
