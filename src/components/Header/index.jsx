@@ -37,9 +37,9 @@ function Header({ handleDrawer, logout }) {
                 </div>
                 <Link to="/" onClick={logout}>
                     <Tooltip title="Logout">
-                    <IconButton color="secondary">
-                        <ExitToApp />
-                    </IconButton>
+                        <IconButton color="secondary">
+                            <ExitToApp />
+                        </IconButton>
                     </Tooltip>
                 </Link>
             </Toolbar>
