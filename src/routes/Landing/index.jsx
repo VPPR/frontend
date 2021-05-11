@@ -69,7 +69,7 @@ function Landing(props) {
                 <a href="https://www.irjet.net/archives/V8/i4/IRJET-V8I4649.pdf" className={classes.link}>
                     <Description /> <div className={classes.linkText}>Paper</div>
                 </a>
-                <a href="contact@vppr.tech" className={classes.link}>
+                <a href="mailto:contact@vppr.tech" className={classes.link}>
                     <Email />
                     <div className={classes.linkText}> Email</div>
                 </a>

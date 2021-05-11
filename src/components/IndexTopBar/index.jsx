@@ -1,6 +1,6 @@
 import { AppBar, makeStyles, Toolbar } from "@material-ui/core";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -26,18 +26,21 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: "rgba(255,255,255,0.1)", //theme.palette.text.primary.light,
         },
     },
+    active: {
+        backgroundColor: "rgba(255,255,255,0.1)",
+    },
 }));
 function IndexTopBar() {
     const classes = useStyles();
     return (
         <AppBar position="fixed" className={clsx(classes.appBar)}>
             <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Link to="/login" className={classes.link}>
+                <NavLink to="/login" className={classes.link} activeClassName={classes.active}>
                     <h3>Login</h3>
-                </Link>
-                <Link to="/signup" className={classes.link}>
+                </NavLink>
+                <NavLink to="/signup" className={classes.link} activeClassName={classes.active}>
                     <h3>Sign Up</h3>
-                </Link>
+                </NavLink>
             </Toolbar>
         </AppBar>
     );
