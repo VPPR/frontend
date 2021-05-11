@@ -58,7 +58,7 @@ class MentalHealth extends React.Component {
                                     <CircularProgressbar
                                         maxValue={27}
                                         value={PHQScore?.score}
-                                        text={PHQScore?.score ? `${PHQScore?.score}/27` : "--"}
+                                        text={PHQScore?.score ? `${PHQScore?.score.toFixed(2)}/27` : "--"}
                                         styles={buildStyles({
                                             strokeLinecap: "butt",
                                             pathColor: `${this.colorRender(PHQScore?.score)}`,
