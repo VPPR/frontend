@@ -32,7 +32,7 @@ function* SignUp() {
 
             yield put(signupsuccess(response));
         } catch (error) {
-            yield put(signupfailure(error.detail ?? error));
+            yield put(signupfailure(error.detail ?? error.message ?? error));
         }
     });
 }

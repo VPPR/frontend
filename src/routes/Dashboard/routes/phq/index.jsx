@@ -61,10 +61,7 @@ class PHQ extends React.Component {
                 position: toast.POSITION.TOP_CENTER,
             });
         }
-        console.log(this.props.questions);
-        console.log(this.state.answers);
         if (this.props.questions.length !== 0 && this.state.answers === null) {
-            console.log("yo");
             let answers = [];
             for (let question of this.props.questions) {
                 let answer = {
@@ -74,24 +71,20 @@ class PHQ extends React.Component {
                 };
                 answers.push(answer);
             }
-            this.setState({ answers }, () => console.log(this.state));
+            this.setState({ answers });
         }
     }
 
     handleSliderChange = (name, value) => {
         let answers = [...this.state.answers];
-        console.log(name);
-        console.log(answers);
         let i = answers.findIndex((x) => x.qno === name);
 
         answers[i].score = value;
-        this.setState({ answers }, () => console.log(this.state));
+        this.setState({ answers });
     };
 
     // handleChange = (e) => {
     //     const { name, value } = e.target;
-    //     console.log(name);
-    //     console.log(value);
     //     let answers = new Map(this.state.answers);
     //     const answer = {
     //         score: value,
@@ -103,7 +96,6 @@ class PHQ extends React.Component {
 
     handleSubmit = (e) => {
         const answers = this.state.answers;
-        console.log(answers);
         if (answers.length === this.props.questions.length) {
             this.props.postAnswer(answers);
             this.setState({ submit: true });
@@ -112,7 +104,6 @@ class PHQ extends React.Component {
 
     renderQuestions = () => {
         const { classes } = this.props;
-        this.props.questions.map((question) => console.log(question.qno));
         return this.props.questions.map((question) => (
             <Paper
                 component={Grid}

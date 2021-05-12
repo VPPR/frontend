@@ -19,7 +19,7 @@ function* FetchQuestions() {
             });
             yield put(fetchQuestionsSuccess(questions));
         } catch (error) {
-            yield put(fetchQuestionsFailure(error.detail ?? error.message));
+            yield put(fetchQuestionsFailure(error.detail ?? error.message ?? error));
         }
     });
 }
@@ -33,7 +33,7 @@ function* PostAnswer() {
             });
             yield put(postAnswerSuccess());
         } catch (error) {
-            yield put(postAnswerFailure(error.detail));
+            yield put(postAnswerFailure(error.detail ?? error.message ?? error));
         }
     });
 }
@@ -46,7 +46,7 @@ function* FetchScore() {
             });
             yield put(fetchScoreSuccess(score));
         } catch (error) {
-            yield put(fetchScoreFailure(error.detail));
+            yield put(fetchScoreFailure(error.detail ?? error.message ?? error));
         }
     });
 }

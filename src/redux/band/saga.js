@@ -23,8 +23,8 @@ function* UploadFile() {
                 body: data,
             });
             yield put(UploadSuccess());
-        } catch (e) {
-            yield put(UploadFailure(e));
+        } catch (error) {
+            yield put(UploadFailure(error.detail ?? error.message ?? error));
         }
     });
 }
