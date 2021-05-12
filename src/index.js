@@ -6,75 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store from "redux/store";
-import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
-
-const lightTheme = createMuiTheme({
-    palette: {
-        type: "light",
-        background: {
-            paper: "#ffffff",
-            header: "#1e1e1e",
-            sidebar: "#1e1e1e",
-        },
-        text: {
-            sidebar: "#ffffff",
-        },
-    },
-    overrides: {
-        MuiDataGrid: {
-            root: {
-                border: "1px solid #626262",
-                "& .MuiDataGrid-columnsContainer": {
-                    borderBottom: "1px solid #626262",
-                },
-                "& .MuiDataGrid-cell": {
-                    borderBottom: "1px solid #626262",
-                },
-                "& .MuiDataGrid-columnSeparator": {
-                    color: "#626262",
-                },
-            },
-        },
-    },
-    styles: {
-        centerItem: {
-            marginLeft: "auto",
-            marginRight: "auto",
-        },
-    },
-});
-
-const darkTheme = createMuiTheme({
-    palette: {
-        type: "dark",
-        background: {
-            default: "#0c1112", //"#2a2d36",//"#0e1017", //
-            paper: "#151b1c",
-            header: "#14191a", //"#383c48"//"#171922"//
-        },
-        primary: {
-            main: "#513cde", //"#1a6bab",
-        },
-        text: {
-            sidebar: "#ffffff",
-        },
-    },
-    styles: {
-        centerItem: {
-            marginLeft: "auto",
-            marginRight: "auto",
-        },
-    },
-});
+import { CssBaseline } from "@material-ui/core";
+import { CustomThemeProvider } from "context/theme-context";
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <ThemeProvider theme={window.matchMedia("(prefers-color-scheme: dark)").matches ? darkTheme : lightTheme}>
+            <CustomThemeProvider>
                 <CssBaseline />
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
-            </ThemeProvider>
+            </CustomThemeProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById("root")
