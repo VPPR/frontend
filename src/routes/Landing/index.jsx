@@ -61,7 +61,7 @@ function Landing(props) {
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid container xs={9} sm={4} md={3} justify="space-around" className={classes.links}>
+            <Grid container item xs={9} sm={4} md={3} justify="space-around" className={classes.links}>
                 <a href="https://github.com/vppr" className={classes.link} target="_blank" rel="noreferrer">
                     <GitHub /> <div className={classes.linkText}>Github</div>
                 </a>
