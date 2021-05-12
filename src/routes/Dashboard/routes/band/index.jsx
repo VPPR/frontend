@@ -31,9 +31,8 @@ const style = (theme) => ({
         paddingBottom: theme.spacing(3),
     },
     listText: {
-        [theme.breakpoints.down("md")]: {
-            paddingTop: theme.spacing(1),
-        },
+        paddingTop: theme.spacing(1),
+        marginTop: theme.spacing(1),
     },
     button: {
         [theme.breakpoints.down("md")]: {
