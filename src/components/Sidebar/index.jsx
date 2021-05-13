@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerOpen: {
         width: drawerWidth,
+        overflowX: "hidden",
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -96,7 +97,7 @@ function Sidebar(props) {
                             <ListItemIcon>
                                 <route.component className={classes.component} />
                             </ListItemIcon>
-                            <ListItemText className={classes.component} primary={route.name} />
+                            <ListItemText primary={route.name} />
                         </ListItem>
                     ))}
                 </List>
@@ -108,7 +109,7 @@ function Sidebar(props) {
                     >
                         <ListItemIcon>
                             {isDarkTheme ? (
-                                <Brightness4 className={classes.component}></Brightness4>
+                                <Brightness4 className={classes.component} />
                             ) : (
                                 <Brightness7 className={classes.component} />
                             )}
