@@ -96,7 +96,7 @@ function Sidebar(props) {
                             <ListItemIcon>
                                 <route.component className={classes.component} />
                             </ListItemIcon>
-                            <ListItemText primary={route.name} />
+                            <ListItemText className={classes.component} primary={route.name} />
                         </ListItem>
                     ))}
                 </List>
@@ -113,7 +113,7 @@ function Sidebar(props) {
                                 <Brightness7 className={classes.component} />
                             )}
                         </ListItemIcon>
-                        <ListItemText>Change Theme</ListItemText>
+                        <ListItemText className={classes.component} primary={`Change Theme`} />
                     </ListItem>
                 </List>
             </Grid>
