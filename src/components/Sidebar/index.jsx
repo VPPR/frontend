@@ -7,7 +7,10 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Button, Grid } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
+import { Brightness4, Brightness7 } from "@material-ui/icons";
+import { useThemeContext } from "context/theme-context";
 
 const drawerWidth = 240;
 
@@ -32,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerOpen: {
         width: drawerWidth,
+        overflowX: "hidden",
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -63,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Sidebar(props) {
     const classes = useStyles();
+    const { isDarkTheme, toggleTheme } = useThemeContext();
     const open = props.open;
     return (
         <Drawer
@@ -78,23 +83,41 @@ function Sidebar(props) {
         >
             <div className={classes.toolbar}></div>
             <Divider />
-            <List style={{ padding: 0 }}>
-                {props.routes.map((route, index) => (
+            <Grid container direction="column" style={{ height: "100%" }} justify="space-between">
+                <List style={{ padding: 0 }}>
+                    {props.routes.map((route, index) => (
+                        <ListItem
+                            component={NavLink}
+                            to={route.path}
+                            button
+                            key={route.name}
+                            activeClassName={classes.active}
+                            exact
+                        >
+                            <ListItemIcon>
+                                <route.component className={classes.component} />
+                            </ListItemIcon>
+                            <ListItemText primary={route.name} />
+                        </ListItem>
+                    ))}
+                </List>
+                <List>
                     <ListItem
-                        component={NavLink}
-                        to={route.path}
-                        button
-                        key={route.name}
-                        activeClassName={classes.active}
-                        exact
+                        component={Button}
+                        style={{ borderRadius: 0, textTransform: "none" }}
+                        onClick={() => toggleTheme()}
                     >
                         <ListItemIcon>
-                            <route.component className={classes.component} />
+                            {isDarkTheme ? (
+                                <Brightness4 className={classes.component} />
+                            ) : (
+                                <Brightness7 className={classes.component} />
+                            )}
                         </ListItemIcon>
-                        <ListItemText primary={route.name} />
+                        <ListItemText className={classes.component} primary={`Change Theme`} />
                     </ListItem>
-                ))}
-            </List>
+                </List>
+            </Grid>
         </Drawer>
     );
 }
