@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useMemo } from "react";
+import { createContext, useState, useContext, useMemo, useEffect } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 const ThemeContext = createContext();
 
@@ -53,9 +53,23 @@ const darkPalette = {
 };
 
 export function CustomThemeProvider({ children }) {
-    const [isDarkTheme, setTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? true : false);
+    function getLocalTheme() {
+        let themeString = localStorage.getItem("theme");
+        if (themeString === "true") {
+            return true;
+        } else if (themeString === "false") {
+            return false;
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    const [isDarkTheme, setTheme] = useState(getLocalTheme);
+    useEffect(() => {
+        localStorage.setItem("theme", isDarkTheme);
+    }, [isDarkTheme]);
 
-    console.log(isDarkTheme);
     const theme = useMemo(
         () =>
             createMuiTheme({
@@ -65,7 +79,6 @@ export function CustomThemeProvider({ children }) {
             }),
         [isDarkTheme]
     );
-    console.log(theme);
     const toggleTheme = () => {
         setTheme(!isDarkTheme);
     };
