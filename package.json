@@ -34,7 +34,7 @@
     "libarchive": "shx cp -r node_modules/libarchive.js/ public/libarchive.js/",
     "start": "react-scripts start",
     "cleanup": "rm -r public/libarchive.js/",
-    "build": "cp -r node_modules/libarchive.js/ public/libarchive.js/ && react-scripts build",
+    "build": "shx cp -r node_modules/libarchive.js/ public/libarchive.js/ && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
