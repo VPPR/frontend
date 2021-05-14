@@ -7,6 +7,8 @@ import {
     postAnswerFailure,
     fetchScoreSuccess,
     fetchScoreFailure,
+    fetchDailyScoreSuccess,
+    fetchDailyScoreFailure,
 } from "./action";
 
 import { all, call, put, takeEvery } from "redux-saga/effects";
@@ -51,8 +53,21 @@ function* FetchScore() {
     });
 }
 
+function* FetchDailyScores() {
+    yield takeEvery(PHQActions.FETCH_DAILY_SCORE, function* () {
+        try {
+            let dailyscore = yield call(APICall, "/phq/graph_values", {
+                method: "GET",
+            });
+            yield put(fetchDailyScoreSuccess(dailyscore));
+        } catch (error) {
+            yield put(fetchDailyScoreFailure(error.detail));
+        }
+    });
+}
+
 function* PHQSaga() {
-    yield all([FetchQuestions(), PostAnswer(), FetchScore()]);
+    yield all([FetchQuestions(), PostAnswer(), FetchScore(), FetchDailyScores()]);
 }
 
 export default PHQSaga;

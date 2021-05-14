@@ -5,6 +5,7 @@ const initState = {
     errorMessage: "",
     questions: [],
     score: null,
+    dailyscore: [],
 };
 
 const PHQReducer = (state = initState, action) => {
@@ -69,6 +70,25 @@ const PHQReducer = (state = initState, action) => {
             };
 
         case PHQActions.FETCH_SCORE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.payload,
+            };
+        case PHQActions.FETCH_DAILY_SCORE:
+            return {
+                ...state,
+                isLoading: true,
+                errorMessage: "",
+            };
+        case PHQActions.FETCH_DAILY_SCORE_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: "",
+                dailyscore: action.payload,
+            };
+        case PHQActions.FETCH_DAILY_SCORE_FAILURE:
             return {
                 ...state,
                 isLoading: false,

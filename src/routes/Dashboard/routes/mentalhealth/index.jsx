@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Paper, Typography, Card, CardContent, CardHeader, withStyles } from "@material-ui/core";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { fetchScore } from "redux/phq/action";
+import { fetchScore, fetchDailyScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
 
@@ -15,6 +15,7 @@ const styles = (theme) => ({
 class MentalHealth extends React.Component {
     componentDidMount() {
         this.props.fetchScore();
+        this.props.fetchDailyScore();
     }
 
     path_colors = ["#7ED957", "#DBC63B", "#ED9A43", "#E8630E", "#E62626"];
@@ -38,7 +39,14 @@ class MentalHealth extends React.Component {
         const percentage = 69;
         const PHQScore = this.props.PHQScore;
         const lastAnswered = PHQScore?.last_answered ? new Date(PHQScore?.last_answered) : undefined;
-        let datetime = lastAnswered ? ` ${lastAnswered.toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} ${lastAnswered.toLocaleTimeString()}` : "";
+        let datetime = lastAnswered
+            ? ` ${lastAnswered.toLocaleDateString("default", {
+                  weekday: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+              })} ${lastAnswered.toLocaleTimeString()}`
+            : "";
         return (
             <>
                 <Paper component={Grid} container justify="space-between" style={{ padding: "10px" }}>
