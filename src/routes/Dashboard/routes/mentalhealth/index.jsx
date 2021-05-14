@@ -105,7 +105,7 @@ class MentalHealth extends React.Component {
                     </Grid>
                 </Grid>
                 <Grid>
-                    <div style={{ height: 150, width: 1000 }}>
+                    <div style={{ height: 500, width: 500 }}>
                         <PHQChart></PHQChart>
                     </div>
                 </Grid>
