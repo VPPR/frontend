@@ -2,9 +2,10 @@ import React from "react";
 import { Grid, Paper, Typography, Card, CardContent, CardHeader, withStyles } from "@material-ui/core";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { fetchScore, fetchDailyScore } from "redux/phq/action";
+import { fetchScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
+import PHQChart from "./components/PHQChart";
 
 const styles = (theme) => ({
     content: {
@@ -15,7 +16,6 @@ const styles = (theme) => ({
 class MentalHealth extends React.Component {
     componentDidMount() {
         this.props.fetchScore();
-        this.props.fetchDailyScore();
     }
 
     path_colors = ["#7ED957", "#DBC63B", "#ED9A43", "#E8630E", "#E62626"];
@@ -103,6 +103,11 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                </Grid>
+                <Grid>
+                    <div style={{ height: 150, width: 1000 }}>
+                        <PHQChart></PHQChart>
+                    </div>
                 </Grid>
             </>
         );

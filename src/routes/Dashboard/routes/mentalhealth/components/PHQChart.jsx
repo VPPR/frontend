@@ -1,28 +1,19 @@
 import React from "react";
-import { ResponsiveLine } from "@nivo/line";
-import data from "../data.json";
+import { fetchDailyScore } from "redux/phq/action";
+import { connect } from "react-redux";
 
-function Chart(props) {
-    return (
-        <div>
-            <ResponsiveLine
-                data={data}
-                xScale={{ type: "linear" }}
-                yScale={{ type: "linear", min: 0, max: 27 }}
-                axisBottom={{
-                    orient: "bottom",
-                    tickSize: 5,
-                    tickPadding: 0,
-                }}
-                axisLeft={{
-                    orient: "left",
-                    tickSize: 5,
-                    tickPadding: 0,
-                    tickRotation: 0,
-                }}
-            />
-        </div>
-    );
+class PHQChart extends React.Component {
+    componentDidMount() {
+        this.props.fetchDailyScore();
+    }
+
+    render() {
+        return <div>Somem</div>;
+    }
 }
 
-export default Chart;
+const mapStateToProps = (state) => ({
+    data: state.phq.dailyscore,
+});
+
+export default connect(mapStateToProps, { fetchDailyScore })(PHQChart);
