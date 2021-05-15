@@ -10,23 +10,17 @@ class PHQChart extends PureComponent {
     render() {
         return (
             <>
-                <h3>Depression Score Variation Chart</h3>
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                        width={500}
-                        height={500}
-                        data={this.props.data}
-                        margin={{ top: 50, bottom: 50, left: 50, right: 50 }}
-                    >
+                    <LineChart width={500} height={500} data={this.props.data}>
                         <XAxis dataKey="date" padding={{ left: 30 }} stroke="#3b08d1">
-                            <Label value="Date" offset={-10} stroke="#26b5ed" position="insideBottom"></Label>
+                            <Label value="Date" offset={-5} stroke="#26b5ed" position="insideBottom"></Label>
                         </XAxis>
                         <YAxis stroke="#3b08d1">
                             <Label value="PHQ Score" angle="-90" position="insideLeft" stroke="#26b5ed"></Label>
                         </YAxis>
                         <Tooltip separator=":"></Tooltip>
-                        <Line type="" dataKey="estimated_phq" stroke="#20fc03"></Line>
-                        <Line type="" dataKey="sum_of_avg" stroke="#ed5d09"></Line>
+                        <Line type="" dataKey="estimated_phq" stroke="#20fc03" strokeWidth="4"></Line>
+                        <Line type="" dataKey="sum_of_avg" stroke="#ed5d09" strokeWidth="4"></Line>
                         <Legend verticalAlign="top"></Legend>
                     </LineChart>
                 </ResponsiveContainer>

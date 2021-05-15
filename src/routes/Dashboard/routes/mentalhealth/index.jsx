@@ -103,11 +103,18 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
-                </Grid>
-                <Grid>
-                    <div style={{ height: 500, width: 500 }}>
-                        <PHQChart></PHQChart>
-                    </div>
+                    <Grid container item className={classes.content}>
+                        <Paper component={Grid} item xs={12} md={6}>
+                            <Card variant="elevation">
+                                <CardHeader title="Depression Score Variation Chart"></CardHeader>
+                                <CardContent>
+                                    <div style={{ height: 250 }}>
+                                        <PHQChart></PHQChart>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </>
         );
