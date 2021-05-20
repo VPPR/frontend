@@ -5,6 +5,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { fetchScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
+import PHQChart from "./components/PHQChart";
 
 const styles = (theme) => ({
     content: {
@@ -38,7 +39,14 @@ class MentalHealth extends React.Component {
         const percentage = 69;
         const PHQScore = this.props.PHQScore;
         const lastAnswered = PHQScore?.last_answered ? new Date(PHQScore?.last_answered) : undefined;
-        let datetime = lastAnswered ? ` ${lastAnswered.toLocaleDateString('default', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} ${lastAnswered.toLocaleTimeString()}` : "";
+        let datetime = lastAnswered
+            ? ` ${lastAnswered.toLocaleDateString("default", {
+                  weekday: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+              })} ${lastAnswered.toLocaleTimeString()}`
+            : "";
         return (
             <>
                 <Paper component={Grid} container justify="space-between" style={{ padding: "10px" }}>
@@ -94,6 +102,18 @@ class MentalHealth extends React.Component {
                                 </div>
                             </CardContent>
                         </Card>
+                    </Grid>
+                    <Grid container item className={classes.content}>
+                        <Paper component={Grid} item xs={12} md={6}>
+                            <Card variant="elevation">
+                                <CardHeader title="Depression Score Variation Chart"></CardHeader>
+                                <CardContent>
+                                    <div style={{ height: 250 }}>
+                                        <PHQChart></PHQChart>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </Paper>
                     </Grid>
                 </Grid>
             </>

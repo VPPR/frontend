@@ -13,7 +13,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 const styles = (theme) => ({
     fullScreen: {
         minHeight: "100vh",
-        minWidth: "100vw",
+        minWidth: "90vw",
+        maxWidth: "100vw",
     },
 });
 class App extends React.Component {
