@@ -30,7 +30,7 @@ class PHQChart extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    data: state.phq.dailyscore,
+    data: state.phq.dailyscores,
 });
 
 export default connect(mapStateToProps, { fetchDailyScore })(PHQChart);

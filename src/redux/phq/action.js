@@ -43,15 +43,15 @@ export const fetchScoreFailure = (error) => ({
 });
 
 export const fetchDailyScore = () => ({
-    type: PHQActions.FETCH_DAILY_SCORE,
+    type: PHQActions.FETCH_DAILY_SCORES,
 });
 
-export const fetchDailyScoreSuccess = (dailyscore) => ({
-    type: PHQActions.FETCH_DAILY_SCORE_SUCCESS,
-    payload: dailyscore,
+export const fetchDailyScoreSuccess = (dailyscores) => ({
+    type: PHQActions.FETCH_DAILY_SCORES_SUCCESS,
+    payload: dailyscores,
 });
 
 export const fetchDailyScoreFailure = (error) => ({
-    type: PHQActions.FETCH_DAILY_SCORE_FAILURE,
+    type: PHQActions.FETCH_DAILY_SCORES_FAILURE,
     payload: error,
 });
