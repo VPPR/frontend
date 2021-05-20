@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { fetchDailyScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Label } from "recharts";
+
 class PHQChart extends PureComponent {
     componentDidMount() {
         this.props.fetchDailyScore();
@@ -11,16 +12,22 @@ class PHQChart extends PureComponent {
         return (
             <>
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart width={500} height={500} data={this.props.data}>
-                        <XAxis dataKey="date" padding={{ left: 30 }} stroke="#3b08d1">
-                            <Label value="Date" offset={-5} stroke="#26b5ed" position="insideBottom"></Label>
+                    <LineChart data={this.props.data}>
+                        <XAxis dataKey="date" padding={{ left: 30 }} stroke="#f01ae5">
+                            <Label
+                                value="Date"
+                                offset={-4}
+                                fill="#3d7be0"
+                                position="insideBottom"
+                                textDecoration="none"
+                            ></Label>
                         </XAxis>
-                        <YAxis stroke="#3b08d1">
-                            <Label value="PHQ Score" angle="-90" position="insideLeft" stroke="#26b5ed"></Label>
+                        <YAxis stroke="#f01ae5">
+                            <Label value="PHQ Score" angle="-90" position="insideLeft" fill="#3d7be0"></Label>
                         </YAxis>
                         <Tooltip separator=":"></Tooltip>
-                        <Line type="" dataKey="estimated_phq" stroke="#20fc03" strokeWidth="4"></Line>
-                        <Line type="" dataKey="sum_of_avg" stroke="#ed5d09" strokeWidth="4"></Line>
+                        <Line type="" dataKey="estimated_phq" stroke="#20ad0e" strokeWidth="4"></Line>
+                        <Line type="" dataKey="sum_of_avg" stroke="#cc6b16" strokeWidth="4"></Line>
                         <Legend verticalAlign="top"></Legend>
                     </LineChart>
                 </ResponsiveContainer>
