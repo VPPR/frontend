@@ -10,6 +10,8 @@ import {
     fetchUserSuccess,
     updateUserFailure,
     updateUserSuccess,
+    deleteUserSuccess,
+    deleteUserFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -72,14 +74,30 @@ function* UpdateUser() {
     });
 }
 
+function* DeleteUser() {
+    yield takeEvery(UserActionTypes.DELETE_USER, function* (action) {
+        try {
+            let selectedUser = yield select((state) => state.user.selectedUser);
+
+            let user = yield call(APICall, `/users/${selectedUser.id}`, {
+                method: "DELETE",
+            });
+
+            yield put(deleteUserSuccess(user));
+        } catch (error) {
+            yield put(deleteUserFailure(error.detail ?? error.message ?? error));
+        }
+    });
+}
+
 function* RefreshUserList() {
-    yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS], function* (action) {
+    yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.DELETE_USER], function* (action) {
         yield put(fetchUsers());
     });
 }
 
 function* UserSaga() {
-    yield all([FetchUserSelf(), FetchUser(), FetchUsers(), UpdateUser(), RefreshUserList()]);
+    yield all([FetchUserSelf(), FetchUser(), FetchUsers(), UpdateUser(), DeleteUser(), RefreshUserList()]);
 }
 
 export default UserSaga;
