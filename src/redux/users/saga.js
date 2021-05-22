@@ -77,9 +77,7 @@ function* UpdateUser() {
 function* DeleteUser() {
     yield takeEvery(UserActionTypes.DELETE_USER, function* (action) {
         try {
-            let selectedUser = yield select((state) => state.user.selectedUser);
-
-            let user = yield call(APICall, `/users/${selectedUser.id}`, {
+            let user = yield call(APICall, `/users/${action.payload}`, {
                 method: "DELETE",
             });
 
@@ -91,7 +89,7 @@ function* DeleteUser() {
 }
 
 function* RefreshUserList() {
-    yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.DELETE_USER], function* (action) {
+    yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.DELETE_USER_SUCCESS], function* (action) {
         yield put(fetchUsers());
     });
 }

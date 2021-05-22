@@ -71,6 +71,7 @@ class Users extends React.Component {
         {
             headerName: "Actions",
             field: "actions",
+            width: 120,
             renderCell: (params) => (
                 <>
                     <IconButton

@@ -64,7 +64,6 @@
   },
   "devDependencies": {
     "prettier": "^2.2.1",
-    "prettier-plugin-organize-imports": "^2.1.0",
     "shx": "^0.3.3"
   }
 }
