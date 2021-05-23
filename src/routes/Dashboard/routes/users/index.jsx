@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchUsers } from "redux/users/action";
 import { CircularProgress, Grid, IconButton, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { Check, Clear, Edit } from "@material-ui/icons";
+import { Add, Check, Clear, Edit } from "@material-ui/icons";
 import clsx from "clsx";
 import UserModal from "./components/UserModal";
 
@@ -93,7 +93,7 @@ class Users extends React.Component {
     };
 
     openModal = () => {
-        this.setState({ modalOpen: true });
+        this.setState({ selectedUser: undefined, modalOpen: true });
     };
     componentDidMount() {
         this.props.fetchUsers();
@@ -121,7 +121,14 @@ class Users extends React.Component {
                 {modalOpen && (
                     <UserModal onClose={this.closeModal} open={this.state.modalOpen} id={this.state.selectedUser} />
                 )}
-                <Typography variant="h3">Users</Typography>
+                <Grid container justify="space-between">
+                    <Typography variant="h3">Users</Typography>
+                    <div>
+                        <IconButton onClick={() => this.openModal()}>
+                            <Add />
+                        </IconButton>
+                    </div>
+                </Grid>
                 <div
                     style={{
                         height: "100%",

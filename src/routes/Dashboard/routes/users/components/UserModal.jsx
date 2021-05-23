@@ -13,7 +13,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-import { fetchUser, updateUser } from "redux/users/action";
+import { fetchUser, updateUser, createUser } from "redux/users/action";
 class UserModal extends React.Component {
     constructor(props) {
         super(props);
@@ -24,7 +24,7 @@ class UserModal extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUser(this.props.id);
+        if (this.props.id) this.props.fetchUser(this.props.id);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -33,7 +33,7 @@ class UserModal extends React.Component {
                 user: { ...this.props.selectedUser } ?? {},
             });
             if (this.state.submit) {
-                toast.success(`${this.props.selectedUser.fullname}'s information updated`, {
+                toast.success(`${this.props.selectedUser.fullname} ${this.props.id ? "updated" : "created"}`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
                 this.props.onClose();
@@ -54,7 +54,8 @@ class UserModal extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.updateUser(this.state.user);
+        if (this.props.id) this.props.updateUser(this.state.user);
+        else this.props.createUser(this.state.user);
         this.setState({ submit: true });
     };
 
@@ -67,7 +68,7 @@ class UserModal extends React.Component {
                         onSubmit={this.handleSubmit}
                     >
                         <Typography variant="h4" align="center">
-                            Edit User
+                            User
                         </Typography>
                         <Divider />
                         <TextField
@@ -141,4 +142,4 @@ const mapStateToProps = (state) => ({
     selectedUser: state.user.selectedUser,
 });
 
-export default connect(mapStateToProps, { fetchUser, updateUser })(UserModal);
+export default connect(mapStateToProps, { fetchUser, updateUser, createUser })(UserModal);

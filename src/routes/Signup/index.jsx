@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { signup } from "redux/auth/action";
-import { Button, CircularProgress, FormControlLabel, Grid, Paper, Switch, TextField } from "@material-ui/core";
+import { Button, CircularProgress, Grid, Paper, TextField } from "@material-ui/core";
 import { toast } from "react-toastify";
 import IndexTopBar from "components/IndexTopBar";
 
@@ -17,7 +17,6 @@ class Signup extends React.Component {
             email: "",
             password: "",
             phone: "",
-            is_admin: false,
             errors: {
                 email: "",
                 password: "",
@@ -35,7 +34,7 @@ class Signup extends React.Component {
     }
 
     handleInputChange = (e) => {
-        const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+        const value = e.target.value;
         const field = e.target.name;
         this.setState({
             [field]: value,
@@ -136,18 +135,6 @@ class Signup extends React.Component {
                             value={this.state.phone}
                             style={{ marginTop: "0.5rem" }}
                             required
-                        />
-                        <FormControlLabel
-                            style={{ marginTop: "0.5rem" }}
-                            control={
-                                <Switch
-                                    checked={this.state.is_admin}
-                                    onChange={this.handleInputChange}
-                                    name="is_admin"
-                                    color="primary"
-                                />
-                            }
-                            label="Admin?"
                         />
                         <Button variant="contained" color="primary" type="submit" style={{ margin: "2rem 0rem" }}>
                             Submit
