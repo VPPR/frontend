@@ -1,10 +1,10 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchUsers } from "redux/users/action";
+import { fetchUsers, deleteUser } from "redux/users/action";
 import { CircularProgress, Grid, IconButton, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { Check, Clear, Edit } from "@material-ui/icons";
+import { Check, Clear, Delete, Edit } from "@material-ui/icons";
 import clsx from "clsx";
 import UserModal from "./components/UserModal";
 
@@ -71,15 +71,26 @@ class Users extends React.Component {
         {
             headerName: "Actions",
             field: "actions",
+            width: 120,
             renderCell: (params) => (
-                <IconButton
-                    onClick={() => {
-                        this.editUser(params.row.id);
-                    }}
-                    color="primary"
-                >
-                    <Edit />
-                </IconButton>
+                <>
+                    <IconButton
+                        onClick={() => {
+                            this.editUser(params.row.id);
+                        }}
+                        color="primary"
+                    >
+                        <Edit />
+                    </IconButton>
+                    <IconButton
+                        onClick={() => {
+                            this.props.deleteUser(params.row.id);
+                        }}
+                        color="primary"
+                    >
+                        <Delete />
+                    </IconButton>
+                </>
             ),
         },
     ];
@@ -141,4 +152,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchUsers })(Users)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchUsers, deleteUser })(Users)));
