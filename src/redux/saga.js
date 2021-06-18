@@ -3,9 +3,8 @@ import AuthSaga from "redux/auth/saga";
 import UserSaga from "redux/users/saga";
 import UploadSaga from "redux/band/saga";
 import PHQSaga from "redux/phq/saga";
-import ApprovalSaga from "./approvals/saga";
 const rootSaga = function* () {
-    yield all([AuthSaga(), UserSaga(), UploadSaga(), PHQSaga(), ApprovalSaga()]);
+    yield all([AuthSaga(), UserSaga(), UploadSaga(), PHQSaga()]);
 };
 
 export default rootSaga;
