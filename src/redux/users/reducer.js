@@ -77,6 +77,21 @@ const userReducer = (state = initState, action) => {
             };
         case UserActionTypes.UPDATE_USER_FAILURE:
             return { ...state, errorMessage: action.payload, isLoading: false };
+        case UserActionTypes.DELETE_USER:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+            };
+        case UserActionTypes.DELETE_USER_SUCCESS:
+            return {
+                ...state,
+                selectedUser: action.payload,
+                errorMessage: "",
+                isLoading: false,
+            };
+        case UserActionTypes.DELETE_USER_FAILURE:
+            return { ...state, errorMessage: action.payload, isLoading: false };
         default:
             return state;
     }
