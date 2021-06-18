@@ -17,7 +17,7 @@ function* FetchQuestions() {
     yield takeEvery(PHQActions.FETCH_QUESTIONS, function* () {
         try {
             let questions = yield call(APICall, "/phq/", {
-                method: "GET",
+                method: "GET"
             });
             yield put(fetchQuestionsSuccess(questions));
         } catch (error) {
@@ -31,6 +31,9 @@ function* PostAnswer() {
         try {
             yield call(APICall, "/phq/", {
                 method: "POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
                 body: JSON.stringify(action.payload),
             });
             yield put(postAnswerSuccess());

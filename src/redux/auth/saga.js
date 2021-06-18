@@ -13,6 +13,9 @@ function* Login() {
             form.append("password", user.password);
             const response = yield call(httpClient, "/login/access-token", {
                 method: "post",
+                headers:{
+                    "Content-Type":"multipart/form-data"
+                },
                 body: form,
             });
             yield put(loginSuccess(response));
@@ -27,6 +30,9 @@ function* SignUp() {
         try {
             const response = yield call(httpClient, "/signup", {
                 method: "post",
+                headers:{
+                    "Content-Type":"application/json"
+                },
                 body: JSON.stringify(action.payload),
             });
 
