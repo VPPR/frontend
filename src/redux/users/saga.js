@@ -22,8 +22,8 @@ function* CreateUser() {
         try {
             const response = yield call(APICall, "/users", {
                 method: "post",
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(action.payload),
             });
@@ -84,8 +84,8 @@ function* UpdateUser() {
 
             let user = yield call(APICall, `/users/${selectedUser.id}`, {
                 method: "PUT",
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(action.payload),
             });
@@ -118,7 +118,15 @@ function* RefreshUserList() {
 }
 
 function* UserSaga() {
-    yield all([CreateUser(),FetchUserSelf(), FetchUser(), FetchUsers(), UpdateUser(), DeleteUser(), RefreshUserList()]);
+    yield all([
+        CreateUser(),
+        FetchUserSelf(),
+        FetchUser(),
+        FetchUsers(),
+        UpdateUser(),
+        DeleteUser(),
+        RefreshUserList(),
+    ]);
 }
 
 export default UserSaga;

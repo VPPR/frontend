@@ -7,9 +7,7 @@ import { Assignment, Backup, Home, Person, TrendingUp } from "@material-ui/icons
 
 export const allowedRoutes = (is_admin) => {
     if (is_admin) {
-        return [
-            { name: "Home", path: "/dashboard", component: Person },
-        ];
+        return [{ name: "Home", path: "/dashboard", component: Person }];
     }
     return [
         { name: "Home", path: "/dashboard", component: Home },

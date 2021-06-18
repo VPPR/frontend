@@ -20,8 +20,8 @@ function* UploadFile() {
             }
             yield call(APICall, "/miband/upload", {
                 method: "POST",
-                headers:{
-                    "Content-Type":"multipart/form-data"
+                headers: {
+                    "Content-Type": "multipart/form-data",
                 },
                 body: data,
             });

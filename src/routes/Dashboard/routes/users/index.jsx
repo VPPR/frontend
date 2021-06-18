@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchUsers, deleteUser } from "redux/users/action";
 import { CircularProgress, Grid, IconButton, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { Add,Check, Clear, Delete, Edit } from "@material-ui/icons";
+import { Add, Check, Clear, Delete, Edit } from "@material-ui/icons";
 import clsx from "clsx";
 import UserModal from "./components/UserModal";
 
