@@ -3,20 +3,22 @@ import { APICall } from "services/http-client";
 import { put, takeEvery, call } from "redux-saga/effects";
 import { UploadFailure, UploadSuccess } from "./action";
 
+let csvRegex = /([A-Z]*_)*\d*.csv/;
+let sqliteTypes = ["application/x-sqlite3", ".sqlite3", ".db"];
 function* UploadFile() {
     yield takeEvery(BandZipActions.UPLOAD, function* (action) {
         try {
             let data = new FormData();
             if (Array.isArray(action.payload)) {
                 for (const file of action.payload) {
-                    let filename = file.name.match(/([A-Z]*_)*\d*.csv/);
-                    let simplifiedName = filename[0].replace(/_\d*.csv/, "");
-                    data.append(simplifiedName, file);
+                    if (csvRegex.test(file.name)) {
+                        let filename = csvRegex.exec(file.name);
+                        let simplifiedName = filename.replace(/_\d*.csv/, "");
+                        data.append(simplifiedName, file);
+                    } else if (sqliteTypes.some((x) => file.type.includes(x) || file.name.includes(x))) {
+                        data.append("GADGETBRIDGE", file);
+                    }
                 }
-            } else {
-                let filename = action.payload.name.match(/([A-Z]*_)*\d*.csv/);
-                let simplifiedName = filename[0].replace(/_\d*.csv/, "");
-                data.append(simplifiedName, action.payload.file);
             }
             yield call(APICall, "/miband/upload", {
                 method: "POST",

@@ -18,6 +18,10 @@ Archive.init({
     workerUrl: "/libarchive.js/dist/worker-bundle.js",
 });
 
+const supportedTypes = [
+    "sqlite3","db","application/vnd.ms-excel","csv"
+]
+
 const style = (theme) => ({
     content: {
         padding: theme.spacing(3),
@@ -77,7 +81,7 @@ class Band extends React.Component {
             for (let file of files) {
                 if (file.type.includes("zip")) {
                     zip = file;
-                } else if (file.type.includes("csv") && !filesList.some((x) => x.name === file.name)) {
+                } else if (supportedTypes.some(x=> file.type.includes(x) || file.name.includes(x)) && !filesList.some((x) => x.name === file.name)) {
                     filesList.push(file);
                 }
             }
@@ -132,7 +136,7 @@ class Band extends React.Component {
 
     fileList = (files) =>
         files
-            .filter((file) => file.name.match(/([A-Z]*_)*\d*.csv/))
+            // .filter((file) => file.name.match(/([A-Z]*_)*\d*.csv/))
             .map((file) => {
                 let simplifiedName = file.name; //.replace(/(_\d)\d*/, "");
                 return (
@@ -186,7 +190,7 @@ class Band extends React.Component {
                                     name="file"
                                     hidden
                                     multiple
-                                    accept=".csv,.zip"
+                                    accept=".csv,.zip,.sqlite3,.db,.db-wal"
                                     onChange={this.handleInputChange}
                                 />
                             </Button>
