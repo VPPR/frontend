@@ -59,7 +59,7 @@ class Users extends React.Component {
             headerName: "Is Admin",
             field: "is_admin",
             headerAlign: "center",
-            width: 150,
+            width: 120,
             renderCell: (params) => {
                 return params.value ? (
                     <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
@@ -71,7 +71,7 @@ class Users extends React.Component {
         {
             headerName: "Actions",
             field: "actions",
-            width: 120,
+            width: 150,
             renderCell: (params) => (
                 <>
                     <IconButton
