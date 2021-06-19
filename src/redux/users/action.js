@@ -58,6 +58,21 @@ export const updateUserFailure = (error) => ({
     payload: error,
 });
 
+
+export const createUser = (user) => ({
+    type: UserActionTypes.CREATE_USER,
+    payload: user,
+});
+
+export const createUserSuccess = (user) => ({
+    type: UserActionTypes.UPDATE_USER_SUCCESS,
+    payload: user,
+});
+
+export const createUserFailure = (error) => ({
+    type: UserActionTypes.UPDATE_USER_FAILURE,
+    payload: error,
+});
 export const deleteUser = (userId) => ({
     type: UserActionTypes.DELETE_USER,
     payload: userId,

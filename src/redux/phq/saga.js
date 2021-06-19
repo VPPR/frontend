@@ -31,6 +31,9 @@ function* PostAnswer() {
         try {
             yield call(APICall, "/phq/", {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(action.payload),
             });
             yield put(postAnswerSuccess());

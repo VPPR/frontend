@@ -1,6 +1,8 @@
 import { all, call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 import UserActionTypes from "./action.type";
 import {
+    createUserFailure,
+    createUserSuccess,
     fetchUserFailure,
     fetchUsers,
     fetchUserSelfFailure,
@@ -14,6 +16,24 @@ import {
     deleteUserFailure,
 } from "./action";
 import { APICall } from "services/http-client";
+
+function* CreateUser() {
+    yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
+        try {
+            const response = yield call(APICall, "/users", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(action.payload),
+            });
+
+            yield put(createUserSuccess(response));
+        } catch (error) {
+            yield put(createUserFailure(error.detail ?? error.message ?? error));
+        }
+    });
+}
 
 function* FetchUserSelf() {
     yield takeEvery(UserActionTypes.FETCH_USER_SELF, function* () {
@@ -64,6 +84,9 @@ function* UpdateUser() {
 
             let user = yield call(APICall, `/users/${selectedUser.id}`, {
                 method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(action.payload),
             });
 
@@ -95,7 +118,15 @@ function* RefreshUserList() {
 }
 
 function* UserSaga() {
-    yield all([FetchUserSelf(), FetchUser(), FetchUsers(), UpdateUser(), DeleteUser(), RefreshUserList()]);
+    yield all([
+        CreateUser(),
+        FetchUserSelf(),
+        FetchUser(),
+        FetchUsers(),
+        UpdateUser(),
+        DeleteUser(),
+        RefreshUserList(),
+    ]);
 }
 
 export default UserSaga;
