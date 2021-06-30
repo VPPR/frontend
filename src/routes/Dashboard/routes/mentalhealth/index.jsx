@@ -96,7 +96,7 @@ class MentalHealth extends React.Component {
                         <Card variant="elevation">
                             <CardHeader title="HRV"></CardHeader>
                             <CardContent>
-                                <div>
+                                <div style={{ width: 150, height: 150 }}>
                                     <HRV></HRV>
                                 </div>
                             </CardContent>

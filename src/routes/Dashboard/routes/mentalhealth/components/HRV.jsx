@@ -6,12 +6,11 @@ class HRV extends PureComponent {
     componentDidMount() {
         this.props.fetchHRV();
     }
+
     render() {
-        return (
-            <>
-                <h1>Au Jo</h1>
-            </>
-        );
+        const hrv = this.props.hrv;
+        console.log(hrv);
+        return <></>;
     }
 }
 
