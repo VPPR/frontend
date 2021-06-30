@@ -18,9 +18,7 @@ Archive.init({
     workerUrl: "/libarchive.js/dist/worker-bundle.js",
 });
 
-const supportedTypes = [
-    "sqlite3","db","application/vnd.ms-excel","csv"
-]
+const supportedTypes = ["sqlite3", "db", "application/vnd.ms-excel", "csv"];
 
 const style = (theme) => ({
     content: {
@@ -81,7 +79,10 @@ class Band extends React.Component {
             for (let file of files) {
                 if (file.type.includes("zip")) {
                     zip = file;
-                } else if (supportedTypes.some(x=> file.type.includes(x) || file.name.includes(x)) && !filesList.some((x) => x.name === file.name)) {
+                } else if (
+                    supportedTypes.some((x) => file.type.includes(x) || file.name.includes(x)) &&
+                    !filesList.some((x) => x.name === file.name)
+                ) {
                     filesList.push(file);
                 }
             }
@@ -250,7 +251,7 @@ class Band extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state.upload.isLoading,
-    errorMessage: state.upload.errorMessage,
+    isLoading: state.band.isLoading,
+    errorMessage: state.band.errorMessage,
 });
 export default withStyles(style)(connect(mapStateToProps, { Upload })(Band));

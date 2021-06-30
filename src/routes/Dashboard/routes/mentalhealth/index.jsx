@@ -6,6 +6,7 @@ import { fetchScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
 import PHQChart from "./components/PHQChart";
+import HRV from "./components/HRV";
 
 const styles = (theme) => ({
     content: {
@@ -95,10 +96,8 @@ class MentalHealth extends React.Component {
                         <Card variant="elevation">
                             <CardHeader title="HRV"></CardHeader>
                             <CardContent>
-                                <div style={{ width: 150, height: 150 }}>
-                                    <CircularProgressbar value={percentage} text={`${percentage}%`}>
-                                        Coming soon
-                                    </CircularProgressbar>
+                                <div>
+                                    <HRV></HRV>
                                 </div>
                             </CardContent>
                         </Card>
