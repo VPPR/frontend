@@ -37,7 +37,6 @@ class MentalHealth extends React.Component {
 
     render() {
         const classes = this.props.classes;
-        const percentage = 69;
         const PHQScore = this.props.PHQScore;
         const lastAnswered = PHQScore?.last_answered ? new Date(PHQScore?.last_answered) : undefined;
         let datetime = lastAnswered
@@ -59,7 +58,7 @@ class MentalHealth extends React.Component {
                 </Paper>
 
                 <Grid container className={classes.content} spacing={1} justify="center">
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Card variant="elevation">
                             <CardHeader title="PHQ Score"></CardHeader>
                             <CardContent>
@@ -79,22 +78,10 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={12} md={4}>
+
+                    <Grid item xs={12} md={6}>
                         <Card variant="elevation">
-                            <CardHeader title="Sleep Statistics"></CardHeader>
-                            <CardContent>
-                                <div style={{ width: 150, height: 150 }}>
-                                    <CircularProgressbar
-                                        value={percentage}
-                                        text={`${percentage}%`}
-                                    ></CircularProgressbar>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <Card variant="elevation">
-                            <CardHeader title="HRV"></CardHeader>
+                            <CardHeader title="HRV Based Depression Rating"></CardHeader>
                             <CardContent>
                                 <div style={{ width: 150, height: 150 }}>
                                     <HRV></HRV>
