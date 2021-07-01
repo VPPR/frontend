@@ -15,11 +15,11 @@ class HRV extends PureComponent {
     moodDetermine = (trues, total) => {
         var mood = (trues * 100) / total;
         if (mood <= 33) {
-            return "low";
+            return "Low";
         } else if (mood > 33 && mood < 67) {
-            return "mod";
+            return "Mod";
         } else if (mood > 67) {
-            return "high";
+            return "High";
         }
     };
 
@@ -36,17 +36,17 @@ class HRV extends PureComponent {
     render() {
         const hrv = this.props.hrv;
         let count = {};
-
         hrv.forEach((x) => {
             var k = x.depressed;
             count[k] = (count[k] || 0) + 1;
         });
 
+
         var total = count.false + count.true;
         var pathcolor = this.colorRender(count.true, total);
         return (
             <>
-                <div style={{ width: 150, height: 150 }}>
+                <div style={{ width: 250, height: 250 }}>
                     <CircularProgressbar
                         maxValue={total}
                         value={count.true}

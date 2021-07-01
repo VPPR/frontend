@@ -23,15 +23,15 @@ class MentalHealth extends React.Component {
     path_colors = ["#7ED957", "#DBC63B", "#ED9A43", "#E8630E", "#E62626"];
 
     colorRender = (score) => {
-        if (score < 5) {
+        if (score <=4) {
             return this.path_colors[0];
-        } else if (score >= 5 && score < 9) {
+        } else if (score>4 && score <=9) {
             return this.path_colors[1];
-        } else if (score >= 9 && score < 15) {
+        } else if (score>9 && score<=14) {
             return this.path_colors[2];
-        } else if (score >= 15 && score < 20) {
+        } else if (score >14 && score <=19) {
             return this.path_colors[3];
-        } else if (score >= 20 && score <= 27) {
+        } else if (score>19) {
             return this.path_colors[4];
         }
     };
@@ -52,17 +52,14 @@ class MentalHealth extends React.Component {
             <>
                 <Paper component={Grid} container justify="space-between" style={{ padding: "10px" }}>
                     <Typography variant="h5">Health Report</Typography>
-                    <Typography style={{ paddingTop: 5 }}>
-                        Last record:
-                        {datetime}
-                    </Typography>
-                </Paper>
+                </Paper>   
+                
                 <Grid container className={classes.content} spacing={1} justify="center">
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
                             <CardHeader title="PHQ Score"></CardHeader>
                             <CardContent>
-                                <div style={{ width: 150, height: 150 }}>
+                                <div style={{ width: 250, height: 250 }}>
                                     <CircularProgressbar
                                         maxValue={27}
                                         value={PHQScore?.score}
@@ -77,13 +74,14 @@ class MentalHealth extends React.Component {
                                 </div>
                             </CardContent>
                         </Card>
-                    </Grid>
+                        
+                    </Grid> 
                     <Hidden only={['xs','sm']}>
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
                             <CardHeader title="What is PHQ-9 Score?"></CardHeader>
                             <CardContent>
-                                <div style={{ width: "100%", height: 150 }}>
+                                <div style={{ width: "100%", height: 250 }}>
                                     The PHQ-9 is a DSM-5 stanadard accepted questionnaire. Score can range from 0-27
                                     with each question holding 3 marks. The score indicates the level of depression.
                                     These scores are divided into the follwing catergories as severity level of
@@ -105,18 +103,18 @@ class MentalHealth extends React.Component {
                         <Card variant="elevation">
                             <CardHeader title="HRV Based Depression Rating"></CardHeader>
                             <CardContent>
-                                <div style={{ width: 150, height: 150 }}>
+                                <div style={{ width: 250, height: 250 }}>
                                     <HRV></HRV>
                                 </div>
                             </CardContent>
                         </Card>
                     </Grid>
                     <Hidden only={['xs','sm']}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item md={6}>
                         <Card variant="elevation">
                             <CardHeader title="HRV Based Depression Rating"></CardHeader>
                             <CardContent>
-                                <div style={{ width: "100%", height: 150 }}>
+                                <div style={{ width: "100%", height: 250 }}>
                                     This rating is based on the data collected from the smart band. Based on your
                                     heartrate. We compute some parameters and our trained model to find out the
                                     severity. The output is based on your recent mood scores and may vary over time. So,
@@ -126,18 +124,29 @@ class MentalHealth extends React.Component {
                         </Card>
                     </Grid>
                     </Hidden>
-                    <Grid container item className={classes.content}>
-                        <Paper component={Grid} item xs={12} md={6}>
-                            <Card variant="elevation">
+                    <Grid item xs={12} md={6}>
+                        <Card variant="elevation">
                                 <CardHeader title="Depression Score Variation Chart"></CardHeader>
                                 <CardContent>
-                                    <div style={{ height: 250 }}>
+                                    <div style={{ width: "100%", height:250 }}>
                                         <PHQChart></PHQChart>
                                     </div>
                                 </CardContent>
                             </Card>
-                        </Paper>
+                    </Grid>    
+                    <Hidden only={['xs','sm']}>
+                    <Grid item md={6}>
+                        <Card variant="elevation">
+                            <CardHeader title="What does this chart indicate?"></CardHeader>
+                            <CardContent>
+                                <div style={{ width: "100%", height: 250 }}>
+                                    This chart is based on your PHQ-9 scores and indicates
+                                    your mood variation over a period of 14 days.
+                                </div>
+                            </CardContent>
+                        </Card>
                     </Grid>
+                    </Hidden>
                 </Grid>
             </>
         );
