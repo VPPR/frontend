@@ -20,7 +20,7 @@ import { APICall } from "services/http-client";
 function* CreateUser() {
     yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
         try {
-            const response = yield call(APICall, "/users", {
+            const response = yield call(APICall, "/users/", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
