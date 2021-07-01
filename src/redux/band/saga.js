@@ -4,7 +4,7 @@ import { put, takeEvery, call } from "redux-saga/effects";
 import { UploadFailure, UploadSuccess } from "./action";
 
 let csvRegex = /([A-Z]*_)*\d*.csv/;
-let sqliteTypes = ["application/x-sqlite3", ".sqlite3", ".db"];
+
 function* UploadFile() {
     yield takeEvery(BandZipActions.UPLOAD, function* (action) {
         try {
@@ -15,7 +15,7 @@ function* UploadFile() {
                         let filename = csvRegex.exec(file.name);
                         let simplifiedName = filename.replace(/_\d*.csv/, "");
                         data.append(simplifiedName, file);
-                    } else if (sqliteTypes.some((x) => file.type.includes(x) || file.name.includes(x))) {
+                    } else {
                         data.append("GADGETBRIDGE", file);
                     }
                 }
