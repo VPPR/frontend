@@ -78,6 +78,26 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Card variant="elevation">
+                            <CardHeader title="What is PHQ-9 Score?"></CardHeader>
+                            <CardContent>
+                                <div style={{ width: "100%", height: 150 }}>
+                                    The PHQ-9 is a DSM-5 stanadard accepted questionnaire. Score can range from 0-27
+                                    with each question holding 3 marks. The score indicates the level of depression.
+                                    These scores are divided into the follwing catergories as severity level of
+                                    depression.
+                                    <ul>
+                                        <li>0-4 - No Depression </li>
+                                        <li>5-9 - Mild Depression</li>
+                                        <li>10-14 - Moderate Depression </li>
+                                        <li>15-19 - Moderately Severe</li>
+                                        <li>greater than 20 - Severe</li>
+                                    </ul>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Grid>
 
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
@@ -89,8 +109,21 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Card variant="elevation">
+                            <CardHeader title="HRV Based Depression Rating"></CardHeader>
+                            <CardContent>
+                                <div style={{ width: "100%", height: 150 }}>
+                                    This rating is based on the data collected from the smart band. Based on your
+                                    heartrate. We compute some parameters and our trained model to find out the
+                                    severity. The output is based on your recent mood scores and may vary over time. So,
+                                    don't jump into conclusions quickly!
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                     <Grid container item className={classes.content}>
-                        <Paper component={Grid} item xs={12} md={6}>
+                        <Paper component={Grid} item md={12}>
                             <Card variant="elevation">
                                 <CardHeader title="Depression Score Variation Chart"></CardHeader>
                                 <CardContent>
