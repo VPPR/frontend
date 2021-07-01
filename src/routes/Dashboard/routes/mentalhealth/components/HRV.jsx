@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { buildStyles } from "react-circular-progressbar";
+import { Grid } from "@material-ui/core";
 
 class HRV extends PureComponent {
     componentDidMount() {
@@ -35,6 +36,14 @@ class HRV extends PureComponent {
     };
     render() {
         const hrv = this.props.hrv;
+        const lastActivity = hrv[0]?.end_time ? new Date(hrv[0]?.end_time):undefined
+        let last_activity_end =lastActivity? `${lastActivity.toLocaleDateString("default", {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+        })} ${lastActivity.toLocaleTimeString()}`
+      : "";
         let count = {};
         hrv.forEach((x) => {
             var k = x.depressed;
@@ -43,13 +52,15 @@ class HRV extends PureComponent {
 
         var total = count.false + count.true;
         var pathcolor = this.colorRender(count.true, total);
+        var mood_status = this.moodDetermine(count.true, total);
         return (
             <>
-                <div style={{ width: 250, height: 250 }}>
-                    <CircularProgressbar
+            <Grid>
+            <div style={{height:250, width:250}}>
+            <CircularProgressbar
                         maxValue={total}
                         value={count.true}
-                        text={this.moodDetermine(count.true, total)}
+                        text={mood_status}
                         styles={buildStyles({
                             strokeLinecap: "butt",
                             pathColor: pathcolor,
@@ -57,7 +68,16 @@ class HRV extends PureComponent {
                             trailColor: "#494f56",
                         })}
                     ></CircularProgressbar>
-                </div>
+            </div>
+            </Grid>
+            <Grid item xs={12} md={6}>
+                <div>
+                    <br></br>
+                 Depression Probability: {count.true*100/total}%
+                 <br></br>
+                 Last Recorded: {last_activity_end}
+                 </div>
+            </Grid>                         
             </>
         );
     }

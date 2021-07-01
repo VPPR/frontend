@@ -40,8 +40,7 @@ class MentalHealth extends React.Component {
         const classes = this.props.classes;
         const PHQScore = this.props.PHQScore;
         const lastAnswered = PHQScore?.last_answered ? new Date(PHQScore?.last_answered) : undefined;
-        let datetime = lastAnswered
-            ? ` ${lastAnswered.toLocaleDateString("default", {
+        let datetime = lastAnswered? `${lastAnswered.toLocaleDateString("default", {
                   weekday: "short",
                   year: "numeric",
                   month: "short",
@@ -117,7 +116,16 @@ class MentalHealth extends React.Component {
                         <Card variant="elevation">
                             <CardHeader title="HRV Based Depression Rating"></CardHeader>
                             <CardContent>
+                                <Grid  container
+                                    justify="space-between"
+                                    alignItems="center"
+                                    style={{
+                                        lineHeight: "2",
+                                        margin: 0,
+                                    }}>
+                            
                                 <HRV></HRV>
+                                </Grid>
                             </CardContent>
                         </Card>
                     </Grid>
