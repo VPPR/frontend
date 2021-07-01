@@ -30,9 +30,9 @@ const style = (theme) => ({
     },
     viewPhone: {
         [theme.breakpoints.down("md")]: {
-            display:"none"
+            display: "none",
         },
-    }
+    },
 });
 
 class Dashboard extends React.Component {
@@ -53,9 +53,7 @@ class Dashboard extends React.Component {
             <Grid className={classes.fullScreen}>
                 <Header handleDrawer={this.handleDrawer} />
                 <Sidebar open={this.state.open} routes={allowedRoutes(is_admin)} />
-                <div
-                    className={`${classes.view} ${this.state.open?classes.viewPhone:""}`}
-                >
+                <div className={`${classes.view} ${this.state.open ? classes.viewPhone : ""}`}>
                     <div className={classes.toolbar} />
                     <div className={classes.content}>
                         <Switch>

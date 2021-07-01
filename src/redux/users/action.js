@@ -58,7 +58,6 @@ export const updateUserFailure = (error) => ({
     payload: error,
 });
 
-
 export const createUser = (user) => ({
     type: UserActionTypes.CREATE_USER,
     payload: user,

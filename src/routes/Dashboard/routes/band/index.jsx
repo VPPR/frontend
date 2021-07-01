@@ -18,7 +18,6 @@ Archive.init({
     workerUrl: "/libarchive.js/dist/worker-bundle.js",
 });
 
-
 const style = (theme) => ({
     content: {
         padding: theme.spacing(3),
@@ -78,7 +77,6 @@ class Band extends React.Component {
             for (let file of files) {
                 if (file.type.includes("zip")) {
                     zip = file;
-
                 } else {
                     filesList.push(file);
                 }
