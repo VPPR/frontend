@@ -22,6 +22,17 @@ const style = (theme) => ({
         height: "90%",
         width: "100%",
     },
+    view: {
+        flexShrink: 1,
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+    },
+    viewPhone: {
+        [theme.breakpoints.down("md")]: {
+            display:"none"
+        },
+    }
 });
 
 class Dashboard extends React.Component {
@@ -43,12 +54,7 @@ class Dashboard extends React.Component {
                 <Header handleDrawer={this.handleDrawer} />
                 <Sidebar open={this.state.open} routes={allowedRoutes(is_admin)} />
                 <div
-                    style={{
-                        flexShrink: 1,
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
+                    className={`${classes.view} ${this.state.open?classes.viewPhone:""}`}
                 >
                     <div className={classes.toolbar} />
                     <div className={classes.content}>

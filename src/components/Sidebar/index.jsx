@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up("sm")]: {
             width: theme.spacing(9) + 1,
         },
+        [theme.breakpoints.down("md")]: {
+            width: 0,
+        },
     },
     toolbar: theme.mixins.toolbar,
     content: {
@@ -83,7 +86,7 @@ function Sidebar(props) {
         >
             <div className={classes.toolbar}></div>
             <Divider />
-            <Grid container direction="column" style={{ height: "100%" }} justify="space-between">
+            <Grid container direction="column" style={{ height: "inherit" }} justify="space-between">
                 <List style={{ padding: 0 }}>
                     {props.routes.map((route, index) => (
                         <ListItem
