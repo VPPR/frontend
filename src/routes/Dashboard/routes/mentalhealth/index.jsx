@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { buildStyles } from "react-circular-progressbar";
 import PHQChart from "./components/PHQChart";
 import HRV from "./components/HRV";
+import  Hidden from "@material-ui/core/Hidden";
 
 const styles = (theme) => ({
     content: {
@@ -56,7 +57,6 @@ class MentalHealth extends React.Component {
                         {datetime}
                     </Typography>
                 </Paper>
-
                 <Grid container className={classes.content} spacing={1} justify="center">
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
@@ -78,6 +78,7 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                    <Hidden only={['xs','sm']}>
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
                             <CardHeader title="What is PHQ-9 Score?"></CardHeader>
@@ -98,6 +99,7 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                    </Hidden>
 
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
@@ -109,6 +111,7 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                    <Hidden only={['xs','sm']}>
                     <Grid item xs={12} md={6}>
                         <Card variant="elevation">
                             <CardHeader title="HRV Based Depression Rating"></CardHeader>
@@ -122,8 +125,9 @@ class MentalHealth extends React.Component {
                             </CardContent>
                         </Card>
                     </Grid>
+                    </Hidden>
                     <Grid container item className={classes.content}>
-                        <Paper component={Grid} item md={12}>
+                        <Paper component={Grid} item xs={12} md={6}>
                             <Card variant="elevation">
                                 <CardHeader title="Depression Score Variation Chart"></CardHeader>
                                 <CardContent>
