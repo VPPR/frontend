@@ -2,7 +2,8 @@ import { Divider, Grid, makeStyles, Typography, useTheme } from "@material-ui/co
 import { Description, Email, GitHub } from "@material-ui/icons";
 import IndexTopBar from "components/IndexTopBar";
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     divider: {
@@ -41,6 +42,11 @@ function Landing(props) {
         palette: { type },
     } = useTheme();
     const classes = useStyles();
+    const { rehydrated, isLoggedIn } = props;
+
+    if (rehydrated && isLoggedIn) {
+        return <Redirect to="/dashboard" />;
+    }
     return (
         <Grid item container justify="center" alignContent="center">
             <IndexTopBar></IndexTopBar>
@@ -82,4 +88,9 @@ function Landing(props) {
     );
 }
 
-export default withRouter(Landing);
+const mapStateToProps = (state) => ({
+    rehydrated: state._persist.rehydrated,
+    isLoggedIn: state.auth.isLoggedIn,
+});
+
+export default withRouter(connect(mapStateToProps)(Landing));
