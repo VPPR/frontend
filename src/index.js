@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "redux/store";
 import { CssBaseline } from "@material-ui/core";
 import { CustomThemeProvider } from "context/theme-context";
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorker from "./serviceWorkerRegistration";
 
 ReactDOM.render(
     <React.StrictMode>
