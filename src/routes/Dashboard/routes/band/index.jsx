@@ -246,7 +246,7 @@ class Band extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state.upload.isLoading,
-    errorMessage: state.upload.errorMessage,
+    isLoading: state.band.isLoading,
+    errorMessage: state.band.errorMessage,
 });
 export default withStyles(style)(connect(mapStateToProps, { Upload })(Band));

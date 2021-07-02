@@ -4,7 +4,7 @@ import createFilter from "redux-persist-transform-filter";
 import AuthActionTypes from "redux/auth/action.type";
 import authReducer from "redux/auth/reducer";
 import userReducer from "redux/users/reducer";
-import uploadReducer from "./band/reducer";
+import BandReducer from "./band/reducer";
 import PHQReducer from "./phq/reducer";
 
 const authFilter = createFilter("auth", ["accessToken", "expiry", "isLoggedIn"]);
@@ -19,7 +19,7 @@ const persistConfig = {
 const mainReducer = persistCombineReducers(persistConfig, {
     auth: authReducer,
     user: userReducer,
-    upload: uploadReducer,
+    band: BandReducer,
     phq: PHQReducer,
 });
 

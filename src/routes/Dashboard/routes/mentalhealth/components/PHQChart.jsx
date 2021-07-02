@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { fetchDailyScore } from "redux/phq/action";
 import { connect } from "react-redux";
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Label } from "recharts";
-
+import { withTheme } from "@material-ui/core";
 class PHQChart extends PureComponent {
     componentDidMount() {
         this.props.fetchDailyScore();
@@ -25,9 +25,18 @@ class PHQChart extends PureComponent {
                         <YAxis stroke="#f01ae5">
                             <Label value="PHQ Score" angle="-90" position="insideLeft" fill="#3d7be0"></Label>
                         </YAxis>
-                        <Tooltip separator=":"></Tooltip>
-                        <Line type="" dataKey="estimated_phq" stroke="#20ad0e" strokeWidth="4"></Line>
-                        <Line type="" dataKey="sum_of_avg" stroke="#cc6b16" strokeWidth="4"></Line>
+                        <Tooltip
+                            separator=":"
+                            contentStyle={{ backgroundColor: this.props.theme.palette.background.default }}
+                        />
+                        <Line type="" dataKey="estimated_phq" stroke="#20ad0e" strokeWidth="2"></Line>
+                        <Line
+                            type=""
+                            dataKey="sum_of_avg"
+                            stroke="#cc6b16"
+                            tooltipItemColor="#82ca9d"
+                            strokeWidth="2"
+                        ></Line>
                         <Legend verticalAlign="top"></Legend>
                     </LineChart>
                 </ResponsiveContainer>
@@ -40,4 +49,4 @@ const mapStateToProps = (state) => ({
     data: state.phq.dailyscores,
 });
 
-export default connect(mapStateToProps, { fetchDailyScore })(PHQChart);
+export default connect(mapStateToProps, { fetchDailyScore })(withTheme(PHQChart));
