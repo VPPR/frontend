@@ -34,7 +34,7 @@ function* UploadFile() {
 function* FetchHRV() {
     yield takeEvery(BandZipActions.FETCH_LATEST_HRV, function* () {
         try {
-            let hrv = yield call(APICall, "/hrv", {
+            let hrv = yield call(APICall, "/hrv/", {
                 method: "GET",
             });
             yield put(fetchHRVSuccess(hrv));
