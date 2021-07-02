@@ -20,7 +20,7 @@ function* UploadFile() {
                     }
                 }
             }
-            yield call(APICall, "/miband/upload", {
+            yield call(APICall, "/miband/upload/", {
                 method: "POST",
                 body: data,
             });

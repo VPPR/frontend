@@ -11,7 +11,7 @@ function* Login() {
             let form = new FormData();
             form.append("username", user.username);
             form.append("password", user.password);
-            const response = yield call(httpClient, "/login/access-token", {
+            const response = yield call(httpClient, "/login/access-token/", {
                 method: "post",
                 body: form,
             });
@@ -25,7 +25,7 @@ function* Login() {
 function* SignUp() {
     yield takeEvery(AuthActionTypes.SIGNUP, function* (action) {
         try {
-            const response = yield call(httpClient, "/signup", {
+            const response = yield call(httpClient, "/signup/", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
