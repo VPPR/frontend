@@ -46,7 +46,7 @@ function* PostAnswer() {
 function* FetchScore() {
     yield takeEvery(PHQActions.FETCH_SCORE, function* () {
         try {
-            let score = yield call(APICall, "/phq/score", {
+            let score = yield call(APICall, "/phq/score/", {
                 method: "GET",
             });
             yield put(fetchScoreSuccess(score));
@@ -59,7 +59,7 @@ function* FetchScore() {
 function* FetchDailyScores() {
     yield takeEvery(PHQActions.FETCH_DAILY_SCORES, function* () {
         try {
-            let dailyscores = yield call(APICall, "/phq/graph_values", {
+            let dailyscores = yield call(APICall, "/phq/graph_values/", {
                 method: "GET",
             });
             yield put(fetchDailyScoreSuccess(dailyscores));

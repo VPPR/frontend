@@ -38,7 +38,7 @@ function* CreateUser() {
 function* FetchUserSelf() {
     yield takeEvery(UserActionTypes.FETCH_USER_SELF, function* () {
         try {
-            let { detail: user } = yield call(APICall, "/users/self", {
+            let { detail: user } = yield call(APICall, "/users/self/", {
                 method: "GET",
             });
 
@@ -52,7 +52,7 @@ function* FetchUserSelf() {
 function* FetchUser() {
     yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
         try {
-            let user = yield call(APICall, `/users/${action.payload}`, {
+            let user = yield call(APICall, `/users/${action.payload}/`, {
                 method: "GET",
             });
 
@@ -82,7 +82,7 @@ function* UpdateUser() {
         try {
             let selectedUser = yield select((state) => state.user.selectedUser);
 
-            let user = yield call(APICall, `/users/${selectedUser.id}`, {
+            let user = yield call(APICall, `/users/${selectedUser.id}/`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,7 +100,7 @@ function* UpdateUser() {
 function* DeleteUser() {
     yield takeEvery(UserActionTypes.DELETE_USER, function* (action) {
         try {
-            let user = yield call(APICall, `/users/${action.payload}`, {
+            let user = yield call(APICall, `/users/${action.payload}/`, {
                 method: "DELETE",
             });
 
