@@ -18,7 +18,10 @@ class UserModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {},
+            user: {
+                is_active: true,
+                is_admin: false,
+            },
             submit: false,
         };
     }
