@@ -18,7 +18,7 @@ class HRV extends PureComponent {
         if (mood <= 33) {
             return "Low";
         } else if (mood > 33 && mood < 67) {
-            return "Mod";
+            return "Medium";
         } else if (mood > 67) {
             return "High";
         }
@@ -36,14 +36,15 @@ class HRV extends PureComponent {
     };
     render() {
         const hrv = this.props.hrv;
-        const lastActivity = hrv[0]?.end_time ? new Date(hrv[0]?.end_time):undefined
-        let last_activity_end =lastActivity? `${lastActivity.toLocaleDateString("default", {
-            weekday: "short",
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-        })} ${lastActivity.toLocaleTimeString()}`
-      : "";
+        const lastActivity = hrv[0]?.end_time ? new Date(hrv[0]?.end_time) : undefined;
+        let last_activity_end = lastActivity
+            ? `${lastActivity.toLocaleDateString("default", {
+                  weekday: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+              })} ${lastActivity.toLocaleTimeString()}`
+            : "";
         let count = {};
         hrv.forEach((x) => {
             var k = x.depressed;
@@ -55,29 +56,25 @@ class HRV extends PureComponent {
         var mood_status = this.moodDetermine(count.true, total);
         return (
             <>
-            <Grid>
-            <div style={{height:250, width:250}}>
-            <CircularProgressbar
-                        maxValue={total}
-                        value={count.true}
-                        text={mood_status}
-                        styles={buildStyles({
-                            strokeLinecap: "butt",
-                            pathColor: pathcolor,
-                            textColor: pathcolor,
-                            trailColor: "#494f56",
-                        })}
-                    ></CircularProgressbar>
-            </div>
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <div>
-                    <br></br>
-                 Depression Probability: {count.true*100/total}%
-                 <br></br>
-                 Last Recorded: {last_activity_end}
-                 </div>
-            </Grid>                         
+                <Grid item xs={12} md={6}>
+                    <div style={{ height: 230, width: 230 }}>
+                        <CircularProgressbar
+                            maxValue={total}
+                            value={count.true}
+                            text={mood_status}
+                            styles={buildStyles({
+                                strokeLinecap: "butt",
+                                pathColor: pathcolor,
+                                textColor: pathcolor,
+                                trailColor: "#494f56",
+                            })}
+                        ></CircularProgressbar>
+                    </div>
+                </Grid>
+                <Grid container item xs={12} md={6} alignContent="center">
+                    <div>Depression Probability: {((count.true * 100) / total).toFixed(2)}%</div>
+                    <div>Last Recorded: {last_activity_end}</div>
+                </Grid>
             </>
         );
     }

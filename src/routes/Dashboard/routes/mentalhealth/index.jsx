@@ -40,7 +40,8 @@ class MentalHealth extends React.Component {
         const classes = this.props.classes;
         const PHQScore = this.props.PHQScore;
         const lastAnswered = PHQScore?.last_answered ? new Date(PHQScore?.last_answered) : undefined;
-        let datetime = lastAnswered? `${lastAnswered.toLocaleDateString("default", {
+        let datetime = lastAnswered
+            ? `${lastAnswered.toLocaleDateString("default", {
                   weekday: "short",
                   year: "numeric",
                   month: "short",
@@ -55,20 +56,20 @@ class MentalHealth extends React.Component {
 
                 <Grid container className={classes.content} spacing={1} justify="center">
                     <Grid item xs={12} md={6}>
-                        <Card variant="elevation">
+                        <Card variant="elevation" style={{ height: "100%" }}>
                             <CardHeader title="PHQ Score"></CardHeader>
                             <CardContent>
                                 <Grid
                                     container
                                     justify="space-between"
-                                    alignItems="center"
+                                    alignItems="stretch"
                                     style={{
                                         lineHeight: "2",
                                         margin: 0,
                                     }}
                                 >
                                     <Grid item xs={12} md={6}>
-                                        <div style={{ width: 250, height: 250 }}>
+                                        <div style={{ width: 230, height: 230 }}>
                                             <CircularProgressbar
                                                 maxValue={27}
                                                 value={PHQScore?.score}
@@ -98,7 +99,7 @@ class MentalHealth extends React.Component {
                     </Grid>
                     <Hidden only={["xs", "sm"]}>
                         <Grid item xs={12} md={6}>
-                            <Card variant="elevation">
+                            <Card variant="elevation" style={{ height: "100%" }}>
                                 <CardHeader title="What is PHQ-9 Score?"></CardHeader>
                                 <CardContent>
                                     <div style={{ width: "100%", height: 250 }}>
@@ -113,25 +114,26 @@ class MentalHealth extends React.Component {
                     </Hidden>
 
                     <Grid item xs={12} md={6}>
-                        <Card variant="elevation">
+                        <Card variant="elevation" style={{ height: "100%" }}>
                             <CardHeader title="HRV Based Depression Rating"></CardHeader>
                             <CardContent>
-                                <Grid  container
+                                <Grid
+                                    container
                                     justify="space-between"
-                                    alignItems="center"
+                                    alignItems="stretch"
                                     style={{
                                         lineHeight: "2",
                                         margin: 0,
-                                    }}>
-                            
-                                <HRV></HRV>
+                                    }}
+                                >
+                                    <HRV></HRV>
                                 </Grid>
                             </CardContent>
                         </Card>
                     </Grid>
                     <Hidden only={["xs", "sm"]}>
-                        <Grid item md={6}>
-                            <Card variant="elevation">
+                        <Grid item xs={12} md={6}>
+                            <Card variant="elevation" style={{ height: "100%" }}>
                                 <CardHeader title="HRV Based Depression Rating"></CardHeader>
                                 <CardContent>
                                     <div style={{ width: "100%", height: 250 }}>
