@@ -8,6 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 import store from "redux/store";
 import { CssBaseline } from "@material-ui/core";
 import { CustomThemeProvider } from "context/theme-context";
+import * as serviceWorker from "./serviceWorker";
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
@@ -26,3 +28,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals(console.log);
+serviceWorker.register();
