@@ -45,7 +45,7 @@ class Users extends React.Component {
         {
             headerName: "Is Active",
             field: "is_active",
-            width: 120,
+            width: 150,
             headerAlign: "center",
             renderCell: (params) => {
                 return params.value ? (
